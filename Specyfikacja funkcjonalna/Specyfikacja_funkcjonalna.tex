@@ -123,7 +123,28 @@ W przypadku wystąpienia błędu pojawi się okno z komunikatem o tym błędzie.
 
 Przykładowe komunikaty wyglądają następująco:
 \begin{itemize}
-\item
+\item nie podano pliku wejściowego:
+
+\textit{There was no file given.}
+\item podano błędny plik wejściowy:
+
+\textit{Incorrect file. Line 24 is wrong. Compare it with the file pattern and try again.}
+\item podany plik nie jest kodowany w UTF-8:
+
+\textit{Incorrect file. It is not created with UTF-8 encoding.}
+\item podany kontur nie jest figurą wypukłą:
+
+\textit{Incorrect file. The terrain contour is not a convex figure.}
+\item podane krawędzie konturu przecinają się:
+
+\textit{Incorrect file. Edges of the given contour are crossing. Fix it and try again.}
+\item podany punkt kluczow nie zawiera się wewnątrz konturu:
+
+\textit{Ignored key point (3,5). The given key point is out of bounds of the terrain contour.}
+\item podany obiekt nie zawiera się wewnątrz konturu:
+
+\textit{Ignored DOM (5,71). The given object is out of bounds of the terrain contour.}
+
 \end{itemize}
 
 \noindent\linia
