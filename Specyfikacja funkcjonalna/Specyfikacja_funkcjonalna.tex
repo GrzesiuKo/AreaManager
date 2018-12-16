@@ -182,7 +182,9 @@ Przykładowe komunikaty wyglądają następująco:
 \noindent\linia
 \section{Testy akceptacyjne}
 \begin{itemize}
-\item Wczytanie pliku zawierającego prosty kontur i kilka punktów kluczowych;
+\item Plik:
+\begin{itemize}
+\item wczytanie pliku zawierającego prosty kontur i kilka punktów kluczowych;
 \item wczytanie pliku z konturem, którego krawędzie przecinają się;
 \item wczytanie pliku z punktami, których współrzędne są takie same jak innego punktu lub obiektu;
 \item wczytanie pliku z obiektami, których współrzędne są takie same jak innego punktu lub obiektu;
@@ -193,12 +195,16 @@ Przykładowe komunikaty wyglądają następująco:
 \item wczytanie pliku z obiektem poza granicami konturu;
 \item wczytanie pliku z punktem kluczowym poza granicami konturu;
 \item wczytanie pliku z konturem, który nie jest figurą wypukłą;
-\item wczytanie pliku z konturem, którego punkt początkowy nie łączy się z końcowym;
+\item wczytanie pliku z konturem, którego punkt początkowy nie łączy się krawędzią z końcowym.
+\end{itemize}
+\item Modyfikacja:
+\begin{itemize}
 \item dodanie nowego punktu kluczowego w obszarze konturu;
 \item próba dodania punktu kluczowego poza obszarem konturu;
 \item próba dodania punktu kluczowego nad innym obiektem;
 \item przesunięcie punktu wyznaczającego kontur w taki sposób, że krawędzie będą się przecinać;
 \item przesunięcie punktu wyznaczającego kontur w taki sposób, że kontur nie będzie figurą wypukłą.
+\end{itemize}
 
 \end{itemize}
 Program będzie uznany za działający jeśli pozytywnie przejdzie wszystkie testy. Pod słowem pozytywnie rozumie się wyświetlenie rezultatów, lub odpowiedni komunikat błędu który pozwoli użytkownikowi naprawić błąd.
