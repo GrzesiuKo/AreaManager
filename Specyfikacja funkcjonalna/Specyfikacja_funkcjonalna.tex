@@ -108,6 +108,7 @@ Uwagi:
 \item podane punkty kluczowe i obiekty muszą znajdować się wewnątrz podanego konturu terenu lub na jego krawędzi;
 \item jeśli podany kontur będzie otwarty, ostatni jego punkt zostanie połączony z pierwszym;
 \item podany kontur musi być figurą wypukłą;
+\item punkty konturu powodujące jego wklęsłość figury zostaną zignorowane;
 \item kolejne punkty konturu muszą być podawane w kolejności łączenia;
 \item punkty konturu powinny być podawane w kolejności zgodnej z ruchem wskazówek zegara;
 \item krawędzie konturu terenu nie mogą się przecinać;
@@ -166,7 +167,7 @@ Przykładowe komunikaty wyglądają następująco:
 \textit{Nieprawidłowy plik. Plik nie jest kodowany w UTF-8.}
 \item podany kontur nie jest figurą wypukłą:
 
-\textit{Nieprawidłowy plik. Kontur terenu nie jest figurą wypukłą.}
+\textit{Zignorowano (1,2), (23,45), (15,34). Podany kontur terenu nie był figurą wypukłą.}
 \item podane krawędzie konturu przecinają się:
 
 \textit{Nieprawidłowy plik. Krawędzie konturu przecinają się.}
