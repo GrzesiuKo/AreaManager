@@ -59,6 +59,10 @@
 
 \noindent\linia
 \section{Opis algorytmu}
+\subsection{Sprawdzanie wypukłości konturu}
+Wszystkie punkty konturu podane przez użytkownika przechowywane będą w klasie \textit{Contour}.
+
+Na podstawie algorytmu Jarvisa zostaną one podzielone na te, które wejdą w skład konturu oraz na te, które zostaną zignorowane. Punkty będą ignorowane, jeśli podany kontur nie będzie wypukły. Wtedy algorytm stworzy wypukły kontur, na podstawie podanych punktów, ignorując te, które uzna za burzące wypukły kształt figury. Punkty wchodzące w skład konturu zostaną zachowane w kolejności łączenia.
 
 
 \noindent\linia
