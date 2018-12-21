@@ -64,6 +64,33 @@ Wszystkie punkty konturu podane przez użytkownika przechowywane będą w klasie
 
 Na podstawie algorytmu Jarvisa zostaną one podzielone na te, które wejdą w skład konturu oraz na te, które zostaną zignorowane. Punkty będą ignorowane, jeśli podany kontur nie będzie wypukły. Wtedy algorytm stworzy wypukły kontur, na podstawie podanych punktów, ignorując te, które uzna za burzące wypukły kształt figury. Punkty wchodzące w skład konturu zostaną zachowane w kolejności łączenia.
 
+\noindent
+Algorytm będzie działał następująco:
+\begin{enumerate}
+\item Wybierze dwa punkty \textit{P} i \textit{Q}.
+
+\textit{P} to punkt o najmniejszej współrzędnej Y (oraz X, jeśli więcej punktów ma tą samą Y). \textit{Q} to punkt o największej współrzędnej Y (oraz X, jeśli więcej punktów ma tą samą Y).
+
+\item Wyznaczy prawą część konturu:
+
+\textit{C} - obecny punkt (początkowo \textit{P}), \textit{N} - następny punkt konturu 
+\begin{enumerate}
+\item Znajdzie \textit{N}, dla którego cosinus kąta między wektorem \textit{CN} a\textit{ [1,0]} jest największy,
+\item \textit{C} staje się \textit{N}, a \textit{N} to kolejny punkt,
+\item Jeśli \textit{N} = \textit{Q} skończy iteracje.
+\end{enumerate}
+Powyższe instrukcje wykona w pętli.
+
+\item Wyznaczy lewą część konturu:
+
+\textit{C} - obecny punkt (początkowo \textit{Q}), \textit{N} - następny punkt konturu 
+\begin{enumerate}
+\item Znajdzie \textit{N}, dla którego cosinus kąta między wektorem \textit{CN} a\textit{ [-1,0]} jest największy,
+\item \textit{C} staje się \textit{N} a \textit{N} to kolejny punkt,
+\item Jeśli \textit{N} = \textit{P} skończy iteracje.
+\end{enumerate}
+Powyższe instrukcje wykona w pętli.
+\end{enumerate}
 
 \noindent\linia
 \section{Opis ważniejszych metod}
