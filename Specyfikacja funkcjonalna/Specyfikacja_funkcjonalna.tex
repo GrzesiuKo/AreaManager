@@ -138,7 +138,7 @@ Tryb edycji punktów kluczowych:
 \item po wybraniu punktu prawym przyciskiem myszy wyświetli się menu, plik można usunąć lub przenieść go w inne miejsce,
 \item w dowolnym pustym miejscu w konturze po kliknięciu prawym przyciskiem myszy pojawi się możliwość dodania nowego punktu kluczowego.
 \end{itemize}
-\pagebreak
+
 Tryb wyświetlania statystyk:
 \begin{itemize}
 \item sposób działania najważniejszego dla użytkownika trybu zostanie zawarty w interfejsie graficznym programu,
@@ -189,7 +189,7 @@ Przykładowe komunikaty wyglądają następująco:
 \noindent\linia
 \section{Testy akceptacyjne}
 \begin{itemize}
-\item Plik:
+\item Odczyt pliku:
 \begin{itemize}
 \item wczytanie pliku zawierającego prosty kontur i kilka punktów kluczowych;
 \item wczytanie pliku z konturem, którego krawędzie przecinają się;
@@ -210,11 +210,22 @@ Przykładowe komunikaty wyglądają następująco:
 \item próba dodania punktu kluczowego poza obszarem konturu;
 \item próba dodania punktu kluczowego nad innym obiektem;
 \item przesunięcie punktu wyznaczającego kontur w taki sposób, że krawędzie będą się przecinać;
-\item przesunięcie punktu wyznaczającego kontur w taki sposób, że kontur nie będzie figurą wypukłą.
+\item przesunięcie punktu wyznaczającego kontur w taki sposób, że kontur nie będzie figurą wypukłą;
+\item dodanie grafiki tła o dużej rozdzielczości;
+\item dodanie grafiki tła niskiej rozdzielczości.
+\end{itemize}
+\item{Wyświetlanie statystyk statystyk:}
+\begin{itemize}
+\item sprawdzenie liczby mieszkańców dowolnego obszaru;
+\item sprawdzenie liczby mieszkańców obszaru na którym nie ma mieszkańców;
+\item wyświetlenie wszystkich obiektów obszaru na którym znajduje się około 100 obiektów;
+\item wyświetlenie pogrupowanych obiektów obszaru;
+\item wyświetlenie obiektów obszaru który nie ma obiektów.
 \end{itemize}
 
 \end{itemize}
-Program będzie uznany za działający jeśli pozytywnie przejdzie wszystkie testy. Pod słowem pozytywnie rozumie się wyświetlenie rezultatów, lub odpowiedni komunikat błędu który pozwoli użytkownikowi naprawić błąd.
+Program będzie uznany za działający jeśli pozytywnie przejdzie wszystkie testy. Pod słowem pozytywnie rozumie się wyświetlenie rezultatów, lub odpowiedni komunikat błędu który pozwoli użytkownikowi naprawić błąd. W dziale statystyki szczególnie ważna jest przejrzystość wyświetlanych danych.
+
 \noindent\linia
 
 \end{document}
