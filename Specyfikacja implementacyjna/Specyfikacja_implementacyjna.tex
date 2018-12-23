@@ -103,6 +103,7 @@ Przy założeniach takich, że:
 \item kontur jest wielokątem wypukłym;
 \item punkt należy do wielokąta jeśli leży w dowolnym miejscu ograniczonym przez krawędzie wielokąta, nie poza krawędziami~i~nie~na~nich.
 \end{itemize}
+
 Przy powyższych założeniach stwierdzenie czy punkt leży wewnątrz konturu opiera się na sprawdzeniu czy półprosta wytyczona w dowolnym kierunku z tego punktu ma dokładnie jeden punkty przecięcia z liniami wyznaczającymi kontur. Dla ułatwienia przyjmiemy, że wytyczamy półprostą pionową w dół z tego punktu. Mając dwa punkty definiujące krawędź możemy wyznaczyć równanie kierunkowe prostej która zawiera tą~krawędź a następnie rozwiązując układ dwóch równań liniowych określić czy ma punkt przecięcia z daną krawędzią. Proces ten należy powtórzyć dla wszystkich krawędzi, lub do znalezienia przecięcia.
  
 \subsection{Wyznaczanie optymalnych obszarów}
@@ -165,7 +166,19 @@ Opisany powyżej algorytm, może ulec zmianie w trakcie implementacji.
 
 \noindent\linia
 \subsection{Graphic Package}
-\includegraphics[scale=0.9]{graphicPackage.png} 
+\includegraphics[scale=0.75]{graphicPackage.png} 
+
+\noindent\linia
+\subsection{Common}
+\includegraphics[scale=1]{commonPackage.png}
+
+\noindent\linia
+\subsection{FileData}
+\includegraphics[scale=1]{fileDataPackage.png} 
+
+\noindent\linia
+\subsection{Diagram}
+\includegraphics[scale=0.9]{diagramPackage.png} 
 
 \noindent\linia
 \section{Opis ważniejszych metod}
@@ -185,9 +198,32 @@ Analogiczne działania należy wykonać w pozostałych metodach, grupując obiek
 \end{itemize}
 \subsection{Graphic}
 \begin{itemize}
-\item Klasa koncepcyjna \textbf{GraphicInterface} stanowi bazową klasę narzędzie Java~FX. Zawierać będzie obiekty interfejsu przedstawionego w specyfikacji funkcjonalnej. Oraz będzie klasą główną sterującą programem po wykonaniu inicjacji z bazowej klasy \textbf{Main}.
+\item Klasa koncepcyjna \textbf{GraphicInterface} stanowi bazową klasę narzędzie JavaFX. Zawierać będzie obiekty interfejsu przedstawionego w specyfikacji funkcjonalnej. Oraz będzie klasą główną sterującą programem po wykonaniu inicjacji z bazowej klasy \textbf{Main}.
 \item Klasa \textbf{ModificationLogic} będzie wykorzystana do obsługi i sprawdzania prawidłowości danych wprowadzanych przez użytkownika w czasie działania programu. Istotne jest to, że zawiera ona bazę zajętych punktów, i właśnie to jest sprawdzane najczęściej, zgodnie z założeniem, że na danych współrzędne może znajdować się tylko jeden obiekt/punkt kluczowy. Dla wywołania metody \textbf{validatePoint} sprawdzamy czy wybrany nowy punkt leży w konturze a następnie czy~punkt na~którym chcemy umieścić nowy obiekt nie jest zajęty. Istotne jest aktualizowanie bazy zajętych punktów oraz współrzędnych konturu, dlatego też utworzona zostanie tylko jeden obiekt \textbf{ModificationLogic}, oraz cały program zyska do niego chroniony dostęp (użyty zostanie wzorzec Singleton). Modyfikacja konturu lub punktu kluczowego powodować będzie konieczność obliczenia na nowy podziału obszaru konturu na figury Voronoja. To też klasa będzie wywoływać obliczanie tych podziałów od nowa. A następnie wywoływać ich rysowanie.
 \item Klasa \textbf{DrawingLogic} stanowi podstawową klasę komunikacji miedzy programem a interfejsem. Rysowanie konturów i obszarów wymaga podanie współrzędnych punktów w określonej kolejności. Rysowanie obiektów użytkownika będzie wykonywane na podstawie obiektu klasy Statistics. W kompetencjach tej klasy nie leży weryfikacji poprawności, wszystkie przyjmowane argumenty przyjmuje się za zgodne z~ustalonymi założeniami. 
+\end{itemize}
+
+\subsection{Common}
+\begin{itemize}
+\item Klasa \textbf{Point} jest kluczowa dla wszelkich operacji na podanych przez użytkownika punktach, ponieważ jest reprezentacją punktu.
+\item Klasa \textbf{Vector} rozszerza klasę \textbf{Point} i reprezentuje wektor, a metoda \textbf{getLength} pozwoli na łatwy dostęp do jego długości.
+\item Klasa \textbf{Math}, będzie zawierała metody do wszelkich potrzebnych operacji matematycznych, które zostaną uznane za zaawansowane. Poprawi to w znacznym stopniu czytelność kodu, ponieważ przy obliczaniu diagramu Voronoi, czy przy sprawdzaniu wypukłości konturu, pojawi się dużo operacji matematycznych.
+\end{itemize}
+
+\subsection{FileData}
+\begin{itemize}
+\item Klasa \textbf{FileChecker}, będzie odpowiadać za sprawdzenie poprawności pliku wejściowego. Metoda \textbf{checkFile} prześledzi plik wywołując pozostałe metody z tej klasy dedykowane pod linie pliku zawierające konkretne dane. W przypadku błędu, w którejś linii doda jej numer do kolekcji.
+\item Klasa \textbf{FileReader} odpowiedzialna będzie za odczytanie danych z pliku. Metoda \textbf{readFile} przeczyta cały plik wywołując dla każdej linii odpowiednią metodę dedykowaną pod dane zawarte w tej linii. Punkty kluczowe, obiekty i punkty konturu trafią do odpowiednich kolekcji w tej klasie.
+\item Klasa \textbf{Contour} zajmie się przechowywaniem konturu oraz jego tworzenie. Metoda \textbf{makeContour}, na podstawie algorytmu Jarvisa, z otrzymanych punktów stworzy otoczkę wypukłą, a punkty, które nie wejdą w jej skład doda do kolekcji ignorowanych. Pozostałe punkty trafią do \textbf{contourPoints} w kolejności łączenia.
+\end{itemize}
+
+\subsection{Diagram}
+\begin{itemize}
+\item Klasa \textbf{Edge} będzie reprezentacją krawędzi, które będą powstawać w trakcie tworzenia diagramu Voronoja. Zawiera ona pole \textbf{direction}, ponieważ w myśl założeń algorytmu Fortune'a, kierunek będzie pełnił istotną rolę przy konstrukcji krawędzi.
+\item Klasa \textit{Event} jest reprezentacją zdarzeń, które są elementem działania algorytmu Fortune'a. Może reprezentować zarówno zdarzenie punktowe jak i zdarzenia okręgu. Zawiera także informacje o punkcie, który dane zdarzenie wywołuje.
+\item Klasa \textbf{Item} jest reprezentacją elementów, które będą wchodziły w skład drzewa binarnego, które przechowywać będzie informacje o linii brzegowej oraz punktach diagramu Voronoi. Dwoista natura tej klasy polega na tym, że może reprezentować zarówno punkt przecięcia paraboli linii brzegowej jak i poszczególną parabolę wchodzącą w skład linii brzegowej. Wynika to ze struktury drzewa binarnego, która jest przewidziana przez algorytm Fortune'a. Dzięki temu operacje na tym drzewie staną się  sprawniejsze.
+\item Klasa \textbf{Diagram} będzie przechowywać dane o konturze, punktach kluczowych oraz krawędziach diagramu Voronoi.
+\item Klasa \textbf{Voronoi} skupi w sobie wszystkie działania związane z wyznaczeniem diagramu Voronoi. Jej celem będzie uzyskanie kolekcji krawędzi diagramu Voronoi odpowiedniego dla podanej kolekcji punktów kluczowych. Metoda \textbf{generateDiagram} będzie głównym punktem realizacji algorytmu Fortune'a. Punkty, które otrzyma zostaną posortowane w odpowiedniej kolejności (\textbf{rozdział 2}). Metoda \textbf{generateDiagram} wywoływać, będzie pozostałem metody, które wejdą w skład klasy \textbf{Voronoi}. To ona zbuduje drzewo binarne modyfikując linie brzegową i  ostatecznie dostarczy kolekcje krawędzi diagramu Voronoi.
 \end{itemize}
 
 \noindent\linia
