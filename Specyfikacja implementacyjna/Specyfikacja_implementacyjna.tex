@@ -209,6 +209,13 @@ Analogiczne działania należy wykonać w pozostałych metodach, grupując obiek
 \item Klasa \textbf{Vector} rozszerza klasę \textbf{Point} i reprezentuje wektor, a metoda \textbf{getLength} pozwoli na łatwy dostęp do jego długości.
 \item Klasa \textbf{Math}, będzie zawierała metody do wszelkich potrzebnych operacji matematycznych, które zostaną uznane za zaawansowane. Poprawi to w znacznym stopniu czytelność kodu, ponieważ przy obliczaniu diagramu Voronoi, czy przy sprawdzaniu wypukłości konturu, pojawi się dużo operacji matematycznych.
 \end{itemize}
+
+\subsection{FileData}
+\begin{itemize}
+\item Klasa \textbf{FileChecker}, będzie odpowiadać za sprawdzenie poprawności pliku wejściowego. Metoda \textbf{checkFile} prześledzi plik wywołując pozostałe metody z tej klasy dedykowane pod linie pliku zawierające konkretne dane. W przypadku błędu, w którejś linii doda jej numer do kolekcji.
+\item Klasa \textbf{FileReader} odpowiedzialna będzie za odczytanie danych z pliku. Metoda \textbf{readFile} przeczyta cały plik wywołując dla każdej linii odpowiednią metodę dedykowaną pod dane zawarte w tej linii. Punkty kluczowe, obiekty i punkty konturu trafią do odpowiednich kolekcji w tej klasie.
+\item Klasa \textbf{Contour} zajmie się przechowywaniem konturu oraz jego tworzenie. Metoda \textbf{makeContour}, na podstawie algorytmu Jarvisa, z otrzymanych punktów stworzy otoczkę wypukłą, a punkty, które nie wejdą w jej skład doda do kolekcji ignorowanych. Pozostałe punkty trafią do \textbf{contourPoints} w kolejności łączenia.
+\end{itemize}
 \noindent\linia
 
 \section{Testy}
