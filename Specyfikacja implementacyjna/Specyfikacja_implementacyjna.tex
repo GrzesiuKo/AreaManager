@@ -283,6 +283,23 @@ Przypadki jakie będziemy testować to:
 \item dwa punkty konturu.
 \end{itemize}
 
+\subsection{Diagram}
+Testy wykonane dla tego pakietu będą ściśle związane z zagadnieniem algorytmu Fortune'a. Przypadki na jakie będziemy zwracać uwagę to:
+\begin{itemize}
+\item dwa punkty kluczowe o tej samej współrzędnej \textit{y};
+\item dwa punkty kluczowe o tej samej współrzędnej \textit{x};
+\item dodanie paraboli do linii brzegowej o jednej paraboli;
+\item dodanie paraboli do linii brzegowej o trzech parabolach;
+\item dodanie paraboli do linii brzegowej pomiędzy dwoma parabolami;
+\item dodanie paraboli do linii brzegowej skrajnie z lewej strony;
+\item dodanie paraboli do linii brzegowej skrajnie z prawej strony;
+\item zdarzenie okręgu po lewej stronie paraboli;
+\item zdarzenie okręgu po prawej stronie paraboli;
+\item zdarzenie punktowe o współrzędnej \textit{x} powodującej natychmiastowe zdarzenie okręgu.
+\end{itemize}
+
+W trakcie implementacji wszystkie powyższe testy mogą ulec zmianie, a także mogą zostać rozpatrzone przypadki nie zawarte w powyższych opisach.
+
 \noindent\linia
 \section{Informacje o sprzęcie i oprogramowaniu}
 Program będzie pisany w języku Java wersji 9.0.4 ze wsparciem biblioteki JavaFX oraz środowiska Intellij IDEA.
