@@ -58,8 +58,7 @@ Dokument ten dotyczy programu realizowanego w ramach ,,Projektu Zespołowego 201
 Ma on za zadanie przedstawić problem rozważany w projekcie od strony czysto praktycznej. Zagadnienie podziału płaszczyzny na optymalne obszary doczekało się wielu koncepcji rozwiązań. Szczegóły algorytmów użytych w naszym rozwiązaniu znajdują się w \textbf{rozdziale 2}. Odnośnie potrzeb teorii warto usystematyzować używane pojęcia:
 \begin{itemize}
 \item kontur - wielobok wypukły wyznaczony przez podane punkty, tylko ten fragment płaszczyzny będzie rozważany, punkty kluczowe i obiekty nie mogą istnieć poza tym obszarem;
-\item obszar punktu kluczowego (obszar) - zawiera jeden punkt kluczowy, a granice wyznaczane są na zasadzie iż, każdy punkt wchodzący w skład obszaru musi mieć bliżej do jego punktu kluczowego niż dowolnego innego;
-\item 
+\item obszar punktu kluczowego (obszar) - zawiera jeden punkt kluczowy, a granice wyznaczane są na zasadzie iż, każdy punkt wchodzący w skład obszaru musi mieć bliżej do jego punktu kluczowego niż dowolnego innego.
 \end{itemize} 
 
 \noindent\linia
@@ -117,7 +116,12 @@ Powyższe instrukcje wykona w pętli.
 \item Obiekty dla których wartość pola memberOf jest wyszukanym wcześniej punktem kluczowym zostają wypisane do przewijanego pola tekstowego zawartego w interfejsie. .
 \end{enumerate}
 Analogiczne działania należy wykonać w pozostałych metodach, grupując obiekty zgodnie z typami w metodzie \textbf{printGroupedObjectList}, lub zliczając mieszkańców w metodzie \textbf{printResidentsNumber}. Metoda \textbf{recheckData} wywoływana jest za każdym razem gdy nastąpi modyfikacja punktów kluczowych lub granic konturu i sprawdza do jakiego punktu kluczowego należą obiekty oraz czy nie znalazły się poza granicami konturu.
-
+\end{itemize}
+\subsection{Graphic}
+\begin{itemize}
+\item Klasa koncepcyjna \textbf{GraphicInterface} stanowi bazową klasę narzędzie Java~FX. Zawierać będzie obiekty interfejsu przedstawionego w specyfikacji funkcjonalnej. Oraz będzie klasą główną sterującą programem po wykonaniu inicjacji z bazowej klasy \textbf{Main}.
+\item Klasa \textbf{ModificationLogic} będzie wykorzystana do obsługi i sprawdzania prawidłowości danych wprowadzanych przez użytkownika w czasie działania programu. Istotne jest to, że zawiera ona bazę zajętych punktów, i właśnie to jest sprawdzane najczęściej, zgodnie z założeniem, że na danych współrzędne może znajdować się tylko jeden obiekt/punkt kluczowy. Dla wywołania metody \textbf{validatePoint} sprawdzamy czy wybrany nowy punkt leży w konturze a następnie czy~punkt na~którym chcemy umieścić nowy obiekt nie jest zajęty. Istotne jest aktualizowanie bazy zajętych punktów oraz współrzędnych konturu, dlatego też utworzona zostanie tylko jeden obiekt \textbf{ModificationLogic}, oraz cały program zyska do niego chroniony dostęp (użyty zostanie wzorzec Singleton).
+\item Klasa \textbf{DrawingLogic} stanowi podstawową klasę komunikacji miedzy programem a interfejsem. Rysowanie wymaga podanie współrzędnych punktów w określonej kolejności i to też jest potrzebne aby wywoływać metody tej klasy. W kompetencjach tej klasy nie leży weryfikacji poprawności, wszystkie przyjmowane argumenty przyjmuje się za zgodne z~ustalonymi założeniami. 
 \end{itemize}
 
 \noindent\linia
