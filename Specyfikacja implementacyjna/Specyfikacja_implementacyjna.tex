@@ -203,6 +203,12 @@ Analogiczne działania należy wykonać w pozostałych metodach, grupując obiek
 \item Klasa \textbf{DrawingLogic} stanowi podstawową klasę komunikacji miedzy programem a interfejsem. Rysowanie konturów i obszarów wymaga podanie współrzędnych punktów w określonej kolejności. Rysowanie obiektów użytkownika będzie wykonywane na podstawie obiektu klasy Statistics. W kompetencjach tej klasy nie leży weryfikacji poprawności, wszystkie przyjmowane argumenty przyjmuje się za zgodne z~ustalonymi założeniami. 
 \end{itemize}
 
+\subsection{Common}
+\begin{itemize}
+\item Klasa \textbf{Point} jest kluczowa dla wszelkich operacji na podanych przez użytkownika punktach, ponieważ jest reprezentacją punktu.
+\item Klasa \textbf{Vector} rozszerza klasę \textbf{Point} i reprezentuje wektor, a metoda \textbf{getLength} pozwoli na łatwy dostęp do jego długości.
+\item Klasa \textbf{Math}, będzie zawierała metody do wszelkich potrzebnych operacji matematycznych, które zostaną uznane za zaawansowane. Poprawi to w znacznym stopniu czytelność kodu, ponieważ przy obliczaniu diagramu Voronoi, czy przy sprawdzaniu wypukłości konturu, pojawi się dużo operacji matematycznych.
+\end{itemize}
 \noindent\linia
 
 \section{Testy}
