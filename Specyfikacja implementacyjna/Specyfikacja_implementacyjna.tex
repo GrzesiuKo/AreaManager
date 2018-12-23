@@ -109,6 +109,10 @@ Przy powyższych założeniach stwierdzenie czy punkt leży wewnątrz konturu op
 \includegraphics[scale=0.28]{statisticPackage.png} 
 
 \noindent\linia
+\subsection{Graphic Package}
+\includegraphics[scale=0.9]{graphicPackage.png} 
+
+\noindent\linia
 \section{Opis ważniejszych metod}
 \subsection{Pakiet Statistics}
 \begin{itemize}
@@ -127,8 +131,8 @@ Analogiczne działania należy wykonać w pozostałych metodach, grupując obiek
 \subsection{Graphic}
 \begin{itemize}
 \item Klasa koncepcyjna \textbf{GraphicInterface} stanowi bazową klasę narzędzie Java~FX. Zawierać będzie obiekty interfejsu przedstawionego w specyfikacji funkcjonalnej. Oraz będzie klasą główną sterującą programem po wykonaniu inicjacji z bazowej klasy \textbf{Main}.
-\item Klasa \textbf{ModificationLogic} będzie wykorzystana do obsługi i sprawdzania prawidłowości danych wprowadzanych przez użytkownika w czasie działania programu. Istotne jest to, że zawiera ona bazę zajętych punktów, i właśnie to jest sprawdzane najczęściej, zgodnie z założeniem, że na danych współrzędne może znajdować się tylko jeden obiekt/punkt kluczowy. Dla wywołania metody \textbf{validatePoint} sprawdzamy czy wybrany nowy punkt leży w konturze a następnie czy~punkt na~którym chcemy umieścić nowy obiekt nie jest zajęty. Istotne jest aktualizowanie bazy zajętych punktów oraz współrzędnych konturu, dlatego też utworzona zostanie tylko jeden obiekt \textbf{ModificationLogic}, oraz cały program zyska do niego chroniony dostęp (użyty zostanie wzorzec Singleton).
-\item Klasa \textbf{DrawingLogic} stanowi podstawową klasę komunikacji miedzy programem a interfejsem. Rysowanie wymaga podanie współrzędnych punktów w określonej kolejności i to też jest potrzebne aby wywoływać metody tej klasy. W kompetencjach tej klasy nie leży weryfikacji poprawności, wszystkie przyjmowane argumenty przyjmuje się za zgodne z~ustalonymi założeniami. 
+\item Klasa \textbf{ModificationLogic} będzie wykorzystana do obsługi i sprawdzania prawidłowości danych wprowadzanych przez użytkownika w czasie działania programu. Istotne jest to, że zawiera ona bazę zajętych punktów, i właśnie to jest sprawdzane najczęściej, zgodnie z założeniem, że na danych współrzędne może znajdować się tylko jeden obiekt/punkt kluczowy. Dla wywołania metody \textbf{validatePoint} sprawdzamy czy wybrany nowy punkt leży w konturze a następnie czy~punkt na~którym chcemy umieścić nowy obiekt nie jest zajęty. Istotne jest aktualizowanie bazy zajętych punktów oraz współrzędnych konturu, dlatego też utworzona zostanie tylko jeden obiekt \textbf{ModificationLogic}, oraz cały program zyska do niego chroniony dostęp (użyty zostanie wzorzec Singleton). Modyfikacja konturu lub punktu kluczowego powodować będzie konieczność obliczenia na nowy podziału obszaru konturu na figury Voronoja. To też klasa będzie wywoływać obliczanie tych podziałów od nowa. A następnie wywoływać ich rysowanie.
+\item Klasa \textbf{DrawingLogic} stanowi podstawową klasę komunikacji miedzy programem a interfejsem. Rysowanie konturów i obszarów wymaga podanie współrzędnych punktów w określonej kolejności. Rysowanie obiektów użytkownika będzie wykonywane na podstawie obiektu klasy Statistics. W kompetencjach tej klasy nie leży weryfikacji poprawności, wszystkie przyjmowane argumenty przyjmuje się za zgodne z~ustalonymi założeniami. 
 \end{itemize}
 
 \noindent\linia
