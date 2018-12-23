@@ -56,7 +56,7 @@
 \section{Wstęp teoretyczny}
 Dokument ten dotyczy programu realizowanego w ramach ,,Projektu Zespołowego 2018/2019".
 
-Ma on za zadanie przedstawić problem rozważany w projekcie od strony czysto praktycznej. Zagadnienie podziału płaszczyzny na optymalne obszary doczekało się wielu koncepcji rozwiązań. Szczegóły algorytmów użytych w naszym rozwiązaniu znajdują się w \textbf{rozdziale 2}. Odnośnie potrzeb teorii warto usystematyzować używane pojęcia:
+Ma on za zadanie przedstawić problem rozważany w projekcie od strony czysto praktycznej. Zagadnienie podziału płaszczyzny na optymalne obszary doczekało się wielu koncepcji rozwiązań. Opisy algorytmów użytych w naszym rozwiązaniu znajdują się w \textbf{rozdziale 2}. Odnośnie potrzeb teorii warto usystematyzować używane pojęcia:
 \begin{itemize}
 \item kontur (zamiennie obszar konturu) - wielobok wypukły wyznaczony przez podane punkty, tylko ten fragment płaszczyzny będzie rozważany, punkty kluczowe i obiekty nie mogą istnieć poza tym konturem;
 \item obszar punktu kluczowego (obszar) - zawiera jeden punkt kluczowy, a granice wyznaczane są na zasadzie iż, każdy punkt wchodzący w skład obszaru musi mieć bliżej do jego punktu kluczowego niż dowolnego innego.
@@ -184,9 +184,27 @@ Analogiczne działania należy wykonać w pozostałych metodach, grupując obiek
 \noindent\linia
 
 \section{Testy}
+\subsection{Statistics Package}
+W celu przetestowania tego pakietu założymy istnienie tylko jednego punktu kluczowego do którego należą wszystkie obiekty, nie sprawdzenie czy obiekt można utworzyć wykona klasa ModificationLogic:
 \begin{itemize}
-\item 
+\item dodanie obiektów różnych typów;
+\item dodanie obiektu podając referencje do zmiennej null;
+\item dodanie dwóch obiektów o tych samych nazwach;
+\item sprawdzenie czy obiekt dodano do odpowiedniej struktury; 
+\item odczyt obiektów pogrupowanych;
+\item odczyt obiektów wylistowanych;
+\item zliczenie liczby mieszkańców obiektów, w tym kiedy wszystkie obiekty mieszkalne są puste, lub nie istnieje żaden;
 \end{itemize}
+\subsection{Graphic Package}
+Większość testów zostanie wykonana dla klasy ModificationLogic. Specyfika tej klasy jest taka że dla danych prawidłowych przekaże wywołania dalej natomiast dla błędnych zgłosi wyjątek, także w znacznej części testów spodziewać się będziemy wyjątków.
+\begin{itemize}
+\item walidacja punktu(kluczowego) prawidłowego
+\item walidacja punktu(kluczowego) leżącego poza konturem
+\item walidacja punktu(kluczowego) który jest już zajęty
+\item próba dodania punktu konturu który zaburzy wypukłość
+\item dodanie prawidłowego punktu konturu
+\end{itemize}
+Poprawność metody DrawingLogic zostanie przetestowana manualnie.
 
 \noindent\linia
 \section{Informacje o sprzęcie i oprogramowaniu}
