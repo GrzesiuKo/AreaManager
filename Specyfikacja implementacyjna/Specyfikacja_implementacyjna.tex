@@ -96,7 +96,17 @@ Powyższe instrukcje wykona w pętli.
 \noindent\linia
 \section{Opis ważniejszych metod}
 \begin{itemize}
-\item 
+\item Klasa \textbf{Statistics} zawiera trzy publiczne metody które odpowiadają na wymagania odnośnie prowadzenia i~wyświetlania statystyk. Po zarejestrowaniu żądania użytkownika wywoływana jest odpowiednia metoda dla przykładu omówmy metodę \textbf{printAllObjectList:}
+\begin{enumerate}
+\item Określany jest obszar którego obiekty mają zostać wyświetlone, w tym celu wywoływana jest metoda \textbf{findKeyPoints:}
+\begin{enumerate}
+\item metoda \textbf{findKeyPoints} określa odległość punktu od wszystkich punktów kluczowych i zwraca jako wartość najmniej odległy.
+\end{enumerate}
+\item Metoda iteruje po listach obiektów zawartych w klasie \textbf{UserObject}.
+\item Obiekty dla których wartość pola memberOf jest wyszukanym wcześniej punktem kluczowym zostają wypisane do przewijanego pola tekstowego zawartego w interfejsie.
+\end{enumerate}
+Analogiczne działania należy wykonać w pozostałych metodach, grupując obiekty zgodnie z typami w metodzie \textbf{printGroupedObjectList}, lub zliczając mieszkańców w metodzie \textbf{printResidentsNumber}.
+\item Klasa \textbf{UserObject} stanowi bazową klasę opisującą dowolny obiekt jakie może zostać naniesione na obszar konturu. Nie będzie ona udostępniać publicznych konstruktorów, a jedynie metody dodania, w celu hermetyzacji sposobu tworzenia nowych obiektów. Przy tworzeniu obiekt zostanie wpisany w listę statystyki, zostanie też przy użyciu prostego algorytmu określone do obszaru którego punktu kluczowego należy obiekt.
 \end{itemize}
 
 \noindent\linia
@@ -108,7 +118,7 @@ Powyższe instrukcje wykona w pętli.
 
 \noindent\linia
 \section{Informacje o sprzęcie i oprogramowaniu}
-Program będzie pisany w języku C\# na platformie .NET z wykorzystaniem WPF oraz środowiska Visual~Studio (15.9.4).
+Program będzie pisany w języku Java wersji 9.0.4 ze wsparciem biblioteki JavaFX oraz środowiska Intellij IDEA.
 
 Zostanie przetestowany na komputerach:
 \begin{enumerate}
