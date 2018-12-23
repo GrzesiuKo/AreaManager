@@ -55,7 +55,12 @@
 \section{Wstęp teoretyczny}
 Dokument ten dotyczy programu realizowanego w ramach ,,Projektu Zespołowego 2018/2019".
 
-Ma on za zadanie przedstawić problem rozważany w projekcie od strony czysto praktycznej. Zagadnienie podziału płaszczyzny na optymalne obszary doczekało się wielu koncepcji rozwiązań. Szczegóły algorytmów użytych w naszym rozwiązaniu znajdują się w \textbf{rozdziale 2}. 
+Ma on za zadanie przedstawić problem rozważany w projekcie od strony czysto praktycznej. Zagadnienie podziału płaszczyzny na optymalne obszary doczekało się wielu koncepcji rozwiązań. Szczegóły algorytmów użytych w naszym rozwiązaniu znajdują się w \textbf{rozdziale 2}. Odnośnie potrzeb teorii warto usystematyzować używane pojęcia:
+\begin{itemize}
+\item kontur - wielobok wypukły wyznaczony przez podane punkty, tylko ten fragment płaszczyzny będzie rozważany, punkty kluczowe i obiekty nie mogą istnieć poza tym obszarem;
+\item obszar punktu kluczowego (obszar) - zawiera jeden punkt kluczowy, a granice wyznaczane są na zasadzie iż, każdy punkt wchodzący w skład obszaru musi mieć bliżej do jego punktu kluczowego niż dowolnego innego;
+\item 
+\end{itemize} 
 
 \noindent\linia
 \section{Opis algorytmu}
@@ -101,6 +106,7 @@ Powyższe instrukcje wykona w pętli.
 \section{Opis ważniejszych metod}
 \subsection{Pakiet Statistics}
 \begin{itemize}
+\item Klasa \textbf{UserObject} stanowi bazową klasę opisującą dowolny obiekt jakie może zostać naniesione na obszar konturu. Nie będzie ona udostępniać publicznych konstruktorów, a jedynie metody dodania, w celu hermetyzacji sposobu tworzenia nowych obiektów. Przy tworzeniu obiekt zostanie wpisany w listę statystyki, zostanie też, przy użyciu metody \textbf{checkMembership}, określone do obszaru którego punktu kluczowego należy obiekt. Taki sposób organizacji pozwoli na łatwą rozbudowę bazy obiektów o nowe typy.
 \item Klasa \textbf{Statistics} zawiera trzy publiczne metody które odpowiadają na wymagania odnośnie prowadzenia i~wyświetlania statystyk. Po zarejestrowaniu żądania użytkownika wywoływana jest odpowiednia metoda dla przykładu omówmy metodę \textbf{printAllObjectList:}
 \begin{enumerate}
 \item Określany jest obszar którego obiekty mają zostać wyświetlone, w tym celu wywoływana jest metoda \textbf{findKeyPoints:}
@@ -111,7 +117,7 @@ Powyższe instrukcje wykona w pętli.
 \item Obiekty dla których wartość pola memberOf jest wyszukanym wcześniej punktem kluczowym zostają wypisane do przewijanego pola tekstowego zawartego w interfejsie. .
 \end{enumerate}
 Analogiczne działania należy wykonać w pozostałych metodach, grupując obiekty zgodnie z typami w metodzie \textbf{printGroupedObjectList}, lub zliczając mieszkańców w metodzie \textbf{printResidentsNumber}. Metoda \textbf{recheckData} wywoływana jest za każdym razem gdy nastąpi modyfikacja punktów kluczowych lub granic konturu i sprawdza do jakiego punktu kluczowego należą obiekty oraz czy nie znalazły się poza granicami konturu.
-\item Klasa \textbf{UserObject} stanowi bazową klasę opisującą dowolny obiekt jakie może zostać naniesione na obszar konturu. Nie będzie ona udostępniać publicznych konstruktorów, a jedynie metody dodania, w celu hermetyzacji sposobu tworzenia nowych obiektów. Przy tworzeniu obiekt zostanie wpisany w listę statystyki, zostanie też, przy użyciu metody \textbf{checkMembership}, określone do obszaru którego punktu kluczowego należy obiekt. Taki sposób organizacji pozwoli na łatwą rozbudowę bazy obiektów o nowe typy.
+
 \end{itemize}
 
 \noindent\linia
