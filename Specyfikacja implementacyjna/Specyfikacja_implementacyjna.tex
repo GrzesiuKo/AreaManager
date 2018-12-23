@@ -74,7 +74,7 @@ Algorytm będzie działał następująco:
 \begin{enumerate}
 \item Wybierze dwa punkty \textit{P} i \textit{Q}.
 
-\textit{P} to punkt o najmniejszej współrzędnej Y (oraz X, jeśli więcej punktów ma tą samą Y). \textit{Q} to punkt o największej współrzędnej Y (oraz X, jeśli więcej punktów ma tą samą Y).
+\textit{P} to punkt o najmniejszej współrzędnej Y (oraz X, jeśli więcej punktów ma tą samą Y). \textit{Q} to punkt o~największej współrzędnej Y (oraz X, jeśli więcej punktów ma tą samą Y).
 
 \item Wyznaczy prawą część konturu:
 
@@ -98,6 +98,8 @@ Powyższe instrukcje wykona w pętli.
 \end{enumerate}
 
 \subsection{Sprawdzenie czy punkt leży w konturze}
+
+\noindent
 Przy założeniach takich, że:
 \begin{itemize}
 \item kontur jest wielokątem wypukłym;
@@ -147,7 +149,7 @@ Przechowywać będzie linie brzegową oraz krawędzie diagramu. W jego liściach
 
 Obiekty należące do tego drzewa będą miały dwie tożsamości będą mogły być:
 \begin{itemize}
-\item  wierzchołkiem (reprezentować punkt przecięcia dwóch łuków/paraboli);
+\item przecięciem (reprezentując punkt przecięcia dwóch łuków/paraboli);
 \item łukiem/parabolą (reprezentując część linii brzegowej będącą kawałkiem paraboli o skupieniu w konkretnym punkcie kluczowym).
 \end{itemize}
 
