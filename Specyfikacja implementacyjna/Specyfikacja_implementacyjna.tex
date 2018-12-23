@@ -260,6 +260,29 @@ Większość testów tego pakietu zostanie wykonana dla klasy Math i operacji ma
 \item poprawne dane i oczekiwany wynik.
 \end{itemize}
 
+\subsection{FileData}
+Testy tego pakietu będą przeprowadzone dla metod klas \textbf{FileReader} oraz \textbf{FileChecker}, a także dla metody \textbf{makeContour}.
+Przypadki jakie będziemy testować to:
+\begin{itemize}
+\item nieprawidłowa ilość sekcji w pliku wejściowym;
+\item za mała ilość argumentów w linii w pliku wejściowym;
+\item za duża ilość argumentów w linii w pliku wejściowym;
+\item kodowanie pliku różne od UTF-8;
+\item prosty prawidłowy kontur i kilka punktów kluczowych wewnątrz tego konturu;
+\item kontur, którego krawędzie przecinają się;
+\item punkty, których współrzędne są takie same jak innego punktu lub obiektu;
+\item obiekty, których współrzędne są takie same jak innego punktu lub obiektu;
+\item nieprawidłowa definicja typu;
+\item plik bez punktów kluczowych;
+\item plik bez konturu;
+\item obiekty poza granicami konturu;
+\item punkt kluczowy poza granicami konturu;
+\item kontur, który nie jest figurą wypukłą;
+\item kontur, który jest figurą wypukłą.
+\item jeden punkt konturu;
+\item dwa punkty konturu.
+\end{itemize}
+
 \noindent\linia
 \section{Informacje o sprzęcie i oprogramowaniu}
 Program będzie pisany w języku Java wersji 9.0.4 ze wsparciem biblioteki JavaFX oraz środowiska Intellij IDEA.
