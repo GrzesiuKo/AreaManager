@@ -1,4 +1,5 @@
 \documentclass[a4paper,11pt]{article}
+\usepackage{hyperref}
 \usepackage{indentfirst}
 \setlength\parindent{24pt}
 \usepackage[T1]{fontenc}
@@ -95,6 +96,7 @@ Powyższe instrukcje wykona w pętli.
 \end{enumerate}
 Powyższe instrukcje wykona w pętli.
 \end{enumerate}
+
 \subsection{Sprawdzenie czy punkt leży w konturze}
 Przy założeniach takich, że:
 \begin{itemize}
@@ -103,6 +105,50 @@ Przy założeniach takich, że:
 \end{itemize}
 Przy powyższych założeniach stwierdzenie czy punkt leży wewnątrz konturu opiera się na sprawdzeniu czy półprosta wytyczona w dowolnym kierunku z tego punktu ma dokładnie jeden punkty przecięcia z liniami wyznaczającymi kontur. Dla ułatwienia przyjmiemy, że wytyczamy półprostą pionową w dół z tego punktu. Mając dwa punkty definiujące krawędź możemy wyznaczyć równanie kierunkowe prostej która zawiera tą~krawędź a następnie rozwiązując układ dwóch równań liniowych określić czy ma punkt przecięcia z daną krawędzią. Proces ten należy powtórzyć dla wszystkich krawędzi, lub do znalezienia przecięcia.
  
+\subsection{Wyznaczanie optymalnych obszarów}
+\subsubsection{Algorytm Fortune'a}
+Do wyznaczenia optymalnych obszarów zastosowany zostanie algorytm Fortune'a, który wyznaczy diagram Voronoi. Obszary powstaną na podstawie zbioru punktów, uporządkowanych według współrzędnej \textit{y} (malejąco). Diagram Voronoi zapewni nam podział terenu na optymalne części, zawierające po jednym punkcie kluczowym.
+
+\noindent
+Algorytm Fortune'a ma kilka podstawowych pojęć:
+\begin{enumerate}
+\item Miotła (\textit{sweep line})
+
+Jest to abstrakcyjna nazwa, którą określamy prostą równoległą do osi \textit{x} w kartezjańskim układzie współrzędnych. Prosta ta początkowo znajduje się na wysokości współrzędnej \textit{y} większej niż \textit{y} ,,najwyższego'' punktu z naszego zbioru. Miotła porusza się w dół i napotyka kolejne punkty z naszego zbioru.
+\item Zdarzenie punktowe (\textit{site event})
+
+Jest to sytuacja, w której miotła napotyka punkt. Powoduje to powstanie paraboli o skupieniu w danym punkcie, która przyczyni się do określenia optymalnych obszarów oraz wpłynie na kształt linii brzegowej.
+\item Linia brzegowa (\textit{beach line})
+
+Jest to linia (niebieska), która jest dolną granicą naszego powstającego diagramu. Jest modyfikowana na podstawie pozycji miotły oraz napotkanych przez nią punktów.
+
+\includegraphics[scale=1]{beachline}
+
+\item Zdarzenie okręgu (\textit{circle event})
+
+Jest to sytuacja, w której zanika jedna z paraboli linii brzegowej, ,,wyparta'' przez dwie inne parabole. Miejsce jej ostatecznego zniknięcia będące jednocześnie miejscem spotkania tych dwóch paraboli jest kolejnym punktem diagramu Voronoi.
+\end{enumerate}
+
+Szczegółowy opis pracy algorytmu Fortune'a znajduje się w 7. rozdziale książki \textit{Computational Geometry: Algorithms and Applications}.
+
+Animacja pracy algorytmu znajduje się pod tym linkiem: \url{https://www.youtube.com/watch?v=rvmREoyL2F0}{}
+
+\subsubsection{Struktura danych}
+Przy implementacji tego algorytmu wykorzystane zostaną następujące struktury danych:
+\begin{itemize}
+\item kolejka priorytetowa:
+
+Przechowywać będzie zdarzenia jakie napotka miotła i na ich podstawie modyfikowana będzie linia brzegowa, a docelowo diagram Voronoi.
+\item drzewo binarne:
+
+Przechowywać będzie linie brzegową oraz krawędzie diagramu. W jego liściach znajdować się będą łuki (parabole) linii brzegowej, a wewnętrzne węzły przechowywać będą informacje o krawędziach. Drzewo to posłuży jako podstawa do tworzenia diagramu.
+\item Lista jednokierunkowa:
+
+Przechowywane w niej będą kompletne krawędzie diagramu Voronoi.
+\end{itemize}
+
+Opisany powyżej algorytm, może ulec zmianie w trakcie implementacji.
+
 \noindent\linia
 \section{Diagramy klas}
 \subsection{Statistics}
