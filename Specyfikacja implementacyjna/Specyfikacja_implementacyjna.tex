@@ -216,6 +216,16 @@ Analogiczne działania należy wykonać w pozostałych metodach, grupując obiek
 \item Klasa \textbf{FileReader} odpowiedzialna będzie za odczytanie danych z pliku. Metoda \textbf{readFile} przeczyta cały plik wywołując dla każdej linii odpowiednią metodę dedykowaną pod dane zawarte w tej linii. Punkty kluczowe, obiekty i punkty konturu trafią do odpowiednich kolekcji w tej klasie.
 \item Klasa \textbf{Contour} zajmie się przechowywaniem konturu oraz jego tworzenie. Metoda \textbf{makeContour}, na podstawie algorytmu Jarvisa, z otrzymanych punktów stworzy otoczkę wypukłą, a punkty, które nie wejdą w jej skład doda do kolekcji ignorowanych. Pozostałe punkty trafią do \textbf{contourPoints} w kolejności łączenia.
 \end{itemize}
+
+\subsection{Diagram}
+\begin{itemize}
+\item Klasa \textbf{Edge} będzie reprezentacją krawędzi, które będą powstawać w trakcie tworzenia diagramu Voronoja. Zawiera ona pole \textbf{direction}, ponieważ w myśl założeń algorytmu Fortune'a, kierunek będzie pełnił istotną rolę przy konstrukcji krawędzi.
+\item Klasa \textit{Event} jest reprezentacją zdarzeń, które są elementem działania algorytmu Fortune'a. Może reprezentować zarówno zdarzenie punktowe jak i zdarzenia okręgu. Zawiera także informacje o punkcie, który dane zdarzenie wywołuje.
+\item Klasa \textbf{Item} jest reprezentacją elementów, które będą wchodziły w skład drzewa binarnego, które przechowywać będzie informacje o linii brzegowej oraz punktach diagramu Voronoi. Dwoista natura tej klasy polega na tym, że może reprezentować zarówno punkt przecięcia paraboli linii brzegowej jak i poszczególną parabolę wchodzącą w skład linii brzegowej. Wynika to ze struktury drzewa binarnego, która jest przewidziana przez algorytm Fortune'a. Dzięki temu operacje na tym drzewie staną się  sprawniejsze.
+\item Klasa \textbf{Diagram} będzie przechowywać dane o konturze, punktach kluczowych oraz krawędziach diagramu Voronoi.
+\item Klasa \textbf{Voronoi} skupi w sobie wszystkie działania związane z wyznaczeniem diagramu Voronoi. Jej celem będzie uzyskanie kolekcji krawędzi diagramu Voronoi odpowiedniego dla podanej kolekcji punktów kluczowych. Metoda \textbf{generateDiagram} będzie głównym punktem realizacji algorytmu Fortune'a. Punkty, które otrzyma zostaną posortowane w odpowiedniej kolejności (\textbf{rozdział 2}). Metoda \textbf{generateDiagram} wywoływać, będzie pozostałem metody, które wejdą w skład klasy \textbf{Voronoi}. To ona zbuduje drzewo binarne modyfikując linie brzegową i  ostatecznie dostarczy kolekcje krawędzi diagramu Voronoi.
+\end{itemize}
+
 \noindent\linia
 
 \section{Testy}
