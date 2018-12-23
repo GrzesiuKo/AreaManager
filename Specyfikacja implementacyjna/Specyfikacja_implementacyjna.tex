@@ -134,6 +134,7 @@ Szczegółowy opis pracy algorytmu Fortune'a znajduje się w 7. rozdziale ksią�
 Animacja pracy algorytmu znajduje się pod tym linkiem: \url{https://www.youtube.com/watch?v=rvmREoyL2F0}{}
 
 \subsubsection{Struktura danych}
+\noindent
 Przy implementacji tego algorytmu wykorzystane zostaną następujące struktury danych:
 \begin{itemize}
 \item kolejka priorytetowa:
@@ -142,6 +143,14 @@ Przechowywać będzie zdarzenia jakie napotka miotła i na ich podstawie modyfik
 \item drzewo binarne:
 
 Przechowywać będzie linie brzegową oraz krawędzie diagramu. W jego liściach znajdować się będą łuki (parabole) linii brzegowej, a wewnętrzne węzły przechowywać będą informacje o krawędziach. Drzewo to posłuży jako podstawa do tworzenia diagramu.
+
+Obiekty należące do tego drzewa będą miały dwie tożsamości będą mogły być:
+\begin{itemize}
+\item  wierzchołkiem (reprezentować punkt przecięcia dwóch łuków/paraboli);
+\item łukiem/parabolą (reprezentując część linii brzegowej będącą kawałkiem paraboli o skupieniu w konkretnym punkcie kluczowym).
+\end{itemize}
+
+Taki zabieg usprawni modyfikacje struktury drzewa.
 \item Lista jednokierunkowa:
 
 Przechowywane w niej będą kompletne krawędzie diagramu Voronoi.
