@@ -57,7 +57,7 @@ Dokument ten dotyczy programu realizowanego w ramach ,,Projektu Zespołowego 201
 
 Ma on za zadanie przedstawić problem rozważany w projekcie od strony czysto praktycznej. Zagadnienie podziału płaszczyzny na optymalne obszary doczekało się wielu koncepcji rozwiązań. Szczegóły algorytmów użytych w naszym rozwiązaniu znajdują się w \textbf{rozdziale 2}. Odnośnie potrzeb teorii warto usystematyzować używane pojęcia:
 \begin{itemize}
-\item kontur - wielobok wypukły wyznaczony przez podane punkty, tylko ten fragment płaszczyzny będzie rozważany, punkty kluczowe i obiekty nie mogą istnieć poza tym obszarem;
+\item kontur (zamiennie obszar konturu) - wielobok wypukły wyznaczony przez podane punkty, tylko ten fragment płaszczyzny będzie rozważany, punkty kluczowe i obiekty nie mogą istnieć poza tym konturem;
 \item obszar punktu kluczowego (obszar) - zawiera jeden punkt kluczowy, a granice wyznaczane są na zasadzie iż, każdy punkt wchodzący w skład obszaru musi mieć bliżej do jego punktu kluczowego niż dowolnego innego.
 \end{itemize} 
 
@@ -95,7 +95,14 @@ Powyższe instrukcje wykona w pętli.
 \end{enumerate}
 Powyższe instrukcje wykona w pętli.
 \end{enumerate}
-
+\subsection{Sprawdzenie czy punkt leży w konturze}
+Przy założeniach takich, że:
+\begin{itemize}
+\item kontur jest wielokątem wypukłym;
+\item punkt należy do wielokąta jeśli leży w dowolnym miejscu ograniczonym przez krawędzie wielokąta, nie poza krawędziami~i~nie~na~nich.
+\end{itemize}
+Przy powyższych założeniach stwierdzenie czy punkt leży wewnątrz konturu opiera się na sprawdzeniu czy półprosta wytyczona w dowolnym kierunku z tego punktu ma dokładnie jeden punkty przecięcia z liniami wyznaczającymi kontur. Dla ułatwienia przyjmiemy, że wytyczamy półprostą pionową w dół z tego punktu. Mając dwa punkty definiujące krawędź możemy wyznaczyć równanie kierunkowe prostej która zawiera tą~krawędź a następnie rozwiązując układ dwóch równań liniowych określić czy ma punkt przecięcia z daną krawędzią. Proces ten należy powtórzyć dla wszystkich krawędzi, lub do znalezienia przecięcia.
+ 
 \noindent\linia
 \section{Diagramy klas}
 \subsection{Statistics}
