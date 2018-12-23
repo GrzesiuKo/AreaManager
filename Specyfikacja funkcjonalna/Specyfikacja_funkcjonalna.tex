@@ -94,7 +94,7 @@ Program powinien spełniać podane wymagania funkcjonalne:
 \end{itemize}
 \end{itemize}
 
-Plik wejściowy powinien być zgodny z podanym wzorem:
+Przykładowy plik wejściowy:
 
 \includegraphics[scale=0.70]{ExampleInputFile}
 
@@ -113,9 +113,17 @@ Uwagi:
 \item punkty konturu powinny być podawane w kolejności zgodnej z ruchem wskazówek zegara;
 \item krawędzie konturu terenu nie mogą się przecinać;
 \item żadna współrzędna obiektu lub punktu kluczowego nie może się powtórzyć;
-\item muszą zostać podane obiekty \textit{DOM}, \textit{NIEDŹWIEDŹ}, \textit{SZKOŁA} wraz z ich definicjami, takimi jak w pliku przykładowym;
+\item muszą zostać podane obiekty \textit{DOM}, \textit{NIEDŹWIEDŹ}, \textit{SZKOŁA} wraz z ich definicjami;
 \item plik musi być kodowany w UTF-8;
 \item maksymalna możliwa wartość współrzędnych \textit{x} i \textit{y} to \textit{500.0}.
+\item definicja obiektów musi zachować odpowiednią kolejność:
+\begin{enumerate}
+\item nazwa obiektu;
+\item współrzędna \textit{x} typu double;
+\item współrzędna \textit{y} typu double;
+\item nazwa wybranego typu (string, double lub int) lub jej brak;
+\item wartość zmiennej podanego typu lub jej brak, jeśli wcześniej nie podano nazwy.
+\end{enumerate}
 \end{itemize}
 \noindent\linia
 \section{Obsługa}
