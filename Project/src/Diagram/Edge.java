@@ -1,3 +1,5 @@
+package Diagram;
+
 public class Edge {
     Point start;
     Point end;

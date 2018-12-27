@@ -1,3 +1,5 @@
+package Diagram;
+
 import java.util.List;
 
 public class Diagram {

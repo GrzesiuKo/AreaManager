@@ -1,4 +1,8 @@
-import java.util.*;
+package Diagram;
+
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Voronoi {
     List<Edge> edges;

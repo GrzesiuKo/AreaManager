@@ -1,3 +1,5 @@
+package Diagram;
+
 public class Item {
     boolean isParabola;
     boolean isCross;
