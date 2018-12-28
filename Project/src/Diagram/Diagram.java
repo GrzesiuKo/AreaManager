@@ -1,5 +1,8 @@
 package Diagram;
 
+import Common.Contour;
+import Common.Point;
+
 import java.util.List;
 
 public class Diagram {

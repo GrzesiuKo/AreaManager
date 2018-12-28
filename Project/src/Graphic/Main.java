@@ -1,5 +1,8 @@
 package Graphic;
 
+import Common.Point;
+import Statistics.Statistics;
+import Statistics.UserObject;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

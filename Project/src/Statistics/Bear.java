@@ -1,4 +1,15 @@
 package Statistics;
 
-public class Bear extends UserObject{
+import Common.Point;
+
+public class Bear extends UserObject {
+
+    public Bear(Point point){
+        super(point);
+    }
+
+    @Override
+    public String toString() {
+        return "bear " + super.toString();
+    }
 }

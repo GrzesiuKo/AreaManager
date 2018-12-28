@@ -3,6 +3,7 @@ package Diagram;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import Common.Point;
 
 public class Voronoi {
     List<Edge> edges;

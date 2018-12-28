@@ -1,5 +1,7 @@
 package Diagram;
 
+import Common.Point;
+
 public class Event {
     public static boolean SITE_EVENT = true;
     public static boolean CIRCLE_EVENT = false;

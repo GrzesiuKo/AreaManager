@@ -1,5 +1,7 @@
 package Diagram;
 
+import Common.Point;
+
 public class Item {
     boolean isParabola;
     boolean isCross;
