@@ -64,6 +64,8 @@ public class Voronoi {
 
         arcAbove = findArcAbove(point);
 
+        addArcToTheBeachLine(point, arcAbove);
+
 
     }
 
@@ -83,4 +85,21 @@ public class Voronoi {
         return (Arc) item;
     }
 
+    private void addArcToTheBeachLine(Point keyPoint, Arc arcAbove){
+        Cross leftCross = new Cross();
+        Cross rightCross = new Cross();
+        Point start = new Point(keyPoint.getX(), arcAbove.findY(keyPoint.getX()));
+        Edge edgeLeft = new Edge(start);
+        Edge edgeRight = new Edge(start);
+
+        leftCross.setLeft(new Arc(arcAbove.getFocus()));
+        Item.replaceParent(arcAbove, leftCross);
+        leftCross.setRight(rightCross);
+        leftCross.setEdge(edgeLeft);
+
+        rightCross.setRight(new Arc(arcAbove.getFocus()));
+        rightCross.setLeft(new Arc(keyPoint));
+        rightCross.setEdge(edgeRight);
+
+    }
 }
