@@ -25,4 +25,8 @@ public class Cross extends Item{
             return results.getSmaller();
         }
     }
+
+    public void setEdge(Edge edge) {
+        this.edge = edge;
+    }
 }
