@@ -1,6 +1,7 @@
 package Common;
 
 import Diagram.Arc;
+import Diagram.Voronoi;
 
 public class Math {
 
@@ -45,6 +46,16 @@ public class Math {
         double secondResult = (-b + java.lang.Math.sqrt(delta))/(2*a);
 
         return new TwoResults(firstResult, secondResult);
+    }
+
+    public static double findYonTheArc(Point focus, double x) {
+        double m = 2 * (focus.getY() - Voronoi.currentYofSweepLine);
+        double a = 1 / m;
+        double b = -2 * focus.getX() / m;
+        double c = (java.lang.Math.pow(focus.getX(), 2) + java.lang.Math.pow(focus.getY(), 2) - java.lang.Math.pow(Voronoi.currentYofSweepLine, 2)) / m;
+        double result = a * java.lang.Math.pow(x, 2) + b * x + c;
+
+        return result;
     }
 
 
