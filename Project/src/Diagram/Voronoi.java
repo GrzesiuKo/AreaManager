@@ -6,9 +6,10 @@ import java.util.Queue;
 import Common.Point;
 
 public class Voronoi {
-    List<Edge> edges;
-    Item root;
-    Queue<Event> events;
+    private List<Edge> edges;
+    private Item root;
+    private Queue<Event> events;
+
 
     public void generateDiagram(List<Point> points) {
         Queue<Event> events;
