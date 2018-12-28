@@ -62,7 +62,25 @@ public class Voronoi {
             return;
         }
 
+        arcAbove = findArcAbove(point);
 
+
+    }
+
+    private Arc findArcAbove(Point point){
+        Item item = root;
+        double xCoordinateOfCross;
+
+        while(item instanceof Cross){
+            xCoordinateOfCross = ((Cross) item).getCurrentX();
+            if(point.getX() < xCoordinateOfCross){
+                item = item.getLeft();
+            }else{
+                item = item.getRight();
+            }
+        }
+
+        return (Arc) item;
     }
 
 }
