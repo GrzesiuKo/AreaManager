@@ -1,12 +1,20 @@
 package Diagram;
 
-import Common.Point;
-
 public class Item {
-    boolean isParabola;
-    boolean isCross;
-    Point focus;
-    Edge edge;
-    Item left;
-    Item right;
+    private Item parent;
+    private Item left;
+    private Item right;
+
+
+    public Item getParent() {
+        return parent;
+    }
+
+    public Item getLeft() {
+        return left;
+    }
+
+    public Item getRight() {
+        return right;
+    }
 }
