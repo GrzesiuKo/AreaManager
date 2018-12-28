@@ -22,7 +22,7 @@ public class Voronoi {
             currentEvent = events.poll();
             currentYofSweepLine = currentEvent.getPoint().getY();
             if (currentEvent.isSiteEvent()){
-               // handleSiteEvent();
+               handleSiteEvent(currentEvent.getPoint());
             }else{
                // handleCircleEvent();
             }
@@ -54,5 +54,15 @@ public class Voronoi {
         return resultPoints;
     }
 
+    private void handleSiteEvent(Point point){
+        Arc arcAbove;
+
+        if (root == null){
+            root = new Arc(point);
+            return;
+        }
+
+
+    }
 
 }
