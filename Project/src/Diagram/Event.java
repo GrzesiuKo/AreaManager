@@ -21,4 +21,8 @@ public class Event {
     public boolean isCircleEvent() {
         return !type;
     }
+
+    public Point getPoint() {
+        return point;
+    }
 }
