@@ -9,6 +9,7 @@ public class Voronoi {
     private List<Edge> edges;
     private Item root;
     private Queue<Event> events;
+    public static double currentYofSweepLine;
 
 
     public void generateDiagram(List<Point> points) {
@@ -19,6 +20,7 @@ public class Voronoi {
 
         while (!events.isEmpty()){
             currentEvent = events.poll();
+            currentYofSweepLine = currentEvent.getPoint().getY();
             if (currentEvent.isSiteEvent()){
                // handleSiteEvent();
             }else{
