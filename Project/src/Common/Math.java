@@ -41,5 +41,25 @@ public class Math {
         return result;
     }
 
+    public static TwoResults findBisector(Point a, Point b){
+        Point mid = new Point((a.getX() + b.getX()) / 2, (a.getY() + b.getY()) / 2);
+        TwoResults straightLine = findStraightLine(a, b);
+        double slope = -1/straightLine.getFirst();
+        double yIntercept = mid.getY() - slope*mid.getX();
+
+        return new TwoResults(slope, yIntercept);
+    }
+
+    private static TwoResults findStraightLine(Point a, Point b) {
+        Point mid = new Point((a.getX() + b.getX()) / 2, (a.getY() + b.getY()) / 2);
+        double slope;
+        double yIntercept;
+
+        slope = (a.getY() - b.getY()) / (a.getX() - b.getX());
+        yIntercept = a.getY() - slope * a.getX();
+
+        return new TwoResults(slope, yIntercept);
+    }
+
 
 }
