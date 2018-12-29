@@ -107,5 +107,43 @@ public class Voronoi {
         rightCross.setLeft(new Arc(keyPoint));
         rightCross.setEdge(edgeRight);
 
+        checkForCircleEvent((Arc) leftCross.getLeft());
+        checkForCircleEvent((Arc) rightCross.getRight());
+    }
+
+    private void checkForCircleEvent(Arc arc) {
+        Cross nearestLeftCross = arc.getNearestLeftCross();
+        Cross nearestRightCross = arc.getNearestRightCross();
+        Point intersection;
+        Point eventPoint;
+        double radius;
+        double eventsY;
+
+        if (nearestLeftCross == null || nearestRightCross == null) {
+            return;
+        }
+
+        intersection = findIntersection(nearestLeftCross.getEdge(), nearestRightCross.getEdge());
+
+        radius = Math.findLenghtOfSegment(arc.getFocus(), intersection);
+
+        eventsY = intersection.getY() - radius;
+
+        eventPoint = new Point(intersection.getX(), eventsY);
+
+        addCircleEvent(eventPoint, arc);
+    }
+
+    private Point findIntersection(Edge first, Edge second) {
+        return Math.findIntersectionOfTwoStraightLines(first, second);
+    }
+
+    private void addCircleEvent(Point eventPoint, Arc fadingArc){
+        Event circleEvent = new Event(eventPoint, Event.CIRCLE_EVENT);
+
+        fadingArc.setEvent(circleEvent);
+        circleEvent.setArc(fadingArc);
+
+        circleEvents.add(circleEvent);
     }
 }
