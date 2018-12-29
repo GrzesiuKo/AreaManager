@@ -2,13 +2,14 @@ package Diagram;
 
 import Common.Point;
 
-public class Event {
 
+public class Event implements Comparable<Event> {
     public static boolean SITE_EVENT = true;
     public static boolean CIRCLE_EVENT = false;
 
     private boolean type;
     private Point point;
+    private Arc arc;
 
     public Event(Point p, boolean type) {
         point = p;
@@ -26,4 +27,33 @@ public class Event {
     public Point getPoint() {
         return point;
     }
+
+    @Override
+    public int compareTo(Event e) {
+        double result = this.getPoint().getY() - e.getPoint().getY();
+        if (result < 0) {
+            return -1;
+        } else if (result > 0) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public void setArc(Arc arc) {
+        this.arc = arc;
+    }
+
+    //    public static class CircleEventsOrder implements Comparator<Event> {
+//        @Override
+//        public int compare(Event first, Event second) {
+//            double result = first.getPoint().getY() - second.getPoint().getY();
+//            if (result < 0) {
+//                return -1;
+//            } else if (result > 0) {
+//                return 1;
+//            }
+//            return 0;
+//        }
+//    }
+
 }
