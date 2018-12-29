@@ -1,9 +1,11 @@
 package Diagram;
 
+import Common.Math;
+import Common.Point;
+
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import Common.Point;
 
 public class Voronoi {
     private List<Edge> edges;
@@ -11,12 +13,13 @@ public class Voronoi {
     private Queue<Event> events;
     public static double currentYofSweepLine;
 
-
     public void generateDiagram(List<Point> points) {
         Queue<Event> events;
         Event currentEvent;
 
         events = getEvents(points);
+        circleEvents = new PriorityQueue<Event>();
+        siteEvents = getSiteEvents(points);
 
         while (!events.isEmpty()){
             currentEvent = events.poll();
@@ -31,7 +34,7 @@ public class Voronoi {
 
     }
 
-    private Queue<Event> getEvents(List<Point> points){
+    private Queue<Event> getSiteEvents(List<Point> points) {
         List<Point> keyPoints;
         Queue<Event> events = new PriorityQueue<Event>();
 
@@ -39,7 +42,7 @@ public class Voronoi {
 
         keyPoints = sortPoints(keyPoints);
 
-        for (Point p: keyPoints) {
+        for (Point p : keyPoints) {
             events.add(new Event(p, Event.SITE_EVENT));
         }
 
@@ -54,10 +57,10 @@ public class Voronoi {
         return resultPoints;
     }
 
-    private void handleSiteEvent(Point point){
+    private void handleSiteEvent(Point point) {
         Arc arcAbove;
 
-        if (root == null){
+        if (root == null) {
             root = new Arc(point);
             return;
         }
@@ -66,18 +69,17 @@ public class Voronoi {
 
         addArcToTheBeachLine(point, arcAbove);
 
-
     }
 
-    private Arc findArcAbove(Point point){
+    private Arc findArcAbove(Point point) {
         Item item = root;
         double xCoordinateOfCross;
 
-        while(item instanceof Cross){
+        while (item instanceof Cross) {
             xCoordinateOfCross = ((Cross) item).getCurrentX();
-            if(point.getX() < xCoordinateOfCross){
+            if (point.getX() < xCoordinateOfCross) {
                 item = item.getLeft();
-            }else{
+            } else {
                 item = item.getRight();
             }
         }
@@ -85,7 +87,7 @@ public class Voronoi {
         return (Arc) item;
     }
 
-    private void addArcToTheBeachLine(Point keyPoint, Arc arcAbove){
+    private void addArcToTheBeachLine(Point keyPoint, Arc arcAbove) {
         Cross leftCross = new Cross();
         Cross rightCross = new Cross();
         Point start = new Point(keyPoint.getX(), arcAbove.findY(keyPoint.getX()));
