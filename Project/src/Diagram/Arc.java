@@ -18,4 +18,8 @@ public class Arc extends Item {
     public Point getFocus() {
         return focus;
     }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 }
