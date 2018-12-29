@@ -8,27 +8,28 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Voronoi {
-    private List<Edge> edges;
-    private Item root;
-    private Queue<Event> events;
     public static double currentYofSweepLine;
+    private List<Edge> edges;
+    public static Item root;
+    private Queue<Event> siteEvents;
+    private Queue<Event> circleEvents;
 
     public void generateDiagram(List<Point> points) {
-        Queue<Event> events;
         Event currentEvent;
 
-        events = getEvents(points);
         circleEvents = new PriorityQueue<Event>();
         siteEvents = getSiteEvents(points);
 
-        while (!events.isEmpty()){
-            currentEvent = events.poll();
+        while (!siteEvents.isEmpty()) {
+            currentEvent = siteEvents.poll();
             currentYofSweepLine = currentEvent.getPoint().getY();
-            if (currentEvent.isSiteEvent()){
-               handleSiteEvent(currentEvent.getPoint());
-            }else{
-               // handleCircleEvent();
-            }
+            handleSiteEvent(currentEvent.getPoint());
+        }
+
+        while (!circleEvents.isEmpty()) {
+            currentEvent = circleEvents.poll();
+            System.out.println(" x: " + currentEvent.getPoint().getX() + " y: " + currentEvent.getPoint().getY());
+            //handleCircleEvent(currentEvent.getPoint());
         }
 
 
