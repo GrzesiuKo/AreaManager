@@ -61,5 +61,31 @@ public class Math {
         return new TwoResults(slope, yIntercept);
     }
 
+    public static class TwoResults {
+        double first;
+        double second;
+
+        public TwoResults(double resultFirst, double resultSecond) {
+            first = resultFirst;
+            second = resultSecond;
+        }
+
+        public double getBigger() {
+            return java.lang.Math.max(first, second);
+        }
+
+        public double getSmaller() {
+            return java.lang.Math.min(first, second);
+        }
+
+        public double getFirst() {
+            return first;
+        }
+
+        public double getSecond() {
+            return second;
+        }
+    }
+
 
 }
