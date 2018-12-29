@@ -86,7 +86,7 @@ public class Math {
         return aSlope==bSlope;
     }
 
-    public static double findLenghtOfSegment(Point a, Point b){
+    public static double findLengthOfSegment(Point a, Point b){
         double first = java.lang.Math.pow(a.getX()-b.getX(), 2);
         double second = java.lang.Math.pow(a.getY()-b.getY(), 2);
 

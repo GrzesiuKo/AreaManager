@@ -125,7 +125,7 @@ public class Voronoi {
 
         intersection = findIntersection(nearestLeftCross.getEdge(), nearestRightCross.getEdge());
 
-        radius = Math.findLenghtOfSegment(arc.getFocus(), intersection);
+        radius = Math.findLengthOfSegment(arc.getFocus(), intersection);
 
         eventsY = intersection.getY() - radius;
 
