@@ -61,6 +61,31 @@ public class Math {
         return new TwoResults(slope, yIntercept);
     }
 
+    public static Point findIntersectionOfTwoStraightLines(Edge a, Edge b){
+        double x;
+        double y;
+        double aSlope = a.getSlope();
+        double bSlope = b.getSlope();
+        double aInterceptY = a.getInterceptY();
+        double bInterceptY = b.getInterceptY();
+
+        if (areEdgesParallel(a, b)){
+            return null;
+        }
+
+        x = (bInterceptY-aInterceptY)/(aSlope-bSlope);
+        y = aSlope*x + aInterceptY;
+
+        return new Point(x, y);
+    }
+
+    private static boolean areEdgesParallel(Edge a, Edge b){
+        double aSlope = a.getSlope();
+        double bSlope = b.getSlope();
+
+        return aSlope==bSlope;
+    }
+
     public static class TwoResults {
         double first;
         double second;
