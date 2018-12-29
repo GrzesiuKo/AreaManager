@@ -11,15 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,28 +73,12 @@ public class Main extends Application {
                         new FileChooser.ExtensionFilter("Obrazy", "*.png"));
                 File file = fileChooser.showOpenDialog(primaryStage);
                 if (file != null) {
-                    InputStream targetStream = null;
-                    try {
-                        targetStream = new FileInputStream(file);
-
-                        BackgroundImage myBI = new BackgroundImage(new Image(targetStream, canvasBox.getWidth(), canvasBox.getHeight(), false, false),
-                                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                                BackgroundSize.DEFAULT);
-//then you set to your node
-                        canvasBox.setBackground(new Background(myBI));
-                    } catch (FileNotFoundException e) {
-                        //TODO Okienko błedu
-                    }
+                    //Output for imageHandeling
                 }
             }
         });
 
         Scene scene = new Scene(verticalSplit, 800, 600);
-        List<Point> tmp = new ArrayList<>();
-//        tmp.add(new Point(10,10));
-//        tmp.add(new Point(100,100));
-//        tmp.add(new Point(300,100));
-//        DrawingLogic.drawCountour(gc,tmp);
         primaryStage.setTitle("Project");
         primaryStage.setScene(scene);
         primaryStage.show();
