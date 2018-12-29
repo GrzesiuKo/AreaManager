@@ -92,8 +92,11 @@ public class Voronoi {
         Cross leftCross = new Cross();
         Cross rightCross = new Cross();
         Point start = new Point(keyPoint.getX(), arcAbove.findY(keyPoint.getX()));
-        Edge edgeLeft = new Edge(start);
-        Edge edgeRight = new Edge(start);
+        Edge edgeLeft = new Edge(start, keyPoint, arcAbove.getFocus());
+        Edge edgeRight = new Edge(start, keyPoint, arcAbove.getFocus());
+
+        edgeLeft.setSister(edgeRight);
+        edgeRight.setSister(edgeLeft);
 
         leftCross.setLeft(new Arc(arcAbove.getFocus()));
         Item.replaceParent(arcAbove, leftCross);
