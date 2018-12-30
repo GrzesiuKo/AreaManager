@@ -3,6 +3,8 @@ package Diagram;
 import Common.Math;
 import Common.Point;
 
+import java.util.Queue;
+
 public class Arc extends Item {
     Point focus;
     Event event;
@@ -58,5 +60,12 @@ public class Arc extends Item {
             }
         }
         return (Cross)parent;
+    }
+
+    public void removeEvent(Queue<Event> circleEvents){
+        if (event!= null){
+            circleEvents.remove(event);
+            event = null;
+        }
     }
 }
