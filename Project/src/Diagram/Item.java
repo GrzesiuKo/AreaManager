@@ -65,4 +65,13 @@ public class Item {
             System.out.println("    Right: null");
         }
     }
+
+    public Item getSibling(){
+        Item parent = this.getParent();
+        if (this == parent.getLeft()){
+            return parent.getRight();
+        }else{
+            return parent.getLeft();
+        }
+    }
 }
