@@ -51,7 +51,23 @@ public class Voronoi {
     private List<Point> sortPoints(List<Point> points) {
         List<Point> resultPoints = points;
 
-        resultPoints.sort((one, two) -> (int) (two.getY() - one.getY()));
+        resultPoints.sort((one, two) -> {
+            double resultY = one.getY() - two.getY();
+            if (resultY < 0) {
+                return 1;
+            } else if (resultY > 0) {
+                return -1;
+            }
+
+            double resultX = one.getX() - two.getX();
+            if (resultX < 0) {
+                return 1;
+            } else if (resultX > 0) {
+                return -1;
+            }
+            return 0;
+        });
+
 
         return resultPoints;
     }
