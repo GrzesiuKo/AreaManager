@@ -47,4 +47,22 @@ public class Item {
         this.right = right;
         right.setParent(this);
     }
+
+    public void printTree(Item item) {
+        System.out.println("Parent: " + item.getClass());
+        if (item.getLeft() != null) {
+            System.out.println("    Left: " + item.getLeft().getClass());
+            printTree(item.getLeft());
+        }else{
+            System.out.println("    Left: null");
+        }
+
+        if (item.getRight()!=null) {
+
+            System.out.println("    Right: " + item.getRight().getClass());
+            printTree(item.getRight());
+        }else{
+            System.out.println("    Right: null");
+        }
+    }
 }

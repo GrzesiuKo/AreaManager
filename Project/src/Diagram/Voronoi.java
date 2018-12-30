@@ -45,6 +45,10 @@ public class Voronoi {
             events.add(new Event(p, Event.SITE_EVENT));
         }
 
+        for (Event e: events){
+            System.out.println("x: "+e.getPoint().getX()+" y: "+e.getPoint().getY());
+        }
+
         return events;
     }
 
@@ -68,6 +72,9 @@ public class Voronoi {
             return 0;
         });
 
+//        for (Point p: points){
+//            System.out.println("x: "+p.getX()+" y: "+p.getY());
+//        }
 
         return resultPoints;
     }
@@ -81,6 +88,8 @@ public class Voronoi {
         }
 
         arcAbove = findArcAbove(point);
+
+        System.out.println("Checked Point: x "+point.getX()+" y "+point.getY()+" found Arc: x "+arcAbove.getFocus().getX()+" y "+arcAbove.getFocus().getY());
 
         addArcToTheBeachLine(point, arcAbove);
 
@@ -102,7 +111,7 @@ public class Voronoi {
         return (Arc) item;
     }
 
-    private void addArcToTheBeachLine(Point keyPoint, Arc arcAbove) {
+    public void addArcToTheBeachLine(Point keyPoint, Arc arcAbove) {
         Cross leftCross = new Cross();
         Cross rightCross = new Cross();
         Point start = new Point(keyPoint.getX(), arcAbove.findY(keyPoint.getX()));
@@ -142,7 +151,9 @@ public class Voronoi {
         }
 
         intersection = findIntersection(nearestLeftCross.getEdge(), nearestRightCross.getEdge());
+if (intersection == null){
 
+}
         radius = Math.findLengthOfSegment(arc.getFocus(), intersection);
 
         eventsY = intersection.getY() - radius;
