@@ -3,6 +3,7 @@ package Diagram;
 import Common.Math;
 import Common.Point;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -13,6 +14,10 @@ public class Voronoi {
     private Item root;
     private Queue<Event> siteEvents;
     private Queue<Event> circleEvents;
+
+    public Voronoi(){
+        edges = new ArrayList<Edge>();
+    }
 
     public void generateDiagram(List<Point> points) {
         Event currentEvent;
