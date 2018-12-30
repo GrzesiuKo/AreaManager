@@ -29,7 +29,7 @@ public class Voronoi {
         while (!circleEvents.isEmpty()) {
             currentEvent = circleEvents.poll();
             System.out.println(" x: " + currentEvent.getPoint().getX() + " y: " + currentEvent.getPoint().getY());
-            //handleCircleEvent(currentEvent.getPoint());
+            //handleCircleEvent(currentEvent);
         }
     }
 
@@ -174,6 +174,34 @@ public class Voronoi {
         circleEvent.setArc(fadingArc);
 
         circleEvents.add(circleEvent);
+    }
+
+    private void handleCircleEvent(Event circleEvent){
+        Arc fadingArc = circleEvent.getArc();
+        Cross leftCross = fadingArc.getNearestLeftCross();
+        Cross rightCross = fadingArc.getNearestRightCross();
+        Arc leftRemaining = leftCross.getNearestLeftArc();
+        Arc rightRemaining = rightCross.getNearestRightArc();
+        Edge newEdge = new Edge(circleEvent.getPoint(), leftRemaining.getFocus(), rightRemaining.getFocus());//czy na pewno dobry punkt startowy?
+        Cross newCross;
+
+        leftRemaining.removeEvent(circleEvents);
+        rightRemaining.removeEvent(circleEvents);
+
+        newCross = chooseCrossToBeReplaced(leftCross, rightCross);// nowy czy referenca?
+
+        newCross.setEdge(newEdge);
+
+        removeFadingArc(fadingArc);
+    }
+    private Cross chooseCrossToBeReplaced(Cross left, Cross right){
+        Cross result = null;
+
+        return null;
+    }
+
+    private void removeFadingArc(Arc fadingArc){
+
     }
 
     public List<Edge> getEdges() {
