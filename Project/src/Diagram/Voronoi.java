@@ -151,16 +151,16 @@ public class Voronoi {
         }
 
         intersection = findIntersection(nearestLeftCross.getEdge(), nearestRightCross.getEdge());
-if (intersection == null){
 
-}
-        radius = Math.findLengthOfSegment(arc.getFocus(), intersection);
+        if (intersection != null) {
+            radius = Math.findLengthOfSegment(arc.getFocus(), intersection);
 
-        eventsY = intersection.getY() - radius;
+            eventsY = intersection.getY() - radius;
 
-        eventPoint = new Point(intersection.getX(), eventsY);
+            eventPoint = new Point(intersection.getX(), eventsY);
 
-        addCircleEvent(eventPoint, arc);
+            addCircleEvent(eventPoint, arc);
+        }
     }
 
     private Point findIntersection(Edge first, Edge second) {
