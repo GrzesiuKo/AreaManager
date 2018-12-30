@@ -10,7 +10,7 @@ import java.util.Queue;
 public class Voronoi {
     public static double currentYofSweepLine;
     private List<Edge> edges;
-    public static Item root;
+    private Item root;
     private Queue<Event> siteEvents;
     private Queue<Event> circleEvents;
 
@@ -77,7 +77,7 @@ public class Voronoi {
         double xCoordinateOfCross;
 
         while (item instanceof Cross) {
-            xCoordinateOfCross = ((Cross) item).getCurrentX();
+            xCoordinateOfCross = ((Cross) item).getCurrentX(currentYofSweepLine);
             if (point.getX() < xCoordinateOfCross) {
                 item = item.getLeft();
             } else {
@@ -99,7 +99,11 @@ public class Voronoi {
         edgeRight.setSister(edgeLeft);
 
         leftCross.setLeft(new Arc(arcAbove.getFocus()));
-        Item.replaceParent(arcAbove, leftCross);
+
+       if( Item.replaceParent(arcAbove, leftCross)==1){
+           root = leftCross;
+       }
+
         leftCross.setRight(rightCross);
         leftCross.setEdge(edgeLeft);
 

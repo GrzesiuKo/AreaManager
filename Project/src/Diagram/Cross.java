@@ -6,14 +6,14 @@ import Common.Point;
 public class Cross extends Item {
     Edge edge;
 
-    public double getCurrentX() {
+    public double getCurrentX(double currentYofSweepLine) {
         Arc nearestLeftArc;
         Arc nearestRightArc;
         Math.TwoResults result;
 
         nearestLeftArc = this.getNearestLeftArc();
         nearestRightArc = this.getNearestRightArc();
-        result = Math.findCommonXofTwoArcs( nearestLeftArc,  nearestRightArc, Voronoi.currentYofSweepLine);
+        result = Math.findCommonXofTwoArcs( nearestLeftArc,  nearestRightArc, currentYofSweepLine);
 
         return chooseResult( nearestLeftArc.getFocus(), nearestRightArc.getFocus(), result);
     }
