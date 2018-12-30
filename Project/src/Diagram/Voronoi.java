@@ -188,16 +188,25 @@ public class Voronoi {
         leftRemaining.removeEvent(circleEvents);
         rightRemaining.removeEvent(circleEvents);
 
-        newCross = chooseCrossToBeReplaced(leftCross, rightCross);// nowy czy referenca?
+        newCross = chooseCrossToBeReplaced(fadingArc, leftCross, rightCross);// nowy czy referenca?
 
         newCross.setEdge(newEdge);
 
         removeFadingArc(fadingArc);
     }
-    private Cross chooseCrossToBeReplaced(Cross left, Cross right){
+    private Cross chooseCrossToBeReplaced(Arc fadingArc, Cross left, Cross right){
+        Item tmp = fadingArc;
         Cross result = null;
 
-        return null;
+        while(tmp!=root){
+            tmp = tmp.getParent();
+            if (tmp == left){
+                result = (Cross) tmp;
+            }else if (tmp == right){
+                result = (Cross) tmp;
+            }
+        }
+        return result;
     }
 
     private void removeFadingArc(Arc fadingArc){
