@@ -31,8 +31,6 @@ public class Voronoi {
             System.out.println(" x: " + currentEvent.getPoint().getX() + " y: " + currentEvent.getPoint().getY());
             //handleCircleEvent(currentEvent.getPoint());
         }
-
-
     }
 
     private Queue<Event> getSiteEvents(List<Point> points) {

@@ -20,66 +20,7 @@ public class Item {
             sourceParent.setRight(destination);
         }
         destination.setParent(sourceParent);
-    }
-
-    public Arc getNearestLeftArc() {
-        Item result = left;
-
-        if (left != null) {
-            while (result instanceof Cross) {
-                result = result.getRight();
-            }
-        }
-        return (Arc)result;
-    }
-
-    public Arc getNearestRightArc() {
-        Item result = right;
-
-        if (right != null) {
-            while (result instanceof Cross) {
-                result = result.getLeft();
-            }
-        }
-        return (Arc)result;
-    }
-
-    public Cross getNearestLeftCross(){
-        Item parent = this.getParent();
-        Item child = this;
-
-        if (parent == null){
-            return null;
-        }
-
-        while(parent.getLeft() == child){
-            if (parent.getParent() == null){
-                return null;
-            }else{
-                child = parent;
-                parent = parent.getParent();
-            }
-        }
-        return (Cross)parent;
-    }
-
-    public Cross getNearestRightCross(){
-        Item parent = this.getParent();
-        Item child = this;
-
-        if (parent == null){
-            return null;
-        }
-
-        while(parent.getRight() == child){
-            if (parent.getParent() == null){
-                return null;
-            }else{
-                child = parent;
-                parent = parent.getParent();
-            }
-        }
-        return (Cross)parent;
+        return 0;
     }
 
     public Item getParent() {

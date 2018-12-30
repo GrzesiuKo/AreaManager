@@ -26,6 +26,29 @@ public class Cross extends Item {
         }
     }
 
+    public Arc getNearestLeftArc() {
+        Item result = getLeft();
+
+        if (result != null) {
+            while (result instanceof Cross) {
+                result = result.getRight();
+            }
+        }
+        return (Arc)result;
+    }
+
+    public Arc getNearestRightArc() {
+        Item result = getRight();
+
+        if (result != null) {
+            while (result instanceof Cross) {
+                result = result.getLeft();
+            }
+        }
+        return (Arc)result;
+    }
+
+
     public void setEdge(Edge edge) {
         this.edge = edge;
     }

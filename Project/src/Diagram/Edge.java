@@ -25,6 +25,8 @@ public class Edge {
         InterceptY = data.getSecond();
     }
 
+
+
     public double getSlope() {
         return slope;
     }
