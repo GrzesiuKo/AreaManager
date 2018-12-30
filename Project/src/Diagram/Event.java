@@ -43,5 +43,7 @@ public class Event implements Comparable<Event> {
         this.arc = arc;
     }
 
-
+    public Arc getArc() {
+        return arc;
+    }
 }
