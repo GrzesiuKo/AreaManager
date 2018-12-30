@@ -209,8 +209,16 @@ public class Voronoi {
         return result;
     }
 
-    private void removeFadingArc(Arc fadingArc){
+    private void removeFadingArc(Arc fadingArc){//czy na pewno dobrze?
+        Item parent = fadingArc.getParent();
+        Item grandParent = parent.getParent();
+        Item sibling = fadingArc.getSibling();
 
+        if(parent == grandParent.getLeft()){
+            grandParent.setLeft(sibling);
+        }else{
+            grandParent.setRight(sibling);
+        }
     }
 
     public List<Edge> getEdges() {
