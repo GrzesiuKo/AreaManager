@@ -34,4 +34,12 @@ public class Edge {
     public double getInterceptY() {
         return InterceptY;
     }
+
+    public Point getStart() {
+        return start;
+    }
+
+    public Point getEnd() {
+        return end;
+    }
 }
