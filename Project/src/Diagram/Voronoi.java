@@ -193,6 +193,9 @@ public class Voronoi {
         newCross.setEdge(newEdge);
 
         removeFadingArc(fadingArc);
+
+        checkForCircleEvent(leftRemaining);
+        checkForCircleEvent(rightRemaining);
     }
     private Cross chooseCrossToBeReplaced(Arc fadingArc, Cross left, Cross right){
         Item tmp = fadingArc;
