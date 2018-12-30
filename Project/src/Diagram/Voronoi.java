@@ -175,4 +175,12 @@ if (intersection == null){
 
         circleEvents.add(circleEvent);
     }
+
+    public List<Edge> getEdges() {
+        return edges;
+    }
+
+    public Item getRoot() {
+        return root;
+    }
 }
