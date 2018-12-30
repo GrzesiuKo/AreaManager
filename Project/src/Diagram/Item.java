@@ -5,13 +5,12 @@ public class Item {
     private Item left;
     private Item right;
 
-    public static void replaceParent(Item source, Item destination) {
+    public static int replaceParent(Item source, Item destination) {
         Item sourceParent = source.getParent();
 
-        if (sourceParent == null){
+        if (sourceParent == null) {
             destination.setParent(null);
-            Voronoi.root = destination;
-            return;
+            return 1;
         }
 
         if (sourceParent.getLeft() == source) {
