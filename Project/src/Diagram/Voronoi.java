@@ -33,7 +33,7 @@ public class Voronoi {
 
         while (!circleEvents.isEmpty()) {
             currentEvent = circleEvents.poll();
-            System.out.println(" x: " + currentEvent.getPoint().getX() + " y: " + currentEvent.getPoint().getY());
+            currentYofSweepLine = currentEvent.getPoint().getY();
             handleCircleEvent(currentEvent);
         }
     }
