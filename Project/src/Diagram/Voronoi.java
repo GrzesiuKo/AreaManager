@@ -190,7 +190,8 @@ public class Voronoi {
         Cross rightCross = fadingArc.getNearestRightCross();
         Arc leftRemaining = leftCross.getNearestLeftArc();
         Arc rightRemaining = rightCross.getNearestRightArc();
-        Edge newEdge = new Edge(circleEvent.getPoint(), leftRemaining.getFocus(), rightRemaining.getFocus());//czy na pewno dobry punkt startowy?
+        Point p = new Point(circleEvent.getPoint().getX(), Math.findYonTheArc(fadingArc.getFocus(), circleEvent.getPoint().getX() ));
+        Edge newEdge = new Edge(p, leftRemaining.getFocus(), rightRemaining.getFocus());//czy na pewno dobry punkt startowy?
         Cross newCross;
 
         leftCross.getEdge().endEdge(p, edges);
