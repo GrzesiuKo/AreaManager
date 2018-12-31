@@ -34,6 +34,8 @@ public class Voronoi {
         while (!circleEvents.isEmpty()) {
             currentEvent = circleEvents.poll();
             currentYofSweepLine = currentEvent.getPoint().getY();
+            System.out.println("handling circle");
+            //System.out.println(" x: " + currentEvent.getPoint().getX() + " y: " + currentEvent.getPoint().getY());
             handleCircleEvent(currentEvent);
         }
     }
@@ -165,6 +167,7 @@ public class Voronoi {
             eventPoint = new Point(intersection.getX(), eventsY);
 
             addCircleEvent(eventPoint, arc);
+            System.out.println("Dodano Circle Event");
         }
     }
 
