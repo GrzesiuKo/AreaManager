@@ -3,6 +3,8 @@ package Diagram;
 import Common.Math;
 import Common.Point;
 
+import java.util.List;
+
 public class Edge {
     private Point start;
     private Point end;
@@ -41,5 +43,10 @@ public class Edge {
 
     public Point getEnd() {
         return end;
+    }
+
+    public void endEdge(Point end, List<Edge> edges) {
+        this.end = end;
+        edges.add(this);
     }
 }

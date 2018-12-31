@@ -190,6 +190,9 @@ public class Voronoi {
         Edge newEdge = new Edge(circleEvent.getPoint(), leftRemaining.getFocus(), rightRemaining.getFocus());//czy na pewno dobry punkt startowy?
         Cross newCross;
 
+        leftCross.getEdge().endEdge(p, edges);
+        rightCross.getEdge().endEdge(p, edges);
+
         leftRemaining.removeEvent(circleEvents);
         rightRemaining.removeEvent(circleEvents);
 
