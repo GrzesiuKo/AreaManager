@@ -60,6 +60,24 @@ public class FileReader {
 
 
     private void readContourPointLine(String line) {
+        Scanner scanner;
+        Point point;
+        double x;
+        double y;
+
+        try{
+            scanner = new Scanner(line);
+        }catch (NullPointerException e){
+            return;
+        }
+
+        scanner.nextDouble();
+        x = scanner.nextDouble();
+        y = scanner.nextDouble();
+
+        point = new Point(x, y);
+
+        keyPoints.add(point);
     }
 
     private void readKeyPointLine(String line) {
