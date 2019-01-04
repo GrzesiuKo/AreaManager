@@ -14,7 +14,6 @@ public class FileReader {
     private final static int UNKNOWN = 3;
 
     private List<Point> keyPoints;
-    private List<UserObject> objects;
     private List<Point> contourPoints;
     private Map<String, Integer> definitions;
     private static int currentFilePart;
@@ -166,17 +165,12 @@ public class FileReader {
 
     private void initializeFileReader(){
         keyPoints = new LinkedList<>();
-        objects = new LinkedList<>();
         contourPoints = new LinkedList<>();
         definitions = new HashMap<>();
     }
 
     public List<Point> getKeyPoints() {
         return keyPoints;
-    }
-
-    public List<UserObject> getObjects() {
-        return objects;
     }
 
     public List<Point> getContourPoints() {
