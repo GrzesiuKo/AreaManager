@@ -162,4 +162,16 @@ public class FileReader {
             return UNKNOWN;
         }
     }
+
+    public List<Point> getKeyPoints() {
+        return keyPoints;
+    }
+
+    public List<UserObject> getObjects() {
+        return objects;
+    }
+
+    public List<Point> getContourPoints() {
+        return contourPoints;
+    }
 }
