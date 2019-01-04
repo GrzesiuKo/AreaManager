@@ -12,12 +12,12 @@ public class FileReader {
     private List<Point> keyPoints;
     private List<UserObject> objects;
     private List<Point> contourPoints;
+    private static int currentFilePart;
 
     public void readFile(File file) {
         Scanner scanner;
         String currentLine;
         int currentLineNumber;
-        int currentFilePart;
 
         currentLineNumber = 0;
         currentFilePart = 0;
@@ -31,11 +31,11 @@ public class FileReader {
         while (scanner.hasNextLine()) {
             currentLine = scanner.nextLine();
             currentLineNumber++;
-            readLine(currentLine, currentLineNumber, currentFilePart);
+            readLine(currentLine, currentLineNumber);
         }
     }
 
-    private void readLine(String line, int lineNumber, int currentFilePart) {
+    private void readLine(String line, int lineNumber) {
         int hashCharIndex;
 
         hashCharIndex = line.indexOf("#");
