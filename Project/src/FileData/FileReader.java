@@ -60,7 +60,7 @@ public class FileReader {
             readObjectDefinitionLine(line);
 
         } else if (FileNavigation.isObjectsSection(currentFilePart)) {
-           // readObjectLine(line);
+            readObjectLine(line);
 
         }
     }
@@ -77,17 +77,25 @@ public class FileReader {
     private void readObjectDefinitionLine(String line) {
         Scanner scanner;
         String name;
-        String type;
+        String typeName;
+        int typeId;
 
         try{
             scanner = new Scanner(line);
         }catch (NullPointerException e){
             return;
         }
+        scanner.next();
         name = scanner.next();
-        type = scanner.next();
 
-        definitions.put(name, recognizeType(type));
+        if (scanner.hasNext()){
+            typeName = scanner.next();
+            typeId = recognizeType(typeName);
+        }else {
+            typeId = UNKNOWN;
+        }
+
+        definitions.put(name, typeId);
     }
 
     private void readObjectLine(String line) {
@@ -96,16 +104,18 @@ public class FileReader {
         double x;
         double y;
         Point point;
-        int type;
+        Integer type;
 
         try{
             scanner = new Scanner(line);
         }catch (NullPointerException e){
             return;
         }
+        scanner.next();
         name = scanner.next();
         x = scanner.nextDouble();
         y = scanner.nextDouble();
+
         type = definitions.get(name);
 
         point = new Point(x, y);
