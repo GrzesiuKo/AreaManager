@@ -60,6 +60,20 @@ public class FileReader {
 
 
     private void readContourPointLine(String line) {
+        readPointLine(line);
+    }
+
+    private void readKeyPointLine(String line) {
+        readPointLine(line);
+    }
+
+    private void readObjectDefinitionLine(String line) {
+    }
+
+    private void readObjectLine(String line) {
+    }
+
+    private void readPointLine(String line){
         Scanner scanner;
         Point point;
         double x;
@@ -79,14 +93,4 @@ public class FileReader {
 
         keyPoints.add(point);
     }
-
-    private void readKeyPointLine(String line) {
-    }
-
-    private void readObjectDefinitionLine(String line) {
-    }
-
-    private void readObjectLine(String line) {
-    }
-
 }
