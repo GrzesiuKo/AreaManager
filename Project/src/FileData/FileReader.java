@@ -114,6 +114,16 @@ public class FileReader {
     }
 
     private void addObject(Point point, String name, int type, Scanner scanner) {
+        if(type == STRING){
+            scanner.useDelimiter("$");
+            UserObject.addObject(point, name, scanner.next());
+        }else if (type == DOUBLE){
+           // UserObject.addObject(point, name, scanner.nextDouble()); czeka na funkcje od Arkadiusza
+        }else if (type == INT){
+            UserObject.addObject(point, name, scanner.nextInt());
+        }else if (type == UNKNOWN){
+            UserObject.addObject(point, name);
+        }
     }
 
     private void readPointLine(String line){
