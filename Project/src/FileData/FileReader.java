@@ -127,23 +127,12 @@ System.out.println("Dodaje do mapy: "+name);
     private void addObject(Point point, String name, int type, Scanner scanner) {
         if(type == STRING){
             scanner.useDelimiter("$");
-            String value = scanner.next();
-            System.out.println("Dodaje obiekt:");
-            System.out.println("Punkt: x = "+point.getX()+" y = "+point.getY()+" name = "+name+" string = "+value);
-            UserObject.addObject(point, name, value);
+            UserObject.addObject(point, name, scanner.next());
         }else if (type == DOUBLE){
-            double value = scanner.nextDouble();
-            System.out.println("Dodaje obiekt:");
-            System.out.println("Punkt: x = "+point.getX()+" y = "+point.getY()+" name = "+name+" double = "+value);
            // UserObject.addObject(point, name, scanner.nextDouble()); czeka na funkcje od Arkadiusza
         }else if (type == INT){
-            int value = scanner.nextInt();
-            System.out.println("Dodaje obiekt:");
-            System.out.println("Punkt: x = "+point.getX()+" y = "+point.getY()+" name = "+name+" int = "+value);
-            UserObject.addObject(point, name, value);
+            UserObject.addObject(point, name, scanner.nextInt());
         }else if (type == UNKNOWN){
-            System.out.println("Dodaje obiekt:");
-            System.out.println("Punkt: x = "+point.getX()+" y = "+point.getY()+" name = "+name+" brak");
             UserObject.addObject(point, name);
         }
         System.out.println(" ");
