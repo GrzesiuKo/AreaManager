@@ -100,4 +100,20 @@ public class FileReader {
 
         keyPoints.add(point);
     }
+
+    private int recognizeType(String name){
+        if (name==null){
+            return UNKNOWN;
+        }
+
+        if (name.matches("string")){
+            return STRING;
+        }else if (name.matches("double")){
+            return DOUBLE;
+        }else if (name.matches("int")){
+            return INT;
+        }else{
+            return UNKNOWN;
+        }
+    }
 }
