@@ -91,6 +91,29 @@ public class FileReader {
     }
 
     private void readObjectLine(String line) {
+        Scanner scanner;
+        String name;
+        double x;
+        double y;
+        Point point;
+        int type;
+
+        try{
+            scanner = new Scanner(line);
+        }catch (NullPointerException e){
+            return;
+        }
+        name = scanner.next();
+        x = scanner.nextDouble();
+        y = scanner.nextDouble();
+        type = definitions.get(name);
+
+        point = new Point(x, y);
+
+        addObject(point, name, type, scanner);
+    }
+
+    private void addObject(Point point, String name, int type, Scanner scanner) {
     }
 
     private void readPointLine(String line){
