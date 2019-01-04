@@ -46,16 +46,16 @@ public class FileChecker {
             currentFilePart++;
             return true;
 
-        } else if (isContourPointsSection(lineNumber)) {
+        } else if (FileNavigation.isContourPointsSection(lineNumber)) {
             return checkContourPointLine(line);
 
-        } else if (isKeyPointsSection(lineNumber)) {
+        } else if (FileNavigation.isKeyPointsSection(lineNumber)) {
             return checkKeyPointLine(line);
 
-        } else if (isObjectsDefinitionSection(lineNumber)) {
+        } else if (FileNavigation.isObjectsDefinitionSection(lineNumber)) {
             return checkObjectDefinitionLine(line);
 
-        } else if (isObjectsSection(lineNumber)) {
+        } else if (FileNavigation.isObjectsSection(lineNumber)) {
             return checkObjectLine(line);
 
         } else {
@@ -63,21 +63,6 @@ public class FileChecker {
         }
     }
 
-    private boolean isContourPointsSection(int currentFilePart) {
-        return currentFilePart == 1;
-    }
-
-    private boolean isKeyPointsSection(int currentFilePart) {
-        return currentFilePart == 2;
-    }
-
-    private boolean isObjectsDefinitionSection(int currentFilePart) {
-        return currentFilePart == 3;
-    }
-
-    private boolean isObjectsSection(int currentFilePart) {
-        return currentFilePart == 4;
-    }
 
     private boolean checkContourPointLine(String line) {
         return true;
