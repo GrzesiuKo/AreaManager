@@ -10,10 +10,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class FileReader {
-    private static int STRING = 0;
-    private static int INT = 1;
-    private static int DOUBLE = 2;
-    private static int UNKNOWN = -123456789;
+    private final static int STRING = 0;
+    private final static int INT = 1;
+    private final static int DOUBLE = 2;
+    private final static int UNKNOWN = 3;
 
     private List<Point> keyPoints;
     private List<UserObject> objects;
