@@ -6,6 +6,7 @@ import Statistics.UserObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class FileReader {
@@ -17,6 +18,7 @@ public class FileReader {
     private List<Point> keyPoints;
     private List<UserObject> objects;
     private List<Point> contourPoints;
+    private Map<String, Integer> definitions;
     private static int currentFilePart;
 
     public void readFile(File file) {
