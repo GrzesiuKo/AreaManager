@@ -43,36 +43,21 @@ public class FileReader {
         if (hashCharIndex == 0 || hashCharIndex == 1) {
             currentFilePart++;
 
-        } else if (isContourPointsSection(lineNumber)) {
+        } else if (FileNavigation.isContourPointsSection(lineNumber)) {
             readContourPointLine(line);
 
-        } else if (isKeyPointsSection(lineNumber)) {
+        } else if (FileNavigation.isKeyPointsSection(lineNumber)) {
             readKeyPointLine(line);
 
-        } else if (isObjectsDefinitionSection(lineNumber)) {
+        } else if (FileNavigation.isObjectsDefinitionSection(lineNumber)) {
             readObjectDefinitionLine(line);
 
-        } else if (isObjectsSection(lineNumber)) {
+        } else if (FileNavigation.isObjectsSection(lineNumber)) {
             readObjectLine(line);
 
         }
     }
 
-    private boolean isContourPointsSection(int currentFilePart) {
-        return currentFilePart == 1;
-    }
-
-    private boolean isKeyPointsSection(int currentFilePart) {
-        return currentFilePart == 2;
-    }
-
-    private boolean isObjectsDefinitionSection(int currentFilePart) {
-        return currentFilePart == 3;
-    }
-
-    private boolean isObjectsSection(int currentFilePart) {
-        return currentFilePart == 4;
-    }
 
     private void readContourPointLine(String line) {
     }
