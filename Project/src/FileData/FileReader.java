@@ -23,9 +23,7 @@ public class FileReader {
     public void readFile(File file) {
         Scanner scanner;
         String currentLine;
-        int currentLineNumber;
 
-        currentLineNumber = 0;
         currentFilePart = 0;
         initializeFileReader();
 
@@ -37,12 +35,11 @@ public class FileReader {
 
         while (scanner.hasNextLine()) {
             currentLine = scanner.nextLine();
-            currentLineNumber++;
-            readLine(currentLine, currentLineNumber);
+            readLine(currentLine);
         }
     }
 
-    private void readLine(String line, int lineNumber) {
+    private void readLine(String line) {
         int hashCharIndex;
 
         hashCharIndex = line.indexOf("#");
