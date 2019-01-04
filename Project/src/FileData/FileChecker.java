@@ -46,16 +46,16 @@ public class FileChecker {
             currentFilePart++;
             return true;
 
-        } else if (FileNavigation.isContourPointsSection(lineNumber)) {
+        } else if (FileNavigation.isContourPointsSection(currentFilePart)) {
             return checkContourPointLine(line);
 
-        } else if (FileNavigation.isKeyPointsSection(lineNumber)) {
+        } else if (FileNavigation.isKeyPointsSection(currentFilePart)) {
             return checkKeyPointLine(line);
 
-        } else if (FileNavigation.isObjectsDefinitionSection(lineNumber)) {
+        } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
             return checkObjectDefinitionLine(line);
 
-        } else if (FileNavigation.isObjectsSection(lineNumber)) {
+        } else if (FileNavigation.isObjectsSection(currentFilePart)) {
             return checkObjectLine(line);
 
         } else {
