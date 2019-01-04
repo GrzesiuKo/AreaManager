@@ -50,17 +50,17 @@ public class FileReader {
         if (hashCharIndex == 0 || hashCharIndex == 1) {
             currentFilePart++;
 
-        } else if (FileNavigation.isContourPointsSection(lineNumber)) {
+        } else if (FileNavigation.isContourPointsSection(currentFilePart)) {
             readContourPointLine(line);
 
-        } else if (FileNavigation.isKeyPointsSection(lineNumber)) {
+        } else if (FileNavigation.isKeyPointsSection(currentFilePart)) {
             readKeyPointLine(line);
 
-        } else if (FileNavigation.isObjectsDefinitionSection(lineNumber)) {
+        } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
             readObjectDefinitionLine(line);
 
-        } else if (FileNavigation.isObjectsSection(lineNumber)) {
-            readObjectLine(line);
+        } else if (FileNavigation.isObjectsSection(currentFilePart)) {
+           // readObjectLine(line);
 
         }
     }
