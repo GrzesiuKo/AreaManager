@@ -67,11 +67,11 @@ public class FileReader {
 
 
     private void readContourPointLine(String line) {
-        readPointLine(line);
+        readPointLine(line, contourPoints);
     }
 
     private void readKeyPointLine(String line) {
-        readPointLine(line);
+        readPointLine(line, keyPoints);
     }
 
     private void readObjectDefinitionLine(String line) {
@@ -126,7 +126,7 @@ public class FileReader {
         }
     }
 
-    private void readPointLine(String line){
+    private void readPointLine(String line, List<Point> list){
         Scanner scanner;
         Point point;
         double x;
@@ -144,7 +144,7 @@ public class FileReader {
 
         point = new Point(x, y);
 
-        keyPoints.add(point);
+        list.add(point);
     }
 
     private int recognizeType(String name){
