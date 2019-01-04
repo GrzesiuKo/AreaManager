@@ -75,6 +75,19 @@ public class FileReader {
     }
 
     private void readObjectDefinitionLine(String line) {
+        Scanner scanner;
+        String name;
+        String type;
+
+        try{
+            scanner = new Scanner(line);
+        }catch (NullPointerException e){
+            return;
+        }
+        name = scanner.next();
+        type = scanner.next();
+
+        definitions.put(name, recognizeType(type));
     }
 
     private void readObjectLine(String line) {
