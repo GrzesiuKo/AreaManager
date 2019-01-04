@@ -5,9 +5,7 @@ import Statistics.UserObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class FileReader {
     private final static int STRING = 0;
@@ -21,6 +19,8 @@ public class FileReader {
     private Map<String, Integer> definitions;
     private static int currentFilePart;
 
+
+
     public void readFile(File file) {
         Scanner scanner;
         String currentLine;
@@ -28,6 +28,7 @@ public class FileReader {
 
         currentLineNumber = 0;
         currentFilePart = 0;
+        initializeFileReader();
 
         try {
             scanner = new Scanner(file, "UTF-8");
@@ -161,6 +162,13 @@ public class FileReader {
         }else{
             return UNKNOWN;
         }
+    }
+
+    private void initializeFileReader(){
+        keyPoints = new LinkedList<>();
+        objects = new LinkedList<>();
+        contourPoints = new LinkedList<>();
+        definitions = new HashMap<>();
     }
 
     public List<Point> getKeyPoints() {
