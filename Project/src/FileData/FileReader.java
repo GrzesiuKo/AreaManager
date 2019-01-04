@@ -9,6 +9,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileReader {
+    private static int STRING = 0;
+    private static int INT = 1;
+    private static int DOUBLE = 2;
+    private static int UNKNOWN = -123456789;
+
     private List<Point> keyPoints;
     private List<UserObject> objects;
     private List<Point> contourPoints;
