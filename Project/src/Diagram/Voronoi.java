@@ -86,6 +86,7 @@ public class Voronoi {
 
     private boolean objectBelongsToTheField(Point field, List<Point> objectPoints) {
         for (Point p : objectPoints) {
+            System.out.println("Porónuje punkty: pole x = " + field.getX() + " y = " + field.getY() + " oraz objekt x = " + p.getX() + " y = " + p.getY());
             if (p.equals(field)) {
                 return true;
             }
