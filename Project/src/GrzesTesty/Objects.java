@@ -31,9 +31,9 @@ public class Objects {
     }
 
     private static void printArray(boolean[][] array) {
-        for (int y = 0; y < array.length; y++) {
-            for (int x = 0; x < array[0].length; x++) {
-                System.out.print(array[y][x] + " ");
+        for (int y = 0; y < array[0].length; y++) {
+            for (int x = 0; x < array.length; x++) {
+                System.out.print(array[x][y] + " ");
             }
             System.out.print(" \n");
         }
