@@ -152,7 +152,6 @@ public class FileReader {
             objectPoints.add(point);
             UserObject.addObject(point, name);
         }
-        System.out.println(" ");
     }
 
     private void readPointLine(String line, List<Point> list) {

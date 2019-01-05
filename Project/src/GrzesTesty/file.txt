@@ -12,7 +12,7 @@
 3. NIEDŹWIEDŹ  
 4. ŁOŚ int
 # Obiekty: Typ_obiektu (zgodnie z definicją) 
-1. SZKOŁA 4 1 "Szkoła robienia dużych pieniędzy" 
-2. DOM 4 3 100 
-5. NIEDŹWIEDŹ 20 20 
-5. ŁOŚ 4.5 6.7 2
+1. SZKOŁA 0.4 0.1 "Szkoła robienia dużych pieniędzy"
+2. DOM 0.4 0.3 100
+5. NIEDŹWIEDŹ 0.2 0.2
+5. ŁOŚ 0.4 0.6 2
