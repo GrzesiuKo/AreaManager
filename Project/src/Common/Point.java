@@ -26,4 +26,10 @@ public class Point {
         }
     }
 
+    public int scaleCoordinateToInt(double a, int precision){
+        a*=precision;
+        a = Math.round(a);
+        return (int) a;
+    }
+
 }
