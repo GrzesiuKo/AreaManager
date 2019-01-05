@@ -12,7 +12,7 @@ import java.util.List;
 public class Diagram {
     private List<KeyPoint> keyPoints;
     private Contour contour;
-    private Cell[][] area;
+    private boolean[][] areaHasObject;
 
 
     public List<KeyPoint> getKeyPoints() {
@@ -23,7 +23,7 @@ public class Diagram {
         return contour;
     }
 
-    public Cell[][] getArea() {
-        return area;
+    public boolean[][] getArea() {
+        return areaHasObject;
     }
 }

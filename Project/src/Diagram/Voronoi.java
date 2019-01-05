@@ -8,7 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Voronoi {
-    private Cell[][] dividedArea;
+
+    private boolean[][] dividedAreaHasObject;
     private int precisionX;
     private int precisionY;
 
@@ -18,7 +19,7 @@ public class Voronoi {
 
         x = (int) size.getX();
         y = (int) size.getY();
-        dividedArea = new Cell[x][y];
+        dividedAreaHasObject = new boolean[x][y];
 
         precisionX = x;
         precisionY = y;
@@ -30,8 +31,8 @@ public class Voronoi {
     private void makeAreas(LinkedList<KeyPoint> keyPoints) {
         Point current;
 
-        for (int x = 0; x < dividedArea.length; x++) {
-            for (int y = 0; y < dividedArea[0].length; y++) {
+        for (int x = 0; x < dividedAreaHasObject.length; x++) {
+            for (int y = 0; y < dividedAreaHasObject[0].length; y++) {
                 current = new Point(scale(x, precisionX), scale(y, precisionY));
                 addToKeyPoint(current, keyPoints);
             }
@@ -70,7 +71,7 @@ public class Voronoi {
 
     }
 
-    public Cell[][] getDividedArea() {
-        return dividedArea;
+    public boolean[][] getDividedArea() {
+        return dividedAreaHasObject;
     }
 }
