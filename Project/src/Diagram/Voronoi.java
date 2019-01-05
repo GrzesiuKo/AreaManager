@@ -70,14 +70,15 @@ public class Voronoi {
     private void indicateObjects(List<Point> objectPoints) {
         Point current;
 
-        for (int x = 0; x < dividedAreaHasObject.length; x++) {
-            for (int y = 0; y < dividedAreaHasObject[0].length; y++) {
+
+        for (int y = 0; y < dividedAreaHasObject.length; y++) {
+            for (int x = 0; x < dividedAreaHasObject[0].length; x++) {
                 current = new Point(scale(x, precisionX), scale(y, precisionY));
 
                 if (objectBelongsToTheField(current, objectPoints)) {
-                    dividedAreaHasObject[x][y] = true;
+                    dividedAreaHasObject[y][x] = true;
                 } else {
-                    dividedAreaHasObject[x][y] = false;
+                    dividedAreaHasObject[y][x] = false;
                 }
             }
         }
