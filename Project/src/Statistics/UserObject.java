@@ -3,27 +3,27 @@ package Statistics;
 import Common.Point;
 
 public class UserObject {
-    private Point localization ;
-    private Point memberOf ;
+    private Point localization;
+    private Point memberOf;
 
-    public UserObject(Point point){
+    public UserObject(Point point) {
         this.localization = point;
         this.memberOf = checkMembership();
     }
 
-    public static void addObject(Point point, String objectName){
+    public static void addObject(Point point, String objectName) {
         Statistics st = Statistics.getInstance();
         st.addBear(new Bear(point));
     }
 
-    public static void addObject(Point point, String objectName, String name){
+    public static void addObject(Point point, String objectName, String name) {
         Statistics st = Statistics.getInstance();
-        st.addSchool(new School(point , name));
+        st.addSchool(new School(point, name));
     }
 
-    public static void addObject(Point point, String objectName, int value){
+    public static void addObject(Point point, String objectName, int value) {
         Statistics st = Statistics.getInstance();
-        st.addResidentail(new Residential(point , value));
+        st.addResidentail(new Residential(point, value));
     }
 
     private Point checkMembership() {
