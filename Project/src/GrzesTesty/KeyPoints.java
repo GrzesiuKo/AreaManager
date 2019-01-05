@@ -35,11 +35,8 @@ public class KeyPoints {
                 x = p.getX();
                 y = p.getY();
                 //System.out.println("("+x+", "+y+")");
-                x *= xSize;
-                y *= ySize;
-
-                x = Math.round(x);
-                y = Math.round(y);
+                x = Point.scaleCoordinateToInt(x, xSize);
+                y = Point.scaleCoordinateToInt(y, ySize);
 
                 System.out.println("(" + x + ", " + y + ")");
                 tab[(int) y][(int) x] = i;
