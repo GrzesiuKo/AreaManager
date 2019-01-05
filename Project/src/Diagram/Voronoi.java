@@ -73,14 +73,14 @@ public class Voronoi {
         Point current;
 
 
-        for (int y = 0; y < dividedAreaHasObject.length; y++) {
-            for (int x = 0; x < dividedAreaHasObject[0].length; x++) {
+        for (int y = 0; y < dividedAreaHasObject[0].length; y++) {
+            for (int x = 0; x < dividedAreaHasObject.length; x++) {
                 current = new Point(scale(x, precisionX), scale(y, precisionY));
 
                 if (objectBelongsToTheField(current, objectPoints)) {
-                    dividedAreaHasObject[y][x] = true;
+                    dividedAreaHasObject[x][y] = true;
                 } else {
-                    dividedAreaHasObject[y][x] = false;
+                    dividedAreaHasObject[x][y] = false;
                 }
             }
         }
