@@ -7,14 +7,14 @@ public class Contour {
     private List<Point> contourPoints;
     private List<Point> ignoredPoints;
 
-    public Contour(List<Point> points){
+    public Contour(List<Point> points) {
         contourPoints = new LinkedList<>();
         ignoredPoints = new LinkedList<>();
 
         makeContour(points);
     }
 
-    private void makeContour(List<Point> points){
+    private void makeContour(List<Point> points) {
 
     }
 

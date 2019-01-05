@@ -13,13 +13,10 @@ public class FileReader {
     private final static int INT = 1;
     private final static int DOUBLE = 2;
     private final static int UNKNOWN = 3;
-
+    private static int currentFilePart;
     private List<KeyPoint> keyPoints;
     private List<Point> contourPoints;
     private Map<String, Integer> definitions;
-    private static int currentFilePart;
-
-
 
     public void readFile(File file) {
         Scanner scanner;
@@ -68,15 +65,15 @@ public class FileReader {
         readPointLine(line, contourPoints);
     }
 
-    private void readKeyPointLine(String line, List<KeyPoint> list){
+    private void readKeyPointLine(String line, List<KeyPoint> list) {
         Scanner scanner;
         KeyPoint point;
         double x;
         double y;
 
-        try{
+        try {
             scanner = new Scanner(line);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return;
         }
 
@@ -95,22 +92,22 @@ public class FileReader {
         String typeName;
         int typeId;
 
-        try{
+        try {
             scanner = new Scanner(line);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return;
         }
         scanner.next();
         name = scanner.next();
 
-        if (scanner.hasNext()){
+        if (scanner.hasNext()) {
             typeName = scanner.next();
             typeId = recognizeType(typeName);
-        }else {
+        } else {
             typeId = UNKNOWN;
         }
 
-System.out.println("Dodaje do mapy: "+name);
+        System.out.println("Dodaje do mapy: " + name);
         definitions.put(name, typeId);
     }
 
@@ -122,9 +119,9 @@ System.out.println("Dodaje do mapy: "+name);
         Point point;
         Integer type;
 
-        try{
+        try {
             scanner = new Scanner(line);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return;
         }
         scanner.next();
@@ -140,28 +137,28 @@ System.out.println("Dodaje do mapy: "+name);
     }
 
     private void addObject(Point point, String name, int type, Scanner scanner) {
-        if(type == STRING){
+        if (type == STRING) {
             scanner.useDelimiter("$");
             UserObject.addObject(point, name, scanner.next());
-        }else if (type == DOUBLE){
-           // UserObject.addObject(point, name, scanner.nextDouble()); czeka na funkcje od Arkadiusza
-        }else if (type == INT){
+        } else if (type == DOUBLE) {
+            // UserObject.addObject(point, name, scanner.nextDouble()); czeka na funkcje od Arkadiusza
+        } else if (type == INT) {
             UserObject.addObject(point, name, scanner.nextInt());
-        }else if (type == UNKNOWN){
+        } else if (type == UNKNOWN) {
             UserObject.addObject(point, name);
         }
         System.out.println(" ");
     }
 
-    private void readPointLine(String line, List<Point> list){
+    private void readPointLine(String line, List<Point> list) {
         Scanner scanner;
         Point point;
         double x;
         double y;
 
-        try{
+        try {
             scanner = new Scanner(line);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return;
         }
 
@@ -174,23 +171,23 @@ System.out.println("Dodaje do mapy: "+name);
         list.add(point);
     }
 
-    private int recognizeType(String name){
-        if (name==null){
+    private int recognizeType(String name) {
+        if (name == null) {
             return UNKNOWN;
         }
 
-        if (name.matches("string")){
+        if (name.matches("string")) {
             return STRING;
-        }else if (name.matches("double")){
+        } else if (name.matches("double")) {
             return DOUBLE;
-        }else if (name.matches("int")){
+        } else if (name.matches("int")) {
             return INT;
-        }else{
+        } else {
             return UNKNOWN;
         }
     }
 
-    private void initializeFileReader(){
+    private void initializeFileReader() {
         keyPoints = new LinkedList<>();
         contourPoints = new LinkedList<>();
         definitions = new HashMap<>();

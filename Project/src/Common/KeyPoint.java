@@ -11,7 +11,7 @@ public class KeyPoint extends Point {
         areaPoints = new LinkedList<>();
     }
 
-    public void addPoint(Point p){
+    public void addPoint(Point p) {
         areaPoints.add(p);
     }
 

@@ -4,31 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Statistics {
+    private static Statistics instance = null;
     private List<Bear> bearList;
     private List<School> schoolList;
     private List<Residential> residentialList;
-    private static Statistics instance = null ;
 
-    private Statistics(){
+    private Statistics() {
         bearList = new ArrayList<>();
         schoolList = new ArrayList<>();
         residentialList = new ArrayList<>();
     }
 
-    public static Statistics getInstance(){
-        if(instance == null){
-           instance = new Statistics();
+    public static Statistics getInstance() {
+        if (instance == null) {
+            instance = new Statistics();
         }
         return instance;
     }
 
-    public void addSchool(School school){
+    public void addSchool(School school) {
         schoolList.add(school);
     }
-    public void addBear(Bear bear){
+
+    public void addBear(Bear bear) {
         bearList.add(bear);
     }
-    public void addResidentail(Residential residential){
+
+    public void addResidentail(Residential residential) {
         residentialList.add(residential);
     }
 
