@@ -1,5 +1,6 @@
 package FileData;
 
+import Common.KeyPoint;
 import Common.Point;
 import Statistics.UserObject;
 
@@ -13,7 +14,7 @@ public class FileReader {
     private final static int DOUBLE = 2;
     private final static int UNKNOWN = 3;
 
-    private List<Point> keyPoints;
+    private List<KeyPoint> keyPoints;
     private List<Point> contourPoints;
     private Map<String, Integer> definitions;
     private static int currentFilePart;
@@ -51,7 +52,7 @@ public class FileReader {
             readContourPointLine(line);
 
         } else if (FileNavigation.isKeyPointsSection(currentFilePart)) {
-            readKeyPointLine(line);
+            readKeyPointLine(line, keyPoints);
 
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
             readObjectDefinitionLine(line);
@@ -67,8 +68,25 @@ public class FileReader {
         readPointLine(line, contourPoints);
     }
 
-    private void readKeyPointLine(String line) {
-        readPointLine(line, keyPoints);
+    private void readKeyPointLine(String line, List<KeyPoint> list){
+        Scanner scanner;
+        KeyPoint point;
+        double x;
+        double y;
+
+        try{
+            scanner = new Scanner(line);
+        }catch (NullPointerException e){
+            return;
+        }
+
+        scanner.nextDouble();
+        x = scanner.nextDouble();
+        y = scanner.nextDouble();
+
+        point = new KeyPoint(x, y);
+
+        list.add(point);
     }
 
     private void readObjectDefinitionLine(String line) {
@@ -178,7 +196,7 @@ System.out.println("Dodaje do mapy: "+name);
         definitions = new HashMap<>();
     }
 
-    public List<Point> getKeyPoints() {
+    public List<KeyPoint> getKeyPoints() {
         return keyPoints;
     }
 
