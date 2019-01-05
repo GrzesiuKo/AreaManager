@@ -25,7 +25,7 @@ public class Voronoi {
         precisionY = y;
 
         makeAreas(keyPoints);
-        addObjects(objectPoints);
+        indicateObjects(objectPoints);
     }
 
     private void makeAreas(LinkedList<KeyPoint> keyPoints) {
@@ -67,8 +67,29 @@ public class Voronoi {
     }
 
 
-    private void addObjects(List<Point> objectPoints) {
+    private void indicateObjects(List<Point> objectPoints) {
+        Point current;
 
+        for (int x = 0; x < dividedAreaHasObject.length; x++) {
+            for (int y = 0; y < dividedAreaHasObject[0].length; y++) {
+                current = new Point(scale(x, precisionX), scale(y, precisionY));
+
+                if (objectBelongsToTheField(current, objectPoints)) {
+                    dividedAreaHasObject[x][y] = true;
+                } else {
+                    dividedAreaHasObject[x][y] = false;
+                }
+            }
+        }
+    }
+
+    private boolean objectBelongsToTheField(Point field, List<Point> objectPoints) {
+        for (Point p : objectPoints) {
+            if (p.equals(field)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean[][] getDividedArea() {
