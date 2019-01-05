@@ -19,10 +19,11 @@ public class Point {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Point || obj instanceof KeyPoint) {
+        if (obj instanceof Point ) {
             return this.getX() == ((Point) obj).getX() && this.getY() == ((Point) obj).getY();
         } else {
             return false;
         }
     }
+
 }
