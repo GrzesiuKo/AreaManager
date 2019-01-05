@@ -17,6 +17,7 @@ public class FileReader {
     private List<KeyPoint> keyPoints;
     private List<Point> contourPoints;
     private Map<String, Integer> definitions;
+    private List<Point> objectPoints;
 
     public void readFile(File file) {
         Scanner scanner;
@@ -138,16 +139,19 @@ public class FileReader {
 
     private void addObject(Point point, String name, int type, Scanner scanner) {
         if (type == STRING) {
+            objectPoints.add(point);
             scanner.useDelimiter("$");
             UserObject.addObject(point, name, scanner.next());
         } else if (type == DOUBLE) {
+            objectPoints.add(point);
             // UserObject.addObject(point, name, scanner.nextDouble()); czeka na funkcje od Arkadiusza
         } else if (type == INT) {
+            objectPoints.add(point);
             UserObject.addObject(point, name, scanner.nextInt());
         } else if (type == UNKNOWN) {
+            objectPoints.add(point);
             UserObject.addObject(point, name);
         }
-        System.out.println(" ");
     }
 
     private void readPointLine(String line, List<Point> list) {
@@ -191,6 +195,7 @@ public class FileReader {
         keyPoints = new LinkedList<>();
         contourPoints = new LinkedList<>();
         definitions = new HashMap<>();
+        objectPoints = new LinkedList<>();
     }
 
     public List<KeyPoint> getKeyPoints() {
@@ -199,5 +204,9 @@ public class FileReader {
 
     public List<Point> getContourPoints() {
         return contourPoints;
+    }
+
+    public List<Point> getObjectPoints() {
+        return objectPoints;
     }
 }

@@ -15,7 +15,7 @@ public class Contour {
     }
 
     private void makeContour(List<Point> points) {
-
+        contourPoints = points;
     }
 
     public List<Point> getContourPoints() {
