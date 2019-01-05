@@ -83,7 +83,6 @@ public class Main extends Application {
                         BackgroundImage myBI = new BackgroundImage(new Image(targetStream, canvasBox.getWidth(), canvasBox.getHeight(), false, false),
                                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                                 BackgroundSize.DEFAULT);
-//then you set to your node
                         canvasBox.setBackground(new Background(myBI));
                     } catch (FileNotFoundException e) {
                         //TODO Okienko błedu
