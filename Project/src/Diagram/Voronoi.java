@@ -13,7 +13,7 @@ public class Voronoi {
     private int precisionX;
     private int precisionY;
 
-    public Voronoi(Point size, LinkedList<KeyPoint> keyPoints, LinkedList<Point> objectPoints) {
+    public Voronoi(Point size, List<KeyPoint> keyPoints, List<Point> objectPoints) {
         int x;
         int y;
 
@@ -28,7 +28,7 @@ public class Voronoi {
         indicateObjects(objectPoints);
     }
 
-    private void makeAreas(LinkedList<KeyPoint> keyPoints) {
+    private void makeAreas(List<KeyPoint> keyPoints) {
         Point current;
 
         for (int x = 0; x < dividedAreaHasObject.length; x++) {
@@ -39,7 +39,7 @@ public class Voronoi {
         }
     }
 
-    private void addToKeyPoint(Point point, LinkedList<KeyPoint> keyPoints) {
+    private void addToKeyPoint(Point point, List<KeyPoint> keyPoints) {
         KeyPoint nearest = null;
         double smallestLength = Double.MAX_VALUE;
         double currentLength;
@@ -51,7 +51,8 @@ public class Voronoi {
                 smallestLength = currentLength;
             }
         }
-        if (!nearest.equals(point)) {
+
+        if (nearest!=null && !nearest.equals(point)) {
             nearest.addPoint(point);
         }
     }

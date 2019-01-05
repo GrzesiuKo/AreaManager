@@ -1,0 +1,18 @@
+# Kontury terenu (wymienione w kolejności łączenia): Lp. x y
+1. 0 0
+2. 0 20
+2. 0 2
+# Punkty kluczowe: Lp. x y Nazwa
+1. 1 1 KOK Krawczyka
+2. 1 19 KOK Kaczmarskiego
+2. 1 19 KOK
+# Definicje obiektów: Lp. Typ_obiektu (Nazwa_zmiennej Typ_zmiennej)*
+1. SZKOŁA string 
+2. DOM int 
+3. NIEDŹWIEDŹ  
+4. ŁOŚ int
+# Obiekty: Typ_obiektu (zgodnie z definicją) 
+1. SZKOŁA 4 1 "Szkoła robienia dużych pieniędzy" 
+2. DOM 4 3 100 
+5. NIEDŹWIEDŹ 20 20 
+5. ŁOŚ 4.5 6.7 2
