@@ -14,4 +14,8 @@ public class KeyPoint extends Point {
     public void addPoint(Point p){
         areaPoints.add(p);
     }
+
+    public List<Point> getAreaPoints() {
+        return areaPoints;
+    }
 }
