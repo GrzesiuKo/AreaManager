@@ -18,4 +18,9 @@ public class KeyPoint extends Point {
     public List<Point> getAreaPoints() {
         return areaPoints;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }
