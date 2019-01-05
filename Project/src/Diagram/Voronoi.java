@@ -1,58 +1,102 @@
 package Diagram;
 
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+
+import Common.KeyPoint;
 import Common.Point;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Voronoi {
-    private List<Edge> edges;
-    private Item root;
-    private Queue<Event> events;
-    public static double currentYofSweepLine;
 
+    private boolean[][] dividedAreaHasObject;
+    private int precisionX;
+    private int precisionY;
 
-    public void generateDiagram(List<Point> points) {
-        Queue<Event> events;
-        Event currentEvent;
+    public Voronoi(Point size, LinkedList<KeyPoint> keyPoints, LinkedList<Point> objectPoints) {
+        int x;
+        int y;
 
-        events = getEvents(points);
+        x = (int) size.getX();
+        y = (int) size.getY();
+        dividedAreaHasObject = new boolean[x][y];
 
-        while (!events.isEmpty()){
-            currentEvent = events.poll();
-            currentYofSweepLine = currentEvent.getPoint().getY();
-            if (currentEvent.isSiteEvent()){
-               // handleSiteEvent();
-            }else{
-               // handleCircleEvent();
+        precisionX = x;
+        precisionY = y;
+
+        makeAreas(keyPoints);
+        indicateObjects(objectPoints);
+    }
+
+    private void makeAreas(LinkedList<KeyPoint> keyPoints) {
+        Point current;
+
+        for (int x = 0; x < dividedAreaHasObject.length; x++) {
+            for (int y = 0; y < dividedAreaHasObject[0].length; y++) {
+                current = new Point(scale(x, precisionX), scale(y, precisionY));
+                addToKeyPoint(current, keyPoints);
             }
         }
-
-
     }
 
-    private Queue<Event> getEvents(List<Point> points){
-        List<Point> keyPoints;
-        Queue<Event> events = new PriorityQueue<Event>();
+    private void addToKeyPoint(Point point, LinkedList<KeyPoint> keyPoints) {
+        KeyPoint nearest = null;
+        double smallestLength = Double.MAX_VALUE;
+        double currentLength;
 
-        keyPoints = points;
-
-        keyPoints = sortPoints(keyPoints);
-
-        for (Point p: keyPoints) {
-            events.add(new Event(p, Event.SITE_EVENT));
+        for (KeyPoint keyPoint : keyPoints) {
+            currentLength = findLengthOfSegment(point, keyPoint);
+            if (currentLength < smallestLength) {
+                nearest = keyPoint;
+                smallestLength = currentLength;
+            }
         }
-
-        return events;
+        if (!nearest.equals(point)) {
+            nearest.addPoint(point);
+        }
     }
 
-    private List<Point> sortPoints(List<Point> points) {
-        List<Point> resultPoints = points;
-
-        resultPoints.sort((one, two) -> (int) (two.getY() - one.getY()));
-
-        return resultPoints;
+    private double scale(int a, int precision) {
+        return ((double) a) / (double) precision;
     }
 
 
+    private double findLengthOfSegment(Point a, Point b) {
+        double first = java.lang.Math.pow(a.getX() - b.getX(), 2);
+        double second = java.lang.Math.pow(a.getY() - b.getY(), 2);
+
+        return java.lang.Math.sqrt(first + second);
+    }
+
+
+    private void indicateObjects(List<Point> objectPoints) {
+        Point current;
+
+
+        for (int y = 0; y < dividedAreaHasObject[0].length; y++) {
+            for (int x = 0; x < dividedAreaHasObject.length; x++) {
+                current = new Point(scale(x, precisionX), scale(y, precisionY));
+
+                if (objectBelongsToTheField(current, objectPoints)) {
+                    dividedAreaHasObject[x][y] = true;
+                } else {
+                    dividedAreaHasObject[x][y] = false;
+                }
+            }
+        }
+    }
+
+    private boolean objectBelongsToTheField(Point field, List<Point> objectPoints) {
+        for (Point p : objectPoints) {
+            //System.out.println("Porónuje punkty: pole x = " + field.getX() + " y = " + field.getY() + " oraz objekt x = " + p.getX() + " y = " + p.getY());
+            if (p.equals(field)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean[][] getDividedArea() {
+        return dividedAreaHasObject;
+    }
 }
