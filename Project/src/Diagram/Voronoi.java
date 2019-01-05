@@ -51,7 +51,9 @@ public class Voronoi {
                 smallestLength = currentLength;
             }
         }
-        nearest.addPoint(point);
+        if (!nearest.equals(point)) {
+            nearest.addPoint(point);
+        }
     }
 
     private double scale(int a, int precision) {
