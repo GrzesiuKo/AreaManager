@@ -9,6 +9,7 @@ public class Statistics {
     private List<Bear> bearList;
     private List<School> schoolList;
     private List<Residential> residentialList;
+
     private static Statistics instance = null;
 
     private Statistics() {
@@ -75,4 +76,17 @@ public class Statistics {
     public String toString() {
         return ("Bears: " + bearList.toString() + " Schools: " + schoolList.toString() + " Residentials" + residentialList.toString());
     }
+
+    public List<Bear> getBearList() {
+        return bearList;
+    }
+
+    public List<School> getSchoolList() {
+        return schoolList;
+    }
+
+    public List<Residential> getResidentialList() {
+        return residentialList;
+    }
+
 }

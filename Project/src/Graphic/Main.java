@@ -1,27 +1,26 @@
 package Graphic;
 
 import Common.Point;
+import Diagram.Diagram;
+import FileData.FileReader;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Main extends Application {
 
@@ -35,20 +34,27 @@ public class Main extends Application {
         HBox workBox = new HBox(5);
 
         //Dodanie kontrolek
-        Canvas canvas = new Canvas(500, 500);
+        Canvas canvas = new Canvas(600, 600);
         canvas.setVisible(true);
         canvasBox.getChildren().addAll(canvas);
         Button selectFileButton = new Button("Wybierz plik danych");
         Button selectImageButton = new Button("Wybierz obraz tła");
         choosers.getChildren().addAll(selectFileButton, selectImageButton);
         Label workType = new Label("Wybierz tryb pracy: ");
-        ChoiceBox selectWorkType = new ChoiceBox();
+        ChoiceBox selectWorkType = new ChoiceBox(FXCollections.observableArrayList("Wyświetlanie statystyk", "Edycja konturów", "Edycja punktów kluczowych"));
         workBox.getChildren().addAll(workType, selectWorkType);
         TextField statisticOutput = new TextField("Syyyyf");
         statisticOutput.setEditable(false);
         controlBox.getChildren().addAll(choosers, workBox, statisticOutput);
         verticalSplit.getChildren().addAll(canvasBox, controlBox);
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem menuItem1 = new MenuItem("lista obiektów należących do obszaru");
+        MenuItem menuItem2 = new MenuItem("pogrupowana typami lista obiektów");
+        MenuItem menuItem3 = new MenuItem("liczba mieszkańców danego obszaru");
+        contextMenu.getItems().add(menuItem1);
+        contextMenu.getItems().add(menuItem2);
+        contextMenu.getItems().add(menuItem3);
 
         //Dodanie eventów
         selectFileButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -56,13 +62,13 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 FileChooser fileChooser = new FileChooser();
-                fileChooser.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("Pliki tekstowe", "*.txt"));
+                fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Pliki tekstowe", "*.txt"));
 
                 File file = fileChooser.showOpenDialog(primaryStage);
 
                 if (file != null) {
-                    //Output for PARSER -
+                    Diagram diagram = new Diagram(file);
+                    DrawingLogic.draw(gc, diagram);
                 }
             }
         });
@@ -91,12 +97,26 @@ public class Main extends Application {
             }
         });
 
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED,
+                new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent me) {
+                        if (selectWorkType.getValue() == null) {
+                            Alert workTypeAlert = new Alert(Alert.AlertType.INFORMATION);
+                            workTypeAlert.setTitle("Błąd");
+                            workTypeAlert.setHeaderText(null);
+                            workTypeAlert.setContentText("Nie wybrano trybu pracy");
+                            workTypeAlert.showAndWait();
+                        } else if (selectWorkType.getValue().equals("Wyświetlanie statystyk")) {
+                            contextMenu.show(canvas , me.getScreenX(), me.getScreenY());
+                        } else if (selectWorkType.getValue().equals("Edycja konturów")) {
+
+                        } else if (selectWorkType.getValue().equals("Edycja punktów kluczowych")) {
+
+                        }
+                    }
+                });
+
         Scene scene = new Scene(verticalSplit, 800, 600);
-        List<Point> tmp = new ArrayList<>();
-//        tmp.add(new Point(10,10));
-//        tmp.add(new Point(100,100));
-//        tmp.add(new Point(300,100));
-//        DrawingLogic.drawCountour(gc,tmp);
         primaryStage.setTitle("Project");
         primaryStage.setScene(scene);
         primaryStage.show();
