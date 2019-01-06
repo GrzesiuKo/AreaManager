@@ -3,7 +3,7 @@ package Graphic;
 import Common.KeyPoint;
 import Common.Point;
 import Diagram.Diagram;
-import Statistics.Statistics;
+import Statistics.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -15,6 +15,7 @@ public class DrawingLogic {
         gc.setLineWidth(2);
         drawCountour( gc, diagram.getContour().getContourPoints());
         drawKeyPoints(gc , diagram.getKeyPoints());
+        drawUserPoints(gc);
     }
 
     private static void drawCountour(GraphicsContext gc, List<Point> contour) {
@@ -29,12 +30,24 @@ public class DrawingLogic {
     private static void drawKeyPoints(GraphicsContext gc , List<KeyPoint> points){
         gc.setFill(Color.RED);
         for(int i = 0 ; i < points.size() ; i++){
-            gc.fillOval(points.get(i).getX(), points.get(i).getY(), 5, 5);
+            gc.fillOval(points.get(i).getX(), points.get(i).getY(), 2, 2);
         }
     }
 
     private static void drawUserPoints(GraphicsContext gc ) {
         Statistics toDraw = Statistics.getInstance();
-
+        List<Bear> bears = toDraw.getBearList();
+        List<School> schools = toDraw.getSchoolList();
+        List<Residential> residentials = toDraw.getResidentialList();
+        gc.setFill(Color.GREEN);
+        for(int i = 0 ; i < bears.size() ; i++){
+           gc.fillOval( bears.get(i).getLocalization().getX(), bears.get(i).getLocalization().getY(), 2,2);
+        }
+        for(int i = 0 ; i < schools.size() ; i++){
+            gc.fillOval( schools.get(i).getLocalization().getX(), schools.get(i).getLocalization().getY(), 2,2);
+        }
+        for(int i = 0 ; i < residentials.size() ; i++){
+            gc.fillOval( residentials.get(i).getLocalization().getX(), residentials.get(i).getLocalization().getY(), 2,2);
+        }
     }
 }

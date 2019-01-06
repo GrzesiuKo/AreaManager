@@ -29,14 +29,15 @@ public class Main extends Application {
         //Rozmieszczenie kontrolek
         HBox verticalSplit = new HBox(5);
         VBox canvasBox = new VBox(5);
+        Pane canvasPane = new Pane();
         VBox controlBox = new VBox(5);
         HBox choosers = new HBox(5);
         HBox workBox = new HBox(5);
 
         //Dodanie kontrolek
-        Canvas canvas = new Canvas(600, 600);
+        Canvas canvas = new Canvas(300, 300);
         canvas.setVisible(true);
-        canvasBox.getChildren().addAll(canvas);
+        canvasPane.getChildren().addAll(canvas);
         Button selectFileButton = new Button("Wybierz plik danych");
         Button selectImageButton = new Button("Wybierz obraz tła");
         choosers.getChildren().addAll(selectFileButton, selectImageButton);
@@ -46,7 +47,7 @@ public class Main extends Application {
         TextField statisticOutput = new TextField("Syyyyf");
         statisticOutput.setEditable(false);
         controlBox.getChildren().addAll(choosers, workBox, statisticOutput);
-        verticalSplit.getChildren().addAll(canvasBox, controlBox);
+        verticalSplit.getChildren().addAll(canvasPane, controlBox);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         ContextMenu contextMenu = new ContextMenu();
         MenuItem menuItem1 = new MenuItem("lista obiektów należących do obszaru");
@@ -116,7 +117,7 @@ public class Main extends Application {
                     }
                 });
 
-        Scene scene = new Scene(verticalSplit, 800, 600);
+        Scene scene = new Scene(verticalSplit);
         primaryStage.setTitle("Project");
         primaryStage.setScene(scene);
         primaryStage.show();
