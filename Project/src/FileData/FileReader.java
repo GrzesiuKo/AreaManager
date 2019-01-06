@@ -28,6 +28,7 @@ public class FileReader {
 
         try {
             scanner = new Scanner(file, "UTF-8");
+            scanner.useDelimiter(" ");
         } catch (FileNotFoundException e) {
             return;
         }
@@ -74,6 +75,7 @@ public class FileReader {
 
         try {
             scanner = new Scanner(line);
+            scanner.useDelimiter(" ");
         } catch (NullPointerException e) {
             return;
         }
@@ -95,6 +97,7 @@ public class FileReader {
 
         try {
             scanner = new Scanner(line);
+            scanner.useDelimiter(" ");
         } catch (NullPointerException e) {
             return;
         }
@@ -122,6 +125,7 @@ public class FileReader {
 
         try {
             scanner = new Scanner(line);
+            scanner.useDelimiter(" ");
         } catch (NullPointerException e) {
             return;
         }
@@ -162,6 +166,7 @@ public class FileReader {
 
         try {
             scanner = new Scanner(line);
+            scanner.useDelimiter(" ");
         } catch (NullPointerException e) {
             return;
         }
