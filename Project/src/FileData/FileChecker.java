@@ -3,10 +3,12 @@ package FileData;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class FileChecker {
     private List<Integer> errorLines;
+    private Map<String, Integer> definitions;
 
 
     public boolean checkFile(File file) {
@@ -50,7 +52,11 @@ public class FileChecker {
             return checkContourPointLine(line);
 
         } else if (FileNavigation.isKeyPointsSection(currentFilePart)) {
-            return checkKeyPointLine(line);
+            if (checkKeyPointLine(line)) {
+                addDefinition(line);
+                return true;
+            }
+            return false;
 
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
             return checkObjectDefinitionLine(line);
@@ -77,8 +83,28 @@ public class FileChecker {
     }
 
     private boolean checkObjectLine(String line) {
-        return true;
+        int objectType;
+        objectType = checkType(line);
+        switch (objectType) {
+            case FileReader.STRING:
+                return line.matches("");
+            case FileReader.INT:
+                return line.matches("");
+            case FileReader.DOUBLE:
+                return line.matches("");
+            case FileReader.UNKNOWN:
+                return line.matches("");
+            default:
+                return false;
+        }
     }
 
+    private void addDefinition(String line){
+
+    }
+
+    private int checkType(String line){
+        return 0;
+    }
 
 }
