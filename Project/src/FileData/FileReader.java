@@ -9,10 +9,10 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class FileReader {
-    private final static int STRING = 0;
-    private final static int INT = 1;
-    private final static int DOUBLE = 2;
-    private final static int UNKNOWN = 3;
+    public final static int STRING = 0;
+    public final static int INT = 1;
+    public final static int DOUBLE = 2;
+    public final static int UNKNOWN = 3;
     private static int currentFilePart;
     private List<KeyPoint> keyPoints;
     private List<Point> contourPoints;
