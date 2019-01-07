@@ -53,7 +53,7 @@ public class FileReader {
             readKeyPointLine(line, keyPoints);
 
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
-            readObjectDefinitionLine(line);
+            readObjectDefinitionLine(line, definitions);
 
         } else if (FileNavigation.isObjectsSection(currentFilePart)) {
             readObjectLine(line);
@@ -87,7 +87,7 @@ public class FileReader {
         list.add(point);
     }
 
-    private void readObjectDefinitionLine(String line) {
+    public static void readObjectDefinitionLine(String line, Map<String,Integer> definitions) {
         Scanner scanner;
         String name;
         String typeName;
@@ -175,7 +175,7 @@ public class FileReader {
         list.add(point);
     }
 
-    private int recognizeType(String name) {
+    private static int recognizeType(String name) {
         if (name == null) {
             return UNKNOWN;
         }
