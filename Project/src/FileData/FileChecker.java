@@ -56,14 +56,14 @@ public class FileChecker {
             return checkContourPointLine(line);
 
         } else if (FileNavigation.isKeyPointsSection(currentFilePart)) {
-            if (checkKeyPointLine(line)) {
+            return checkKeyPointLine(line);
+
+        } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
+            if (checkObjectDefinitionLine(line)) {
                 readObjectDefinitionLine(line, definitions);
                 return true;
             }
             return false;
-
-        } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
-            return checkObjectDefinitionLine(line);
 
         } else if (FileNavigation.isObjectsSection(currentFilePart)) {
             return checkObjectLine(line);
