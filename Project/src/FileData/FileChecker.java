@@ -91,7 +91,7 @@ public class FileChecker {
         objectType = checkTypeByDefinedName(line);
         switch (objectType) {
             case STRING:
-                return line.matches("");
+                return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s.*)?");
             case INT:
                 return line.matches("");
             case DOUBLE:
