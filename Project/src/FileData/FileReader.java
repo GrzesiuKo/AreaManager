@@ -9,10 +9,6 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class FileReader {
-    private final static int STRING = 0;
-    private final static int INT = 1;
-    private final static int DOUBLE = 2;
-    private final static int UNKNOWN = 3;
     private static int currentFilePart;
     private List<KeyPoint> keyPoints;
     private List<Point> contourPoints;
@@ -53,7 +49,7 @@ public class FileReader {
             readKeyPointLine(line, keyPoints);
 
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
-            readObjectDefinitionLine(line);
+            FileChecker.readObjectDefinitionLine(line, definitions);
 
         } else if (FileNavigation.isObjectsSection(currentFilePart)) {
             readObjectLine(line);
@@ -87,30 +83,7 @@ public class FileReader {
         list.add(point);
     }
 
-    private void readObjectDefinitionLine(String line) {
-        Scanner scanner;
-        String name;
-        String typeName;
-        int typeId;
 
-        try {
-            scanner = new Scanner(line);
-        } catch (NullPointerException e) {
-            return;
-        }
-        scanner.next();
-        name = scanner.next();
-
-        if (scanner.hasNext()) {
-            typeName = scanner.next();
-            typeId = recognizeType(typeName);
-        } else {
-            typeId = UNKNOWN;
-        }
-
-        System.out.println("Dodaje do mapy: " + name);
-        definitions.put(name, typeId);
-    }
 
     private void readObjectLine(String line) {
         Scanner scanner;
@@ -138,17 +111,17 @@ public class FileReader {
     }
 
     private void addObject(Point point, String name, int type, Scanner scanner) {
-        if (type == STRING) {
+        if (type == FileChecker.STRING) {
             objectPoints.add(point);
             scanner.useDelimiter("$");
             UserObject.addObject(point, name, scanner.next());
-        } else if (type == DOUBLE) {
+        } else if (type == FileChecker.DOUBLE) {
             objectPoints.add(point);
             // UserObject.addObject(point, name, scanner.nextDouble()); czeka na funkcje od Arkadiusza
-        } else if (type == INT) {
+        } else if (type == FileChecker.INT) {
             objectPoints.add(point);
             UserObject.addObject(point, name, scanner.nextInt());
-        } else if (type == UNKNOWN) {
+        } else if (type == FileChecker.NOT_GIVEN) {
             objectPoints.add(point);
             UserObject.addObject(point, name);
         }
@@ -175,21 +148,6 @@ public class FileReader {
         list.add(point);
     }
 
-    private int recognizeType(String name) {
-        if (name == null) {
-            return UNKNOWN;
-        }
-
-        if (name.matches("string")) {
-            return STRING;
-        } else if (name.matches("double")) {
-            return DOUBLE;
-        } else if (name.matches("int")) {
-            return INT;
-        } else {
-            return UNKNOWN;
-        }
-    }
 
     private void initializeFileReader() {
         keyPoints = new LinkedList<>();
