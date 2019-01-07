@@ -17,21 +17,30 @@ public class Diagram {
     private List<KeyPoint> keyPoints;
     private Contour contour;
     private boolean[][] areaHasObject;
+    private boolean isFileCorrect;
 
     public Diagram(File file) {
         FileChecker fileChecker = new FileChecker();
         FileReader fileReader = new FileReader();
         Voronoi voronoi;
 
-        fileReader.readFile(file);
+        isFileCorrect = fileChecker.checkFile(file);
 
-        keyPoints = fileReader.getKeyPoints();
+        if (isFileCorrect) {
+            fileReader.readFile(file);
 
-        voronoi = new Voronoi(new Point(X_SIZE, Y_SIZE), keyPoints, fileReader.getObjectPoints());
+            keyPoints = fileReader.getKeyPoints();
 
-        areaHasObject = voronoi.getDividedArea();
+            voronoi = new Voronoi(new Point(X_SIZE, Y_SIZE), keyPoints, fileReader.getObjectPoints());
 
-        contour = new Contour(fileReader.getContourPoints());
+            areaHasObject = voronoi.getDividedArea();
+
+            contour = new Contour(fileReader.getContourPoints());
+        }else{
+            keyPoints = null;
+            areaHasObject = null;
+            contour = null;
+        }
     }
 
     public List<KeyPoint> getKeyPoints() {
@@ -44,5 +53,9 @@ public class Diagram {
 
     public boolean[][] getArea() {
         return areaHasObject;
+    }
+
+    public boolean isFileCorrect() {
+        return isFileCorrect;
     }
 }
