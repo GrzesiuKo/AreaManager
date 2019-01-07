@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class FileChecker {
+    public final static int UNKNOWN = -100;
     public final static int STRING = 0;
     public final static int INT = 1;
     public final static int DOUBLE = 2;
