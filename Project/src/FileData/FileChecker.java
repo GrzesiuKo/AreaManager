@@ -12,6 +12,7 @@ public class FileChecker {
     public final static int INT = 1;
     public final static int DOUBLE = 2;
     public final static int UNKNOWN = 3;
+    private static int currentFilePart;
     private List<Integer> errorLines;
     private Map<String, Integer> definitions;
 
@@ -40,12 +41,12 @@ public class FileChecker {
         while (!isFailFound && scanner.hasNextLine()) {
             currentLine = scanner.nextLine();
             currentLineNumber++;
-            isFailFound = checkLine(currentLine, currentFilePart);
+            isFailFound = checkLine(currentLine);
         }
         return !isFailFound;
     }
 
-    private boolean checkLine(String line, int currentFilePart) {
+    private boolean checkLine(String line) {
         int hashCharIndex;
 
         hashCharIndex = line.indexOf("#");
