@@ -7,6 +7,7 @@ import Statistics.UserObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class FileReader {
     private static int currentFilePart;
@@ -74,9 +75,9 @@ public class FileReader {
             return;
         }
 
-        scanner.nextDouble();
-        x = scanner.nextDouble();
-        y = scanner.nextDouble();
+        scanner.next();
+        x = getDoubleFromString(scanner.next());
+        y = getDoubleFromString(scanner.next());
 
         point = new KeyPoint(x, y);
 
@@ -100,8 +101,8 @@ public class FileReader {
         }
         scanner.next();
         name = scanner.next();
-        x = scanner.nextDouble();
-        y = scanner.nextDouble();
+        x = getDoubleFromString(scanner.next());
+        y = getDoubleFromString(scanner.next());
 
         type = definitions.get(name);
 
@@ -117,7 +118,7 @@ public class FileReader {
             UserObject.addObject(point, name, scanner.next());
         } else if (type == FileChecker.DOUBLE) {
             objectPoints.add(point);
-            // UserObject.addObject(point, name, scanner.nextDouble()); czeka na funkcje od Arkadiusza
+            // UserObject.addObject(point, name, getDoubleFromString(scanner.next())); //czeka na funkcje od Arkadiusza
         } else if (type == FileChecker.INT) {
             objectPoints.add(point);
             UserObject.addObject(point, name, scanner.nextInt());
@@ -139,9 +140,9 @@ public class FileReader {
             return;
         }
 
-        scanner.nextDouble();
-        x = scanner.nextDouble();
-        y = scanner.nextDouble();
+        scanner.next();
+        x = getDoubleFromString(scanner.next());
+        y = getDoubleFromString(scanner.next());
 
         point = new Point(x, y);
 
@@ -154,6 +155,15 @@ public class FileReader {
         contourPoints = new LinkedList<>();
         definitions = new HashMap<>();
         objectPoints = new LinkedList<>();
+    }
+
+    private double getDoubleFromString(String text){
+        Scanner scanner;
+        scanner = new Scanner(text);
+        text = scanner.next(Pattern.compile("[0-9]*([,.][0-9]*)?"));
+        text = text.replace(",",".");
+
+        return Double.parseDouble(text);
     }
 
     public List<KeyPoint> getKeyPoints() {
