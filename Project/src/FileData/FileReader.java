@@ -121,7 +121,7 @@ public class FileReader {
         } else if (type == FileChecker.INT) {
             objectPoints.add(point);
             UserObject.addObject(point, name, scanner.nextInt());
-        } else if (type == FileChecker.UNKNOWN) {
+        } else if (type == FileChecker.NOT_GIVEN) {
             objectPoints.add(point);
             UserObject.addObject(point, name);
         }

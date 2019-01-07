@@ -11,7 +11,7 @@ public class FileChecker {
     public final static int STRING = 0;
     public final static int INT = 1;
     public final static int DOUBLE = 2;
-    public final static int UNKNOWN = 3;
+    public final static int NOT_GIVEN = 3;
     private static int currentFilePart;
     private List<Integer> errorLines;
     private Map<String, Integer> definitions;
@@ -107,7 +107,7 @@ public class FileChecker {
                 return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s\\d*\\s*");
             case DOUBLE:
                 return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]+((([,.])[0-9]*)|[,.])?\\s*");
-            case UNKNOWN:
+            case NOT_GIVEN:
                 return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s*");
             default:
                 return false;
@@ -145,7 +145,7 @@ public class FileChecker {
             typeName = scanner.next();
             typeId = recognizeTypeByVariableName(typeName);
         } else {
-            typeId = UNKNOWN;
+            typeId = NOT_GIVEN;
         }
 
         // System.out.println("Dodaje do mapy: " + name);
@@ -154,7 +154,7 @@ public class FileChecker {
 
     private static int recognizeTypeByVariableName(String name) {
         if (name == null) {
-            return UNKNOWN;
+            return NOT_GIVEN;
         }
 
         if (name.matches("(?i)string(?-i)")) {
@@ -164,7 +164,7 @@ public class FileChecker {
         } else if (name.matches("(?i)int(?-i)")) {
             return INT;
         } else {
-            return UNKNOWN;
+            return NOT_GIVEN;
         }
     }
 
