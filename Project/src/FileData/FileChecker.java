@@ -73,7 +73,7 @@ public class FileChecker {
     }
 
     private boolean checkObjectDefinitionLine(String line) {
-        return true;
+        return line.matches(".*\\s.{1,40}\\s(?i)(string|int|double)(?-i)(\\s)*");
     }
 
     private boolean checkObjectLine(String line) {
