@@ -7,6 +7,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class FileChecker {
+    public final static int STRING = 0;
+    public final static int INT = 1;
+    public final static int DOUBLE = 2;
+    public final static int UNKNOWN = 3;
     private List<Integer> errorLines;
     private Map<String, Integer> definitions;
 
@@ -86,13 +90,13 @@ public class FileChecker {
         int objectType;
         objectType = checkType(line);
         switch (objectType) {
-            case FileReader.STRING:
+            case STRING:
                 return line.matches("");
-            case FileReader.INT:
+            case INT:
                 return line.matches("");
-            case FileReader.DOUBLE:
+            case DOUBLE:
                 return line.matches("");
-            case FileReader.UNKNOWN:
+            case UNKNOWN:
                 return line.matches("");
             default:
                 return false;

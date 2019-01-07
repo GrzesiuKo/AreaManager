@@ -9,10 +9,6 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class FileReader {
-    public final static int STRING = 0;
-    public final static int INT = 1;
-    public final static int DOUBLE = 2;
-    public final static int UNKNOWN = 3;
     private static int currentFilePart;
     private List<KeyPoint> keyPoints;
     private List<Point> contourPoints;
@@ -105,7 +101,7 @@ public class FileReader {
             typeName = scanner.next();
             typeId = recognizeType(typeName);
         } else {
-            typeId = UNKNOWN;
+            typeId = FileChecker.UNKNOWN;
         }
 
         System.out.println("Dodaje do mapy: " + name);
@@ -138,17 +134,17 @@ public class FileReader {
     }
 
     private void addObject(Point point, String name, int type, Scanner scanner) {
-        if (type == STRING) {
+        if (type == FileChecker.STRING) {
             objectPoints.add(point);
             scanner.useDelimiter("$");
             UserObject.addObject(point, name, scanner.next());
-        } else if (type == DOUBLE) {
+        } else if (type == FileChecker.DOUBLE) {
             objectPoints.add(point);
             // UserObject.addObject(point, name, scanner.nextDouble()); czeka na funkcje od Arkadiusza
-        } else if (type == INT) {
+        } else if (type == FileChecker.INT) {
             objectPoints.add(point);
             UserObject.addObject(point, name, scanner.nextInt());
-        } else if (type == UNKNOWN) {
+        } else if (type == FileChecker.UNKNOWN) {
             objectPoints.add(point);
             UserObject.addObject(point, name);
         }
@@ -177,17 +173,17 @@ public class FileReader {
 
     private static int recognizeType(String name) {
         if (name == null) {
-            return UNKNOWN;
+            return FileChecker.UNKNOWN;
         }
 
         if (name.matches("(?i)string(?-i)")) {
-            return STRING;
+            return FileChecker.STRING;
         } else if (name.matches("(?i)double(?-i)")) {
-            return DOUBLE;
+            return FileChecker.DOUBLE;
         } else if (name.matches("(?i)int(?-i)")) {
-            return INT;
+            return FileChecker.INT;
         } else {
-            return UNKNOWN;
+            return FileChecker.UNKNOWN;
         }
     }
 
