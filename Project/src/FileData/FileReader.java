@@ -180,11 +180,11 @@ public class FileReader {
             return UNKNOWN;
         }
 
-        if (name.matches("string")) {
+        if (name.matches("(?i)string(?-i)")) {
             return STRING;
-        } else if (name.matches("double")) {
+        } else if (name.matches("(?i)double(?-i)")) {
             return DOUBLE;
-        } else if (name.matches("int")) {
+        } else if (name.matches("(?i)int(?-i)")) {
             return INT;
         } else {
             return UNKNOWN;
