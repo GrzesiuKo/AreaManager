@@ -2,6 +2,7 @@ package FileData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,6 +15,9 @@ public class FileChecker {
     private List<Integer> errorLines;
     private Map<String, Integer> definitions;
 
+    public FileChecker(){
+        definitions = new HashMap<>();
+    }
 
     public boolean checkFile(File file) {
         boolean isFailFound;
