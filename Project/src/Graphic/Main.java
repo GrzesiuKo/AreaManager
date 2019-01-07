@@ -1,6 +1,7 @@
 package Graphic;
 
 import Common.Point;
+import Diagram.Diagram;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -62,7 +63,8 @@ public class Main extends Application {
                 File file = fileChooser.showOpenDialog(primaryStage);
 
                 if (file != null) {
-                    //Output for PARSER -
+                    Diagram diagram = new Diagram(file);
+                    System.out.println(diagram.getContour().getContourPoints().get(0));
                 }
             }
         });
