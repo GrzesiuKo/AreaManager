@@ -118,14 +118,19 @@ public class FileChecker {
     private int checkTypeByDefinedName(String objectLine) {
         Scanner scanner;
         String key;
+        int result;
 
         scanner = new Scanner(objectLine);
         scanner.useDelimiter(" ");
 
         scanner.next();
         key = scanner.next();
-
-        return definitions.get(key);
+        try {
+            result = definitions.get(key);
+        }catch (NullPointerException e){
+            result = UNKNOWN;
+        }
+        return result;
     }
 
     public static void readObjectDefinitionLine(String line, Map<String, Integer> definitions) {
