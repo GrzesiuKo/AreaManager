@@ -88,7 +88,7 @@ public class FileChecker {
 
     private boolean checkObjectLine(String line) {
         int objectType;
-        objectType = checkType(line);
+        objectType = checkTypeByDefinedName(line);
         switch (objectType) {
             case STRING:
                 return line.matches("");
@@ -103,11 +103,11 @@ public class FileChecker {
         }
     }
 
-    private int checkType(String line) {
+    private int checkTypeByDefinedName(String objectLine) {
         Scanner scanner;
         String key;
 
-        scanner = new Scanner(line);
+        scanner = new Scanner(objectLine);
         scanner.useDelimiter(" ");
 
         scanner.next();
@@ -132,7 +132,7 @@ public class FileChecker {
 
         if (scanner.hasNext()) {
             typeName = scanner.next();
-            typeId = recognizeType(typeName);
+            typeId = recognizeTypeByVariableName(typeName);
         } else {
             typeId = UNKNOWN;
         }
@@ -141,7 +141,7 @@ public class FileChecker {
         definitions.put(name, typeId);
     }
 
-    private static int recognizeType(String name) {
+    private static int recognizeTypeByVariableName(String name) {
         if (name == null) {
             return UNKNOWN;
         }
