@@ -103,10 +103,17 @@ public class FileChecker {
         }
     }
 
-
-
     private int checkType(String line) {
-        return 0;
+        Scanner scanner;
+        String key;
+
+        scanner = new Scanner(line);
+        scanner.useDelimiter(" ");
+
+        scanner.next();
+        key = scanner.next();
+
+        return definitions.get(key);
     }
 
     public static void readObjectDefinitionLine(String line, Map<String, Integer> definitions) {
