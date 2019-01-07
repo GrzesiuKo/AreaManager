@@ -38,9 +38,7 @@ public class FileChecker {
             currentLineNumber++;
             isFailFound = checkLine(currentLine, currentFilePart);
         }
-
-
-        return isFailFound;
+        return !isFailFound;
     }
 
     private boolean checkLine(String line, int currentFilePart) {
