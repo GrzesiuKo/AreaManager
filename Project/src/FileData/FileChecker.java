@@ -137,7 +137,7 @@ public class FileChecker {
             typeId = UNKNOWN;
         }
 
-        System.out.println("Dodaje do mapy: " + name);
+       // System.out.println("Dodaje do mapy: " + name);
         definitions.put(name, typeId);
     }
 
