@@ -41,7 +41,7 @@ public class FileChecker {
         while (!isFailFound && scanner.hasNextLine()) {
             currentLine = scanner.nextLine();
             currentLineNumber++;
-            isFailFound = checkLine(currentLine);
+            isFailFound = !checkLine(currentLine);
         }
         return !isFailFound;
     }
