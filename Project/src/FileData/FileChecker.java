@@ -69,7 +69,7 @@ public class FileChecker {
     }
 
     private boolean checkKeyPointLine(String line) {
-        return true;
+        return line.matches(".*\\s[0-9]{1,2}(([,.])[0-9])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\d\\w\\s)*");
     }
 
     private boolean checkObjectDefinitionLine(String line) {
