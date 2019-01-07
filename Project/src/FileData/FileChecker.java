@@ -32,14 +32,14 @@ public class FileChecker {
         while (result != false && scanner.hasNextLine()) {
             currentLine = scanner.nextLine();
             currentLineNumber++;
-            result = checkLine(currentLine, currentLineNumber, currentFilePart);
+            result = checkLine(currentLine, currentFilePart);
         }
 
 
         return result;
     }
 
-    private boolean checkLine(String line, int lineNumber, int currentFilePart) {
+    private boolean checkLine(String line, int currentFilePart) {
         int hashCharIndex;
 
         hashCharIndex = line.indexOf("#");
