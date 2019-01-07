@@ -34,4 +34,8 @@ public class UserObject {
     public String toString() {
         return "x: " + String.valueOf(localization.getX()) + "  y: " + String.valueOf(localization.getY());
     }
+
+    public Point getLocalization() {
+        return localization;
+    }
 }
