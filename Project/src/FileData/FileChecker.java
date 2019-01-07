@@ -93,7 +93,7 @@ public class FileChecker {
             case STRING:
                 return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s.*)?");
             case INT:
-                return line.matches("");
+                return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s\\d*\\s*");
             case DOUBLE:
                 return line.matches("");
             case UNKNOWN:
