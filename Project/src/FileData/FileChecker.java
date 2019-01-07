@@ -57,7 +57,7 @@ public class FileChecker {
 
         } else if (FileNavigation.isKeyPointsSection(currentFilePart)) {
             if (checkKeyPointLine(line)) {
-                addDefinition(line);
+                readObjectDefinitionLine(line, definitions);
                 return true;
             }
             return false;
@@ -103,12 +103,51 @@ public class FileChecker {
         }
     }
 
-    private void addDefinition(String line){
 
+
+    private int checkType(String line) {
+        return 0;
     }
 
-    private int checkType(String line){
-        return 0;
+    public static void readObjectDefinitionLine(String line, Map<String, Integer> definitions) {
+        Scanner scanner;
+        String name;
+        String typeName;
+        int typeId;
+
+        try {
+            scanner = new Scanner(line);
+        } catch (NullPointerException e) {
+            return;
+        }
+        scanner.next();
+        name = scanner.next();
+
+        if (scanner.hasNext()) {
+            typeName = scanner.next();
+            typeId = recognizeType(typeName);
+        } else {
+            typeId = UNKNOWN;
+        }
+
+        System.out.println("Dodaje do mapy: " + name);
+        definitions.put(name, typeId);
+    }
+
+    private static int recognizeType(String name) {
+        if (name == null) {
+            return UNKNOWN;
+        }
+
+        if (name.matches("(?i)string(?-i)")) {
+            return STRING;
+        } else if (name.matches("(?i)double(?-i)")) {
+            return DOUBLE;
+        } else if (name.matches("(?i)int(?-i)")) {
+            return INT;
+        } else {
+            return UNKNOWN;
+        }
     }
 
 }

@@ -49,7 +49,7 @@ public class FileReader {
             readKeyPointLine(line, keyPoints);
 
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
-            readObjectDefinitionLine(line, definitions);
+            FileChecker.readObjectDefinitionLine(line, definitions);
 
         } else if (FileNavigation.isObjectsSection(currentFilePart)) {
             readObjectLine(line);
@@ -83,30 +83,7 @@ public class FileReader {
         list.add(point);
     }
 
-    public static void readObjectDefinitionLine(String line, Map<String,Integer> definitions) {
-        Scanner scanner;
-        String name;
-        String typeName;
-        int typeId;
 
-        try {
-            scanner = new Scanner(line);
-        } catch (NullPointerException e) {
-            return;
-        }
-        scanner.next();
-        name = scanner.next();
-
-        if (scanner.hasNext()) {
-            typeName = scanner.next();
-            typeId = recognizeType(typeName);
-        } else {
-            typeId = FileChecker.UNKNOWN;
-        }
-
-        System.out.println("Dodaje do mapy: " + name);
-        definitions.put(name, typeId);
-    }
 
     private void readObjectLine(String line) {
         Scanner scanner;
@@ -171,21 +148,6 @@ public class FileReader {
         list.add(point);
     }
 
-    private static int recognizeType(String name) {
-        if (name == null) {
-            return FileChecker.UNKNOWN;
-        }
-
-        if (name.matches("(?i)string(?-i)")) {
-            return FileChecker.STRING;
-        } else if (name.matches("(?i)double(?-i)")) {
-            return FileChecker.DOUBLE;
-        } else if (name.matches("(?i)int(?-i)")) {
-            return FileChecker.INT;
-        } else {
-            return FileChecker.UNKNOWN;
-        }
-    }
 
     private void initializeFileReader() {
         keyPoints = new LinkedList<>();
