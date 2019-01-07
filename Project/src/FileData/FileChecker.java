@@ -75,7 +75,7 @@ public class FileChecker {
 
 
     private boolean checkContourPointLine(String line) {
-        return line.matches(".*\\s[0-9]{1,2}(([,.])[0-9])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s)*");
+        return line.matches(".*\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s)*");
     }
 
     private boolean checkKeyPointLine(String line) {
