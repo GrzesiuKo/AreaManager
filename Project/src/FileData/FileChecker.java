@@ -16,13 +16,13 @@ public class FileChecker {
 
 
     public boolean checkFile(File file) {
-        boolean result;
+        boolean isFailFound;
         Scanner scanner;
         String currentLine;
         int currentLineNumber;
         int currentFilePart;
 
-        result = true;
+        isFailFound = false;
         currentLineNumber = 0;
         currentFilePart = 0;
 
@@ -33,14 +33,14 @@ public class FileChecker {
         }
 
 
-        while (result != false && scanner.hasNextLine()) {
+        while (!isFailFound && scanner.hasNextLine()) {
             currentLine = scanner.nextLine();
             currentLineNumber++;
-            result = checkLine(currentLine, currentFilePart);
+            isFailFound = checkLine(currentLine, currentFilePart);
         }
 
 
-        return result;
+        return isFailFound;
     }
 
     private boolean checkLine(String line, int currentFilePart) {
