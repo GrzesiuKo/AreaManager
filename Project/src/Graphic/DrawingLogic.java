@@ -13,7 +13,7 @@ public class DrawingLogic {
 
     public static void draw(GraphicsContext gc , Diagram diagram){
         gc.setLineWidth(2);
-        int scale = (int) gc.getCanvas().getWidth() * 10/Diagram.X_SIZE ;
+        int scale = (int) gc.getCanvas().getWidth() /Diagram.X_SIZE ;
         drawCountour( gc, diagram.getContour().getContourPoints() , scale);
         drawKeyPoints(gc , diagram.getKeyPoints() , scale);
         drawUserPoints(gc , scale);
@@ -58,8 +58,7 @@ public class DrawingLogic {
             List<Point> points = keyPoints.get(i).getAreaPoints();
             gc.setFill(Color.color(0.1*i,0.2*i,0.15*i));
             for (int j = 0 ; j < points.size() ; j ++){
-                gc.fillOval(points.get(i).getX() * scale , points.get(i).getY() * scale , 1,1);
-                System.out.println(points.get(i).getX() + points.get(i).getY());
+                gc.fillOval( Point.scaleCoordinateToInt(points.get(j).getX(), Diagram.X_SIZE)  ,  Point.scaleCoordinateToInt(points.get(j).getY(), Diagram.Y_SIZE)  , 1,1);
             }
         }
     }
