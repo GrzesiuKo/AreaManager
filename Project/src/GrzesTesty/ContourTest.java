@@ -17,6 +17,8 @@ public class ContourTest {
         points.add(new Point(5, 4));
         points.add(new Point(1, 3));
         points.add(new Point(0, 5));
+        points.add(new Point(-3, 3));
+        points.add(new Point(0, 6));
 
         contour = new Contour(points);
 
