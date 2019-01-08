@@ -72,4 +72,8 @@ public class Point {
         return this;
     }
 
+    private double absoluteValue(Point a){
+        //TODO
+        return 0;
+    }
 }
