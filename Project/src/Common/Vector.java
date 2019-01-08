@@ -21,4 +21,9 @@ public class Vector extends Point {
         return 0;
     }
 
+    private double getLength(Point a) {
+        //TODO
+        return 0;
+    }
+
 }
