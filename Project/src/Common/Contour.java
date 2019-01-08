@@ -64,7 +64,7 @@ public class Contour {
 
         while (latest != highest) {
             latest = nextRightPoint(points, latest);
-            System.out.println("    Next Right Point is: "+latest.toString());
+            System.out.println("    Next Right Point is: " + latest.toString());
             if (latest != lowest) {
                 points.remove(latest);
                 contourPoints.add(latest);
@@ -84,7 +84,7 @@ public class Contour {
 
         while (latest != lowest) {
             latest = nextLeftPoint(points, latest);
-            System.out.println("    Next Left Point is: "+latest.toString());
+            System.out.println("    Next Left Point is: " + latest.toString());
             if (latest != highest) {
                 points.remove(latest);
                 contourPoints.add(latest);

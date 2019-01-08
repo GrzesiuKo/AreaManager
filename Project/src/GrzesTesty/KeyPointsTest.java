@@ -37,7 +37,7 @@ public class KeyPointsTest {
                 x = p.getX();
                 y = p.getY();
                 //System.out.println("("+x+", "+y+")");
-                x = Point.scaleCoordinateToInt(x,precision);
+                x = Point.scaleCoordinateToInt(x, precision);
                 y = Point.scaleCoordinateToInt(y, precision);
                 if (color == 1) {
                     System.out.println(ANSI_GREEN + "(" + x + ", " + y + ")" + ANSI_RESET);

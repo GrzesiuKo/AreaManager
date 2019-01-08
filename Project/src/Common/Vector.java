@@ -5,11 +5,11 @@ public class Vector extends Point {
         super(end.getX() - start.getX(), end.getY() - start.getY());
     }
 
-    public Vector(double start, double end){
-        super(start,end);
+    public Vector(double start, double end) {
+        super(start, end);
     }
 
-    public double findAngleBetween(Vector a){
+    public double findAngleBetween(Vector a) {
         double cosinus, result;
 
         cosinus = findCosinusBetween(a);
@@ -28,7 +28,7 @@ public class Vector extends Point {
         lengthA = a.getLength();
         lengthB = getLength();
 
-        result = scalar/(lengthA*lengthB);
+        result = scalar / (lengthA * lengthB);
 
         return result;
     }
@@ -37,16 +37,16 @@ public class Vector extends Point {
     private double scalarProduct(Vector a, Vector b) {
         double x, y;
 
-        x = a.getX()*b.getX();
-        y = a.getY()*b.getY();
+        x = a.getX() * b.getX();
+        y = a.getY() * b.getY();
 
-        return x+y;
+        return x + y;
     }
 
     private double getLength() {
         double a = Math.pow(this.getX(), 2);
         double b = Math.pow(this.getY(), 2);
-        return Math.sqrt(a+b);
+        return Math.sqrt(a + b);
     }
 
 }

@@ -2,7 +2,6 @@ package Diagram;
 
 import Common.Contour;
 import Common.KeyPoint;
-import Common.Point;
 import FileData.FileChecker;
 import FileData.FileReader;
 
@@ -34,7 +33,7 @@ public class Diagram {
             areaHasObject = voronoi.getDividedArea();
 
             contour = new Contour(fileReader.getContourPoints());
-        }else{
+        } else {
             System.out.println("Błędny plik");
 
             keyPoints = null;
