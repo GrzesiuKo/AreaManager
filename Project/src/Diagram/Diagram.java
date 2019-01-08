@@ -36,6 +36,7 @@ public class Diagram {
 
             contour = new Contour(fileReader.getContourPoints());
         }else{
+            System.out.println("Błędny plik");
             keyPoints = null;
             areaHasObject = null;
             contour = null;
