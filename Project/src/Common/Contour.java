@@ -92,13 +92,47 @@ public class Contour {
     }
 
     private Point nextRightPoint(List<Point> points, Point current) {
-        //TODO
-        return null;
+        Vector vector;
+        Point next;
+        double bestResult, currentResult;
+        if (points == null){
+            return null;
+        }
+
+        bestResult = -2;
+        next = null;
+
+        for (Point p: points){
+            vector = new Vector(current, p);
+            currentResult = vector.findCosinusBetween(new Vector(1, 0));
+            if (currentResult > bestResult){
+                next = p;
+                bestResult = currentResult;
+            }
+        }
+        return next;
     }
 
     private Point nextLeftPoint(List<Point> points, Point current) {
-        //TODO
-        return null;
+        Vector vector;
+        Point next;
+        double bestResult, currentResult;
+        if (points == null){
+            return null;
+        }
+
+        bestResult = -2;
+        next = null;
+
+        for (Point p: points){
+            vector = new Vector(current, p);
+            currentResult = vector.findCosinusBetween(new Vector(-1, 0));
+            if (currentResult > bestResult){
+                next = p;
+                bestResult = currentResult;
+            }
+        }
+        return next;
     }
 
 
