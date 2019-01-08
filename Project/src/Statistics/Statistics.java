@@ -6,11 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Statistics {
+    private static Statistics instance = null;
     private List<Bear> bearList;
     private List<School> schoolList;
     private List<Residential> residentialList;
-
-    private static Statistics instance = null;
 
     private Statistics() {
         bearList = new ArrayList<>();

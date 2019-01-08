@@ -85,7 +85,6 @@ public class FileReader {
     }
 
 
-
     private void readObjectLine(String line) {
         Scanner scanner;
         String name;
@@ -118,7 +117,7 @@ public class FileReader {
             UserObject.addObject(point, name, scanner.next());
         } else if (type == FileChecker.DOUBLE) {
             objectPoints.add(point);
-            // UserObject.addObject(point, name, getDoubleFromString(scanner.next())); //czeka na funkcje od Arkadiusza
+            //UserObject.addObject(point, name, getDoubleFromString(scanner.next())); //czeka na funkcje od Arkadiusza
         } else if (type == FileChecker.INT) {
             objectPoints.add(point);
             UserObject.addObject(point, name, scanner.nextInt());
@@ -157,11 +156,11 @@ public class FileReader {
         objectPoints = new LinkedList<>();
     }
 
-    private double getDoubleFromString(String text){
+    private double getDoubleFromString(String text) {
         Scanner scanner;
         scanner = new Scanner(text);
         text = scanner.next(Pattern.compile("[0-9]*([,.][0-9]*)?"));
-        text = text.replace(",",".");
+        text = text.replace(",", ".");
 
         return Double.parseDouble(text);
     }

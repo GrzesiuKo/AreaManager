@@ -42,7 +42,7 @@ public class Voronoi {
             }
         }
 
-        if (nearest!=null && !nearest.equals(point)) {
+        if (nearest != null && !nearest.equals(point)) {
             nearest.addPoint(point);
         }
     }

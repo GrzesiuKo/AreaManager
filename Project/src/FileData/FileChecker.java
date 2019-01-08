@@ -17,8 +17,49 @@ public class FileChecker {
     private List<Integer> errorLines;
     private Map<String, Integer> definitions;
 
-    public FileChecker(){
+    public FileChecker() {
         definitions = new HashMap<>();
+    }
+
+    public static void readObjectDefinitionLine(String line, Map<String, Integer> definitions) {
+        Scanner scanner;
+        String name;
+        String typeName;
+        int typeId;
+
+        try {
+            scanner = new Scanner(line);
+        } catch (NullPointerException e) {
+            return;
+        }
+        scanner.next();
+        name = scanner.next();
+
+        if (scanner.hasNext()) {
+            typeName = scanner.next();
+            typeId = recognizeTypeByVariableName(typeName);
+        } else {
+            typeId = NOT_GIVEN;
+        }
+
+        // System.out.println("Dodaje do mapy: " + name);
+        definitions.put(name, typeId);
+    }
+
+    private static int recognizeTypeByVariableName(String name) {
+        if (name == null) {
+            return NOT_GIVEN;
+        }
+
+        if (name.matches("(?i)string(?-i)")) {
+            return STRING;
+        } else if (name.matches("(?i)double(?-i)")) {
+            return DOUBLE;
+        } else if (name.matches("(?i)int(?-i)")) {
+            return INT;
+        } else {
+            return NOT_GIVEN;
+        }
     }
 
     public boolean checkFile(File file) {
@@ -85,7 +126,6 @@ public class FileChecker {
         }
     }
 
-
     private boolean checkContourPointLine(String line) {
         return line.matches(".*\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s)*");
     }
@@ -127,51 +167,10 @@ public class FileChecker {
         key = scanner.next();
         try {
             result = definitions.get(key);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             result = UNKNOWN;
         }
         return result;
-    }
-
-    public static void readObjectDefinitionLine(String line, Map<String, Integer> definitions) {
-        Scanner scanner;
-        String name;
-        String typeName;
-        int typeId;
-
-        try {
-            scanner = new Scanner(line);
-        } catch (NullPointerException e) {
-            return;
-        }
-        scanner.next();
-        name = scanner.next();
-
-        if (scanner.hasNext()) {
-            typeName = scanner.next();
-            typeId = recognizeTypeByVariableName(typeName);
-        } else {
-            typeId = NOT_GIVEN;
-        }
-
-        // System.out.println("Dodaje do mapy: " + name);
-        definitions.put(name, typeId);
-    }
-
-    private static int recognizeTypeByVariableName(String name) {
-        if (name == null) {
-            return NOT_GIVEN;
-        }
-
-        if (name.matches("(?i)string(?-i)")) {
-            return STRING;
-        } else if (name.matches("(?i)double(?-i)")) {
-            return DOUBLE;
-        } else if (name.matches("(?i)int(?-i)")) {
-            return INT;
-        } else {
-            return NOT_GIVEN;
-        }
     }
 
 }

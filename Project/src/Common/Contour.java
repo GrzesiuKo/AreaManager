@@ -27,48 +27,48 @@ public class Contour {
         ignoredPoints = points;
     }
 
-    private Point getLowestPoint(List<Point> points){
+    private Point getLowestPoint(List<Point> points) {
         Point lowest = null;
 
-        if (points==null){
+        if (points == null) {
             return null;
         }
-        for (Point p: points){
+        for (Point p : points) {
             lowest = p.getSmaller(lowest);
         }
 
         return lowest;
     }
 
-    private Point getHighestPoint(List<Point> points){
+    private Point getHighestPoint(List<Point> points) {
         Point lowest = null;
 
-        if (points==null){
+        if (points == null) {
             return null;
         }
-        for (Point p: points){
+        for (Point p : points) {
             lowest = p.getBigger(lowest);
         }
 
         return lowest;
     }
 
-    private List<Point> makeRightSide(List<Point> points, Point lowest, Point highest){
+    private List<Point> makeRightSide(List<Point> points, Point lowest, Point highest) {
         //TODO
         return null;
     }
 
-    private List<Point> makeLeftSide(List<Point> points, Point lowest, Point highest){
+    private List<Point> makeLeftSide(List<Point> points, Point lowest, Point highest) {
         //TODO
         return null;
     }
 
-    private Point nextRightPoint(List<Point> points, Point current){
+    private Point nextRightPoint(List<Point> points, Point current) {
         //TODO
         return null;
     }
 
-    private Point nextLeftPoint(List<Point> points, Point current){
+    private Point nextLeftPoint(List<Point> points, Point current) {
         //TODO
         return null;
     }

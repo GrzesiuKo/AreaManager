@@ -19,13 +19,19 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+
 import java.awt.event.ItemEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 public class Main extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -140,9 +146,5 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

@@ -18,6 +18,7 @@ public class DrawingLogic {
     Double scale;
     int drawingScale;
 
+
     public DrawingLogic(GraphicsContext gc, Diagram diagram) {
         scale =  gc.getCanvas().getWidth() / 100;
         drawingScale = 1;
@@ -67,6 +68,7 @@ public class DrawingLogic {
         List<Bear> bears = toDraw.getBearList();
         List<School> schools = toDraw.getSchoolList();
         List<Residential> residentials = toDraw.getResidentialList();
+
         gc.setFill(Color.BLUEVIOLET);
         for (int i = 0; i < bears.size(); i++) {
             gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, 3, 3);
@@ -93,6 +95,7 @@ public class DrawingLogic {
                     gc.fillOval((points.get(j).getX() * scale), (points.get(j).getY() * scale), 1, 1);
                 }
             }
+
         }
     }
 }

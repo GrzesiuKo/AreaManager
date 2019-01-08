@@ -7,7 +7,6 @@ import FileData.FileChecker;
 import FileData.FileReader;
 
 import java.io.File;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Diagram {
@@ -37,6 +36,7 @@ public class Diagram {
             contour = new Contour(fileReader.getContourPoints());
         }else{
             System.out.println("Błędny plik");
+
             keyPoints = null;
             areaHasObject = null;
             contour = null;
