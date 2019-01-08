@@ -54,13 +54,41 @@ public class Contour {
     }
 
     private List<Point> makeRightSide(List<Point> points, Point lowest, Point highest) {
-        //TODO
-        return null;
+        Point latest;
+        if (points == null) {
+            return null;
+        }
+
+        latest = lowest;
+        contourPoints.add(latest);
+
+        while (latest != highest) {
+            latest = nextRightPoint(points, latest);
+            if (latest != lowest) {
+                points.remove(latest);
+                contourPoints.add(latest);
+            }
+        }
+        return points;
     }
 
     private List<Point> makeLeftSide(List<Point> points, Point lowest, Point highest) {
-        //TODO
-        return null;
+        Point latest;
+        if (points == null) {
+            return null;
+        }
+
+        latest = highest;
+        contourPoints.add(latest);
+
+        while (latest != lowest) {
+            latest = nextLeftPoint(points, latest);
+            if (latest != highest) {
+                points.remove(latest);
+                contourPoints.add(latest);
+            }
+        }
+        return points;
     }
 
     private Point nextRightPoint(List<Point> points, Point current) {
