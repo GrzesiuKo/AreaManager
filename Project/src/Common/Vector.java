@@ -11,8 +11,18 @@ public class Vector extends Point {
 
 
     public double findCosinusBetween(Vector a) {
-        //TODO
-        return 0;
+        double scalar;
+        double lengthA;
+        double lengthB;
+        double result;
+
+        scalar = scalarProduct(this, a);
+        lengthA = a.getLength();
+        lengthB = getLength();
+
+        result = scalar/(lengthA*lengthB);
+
+        return result;
     }
 
 
