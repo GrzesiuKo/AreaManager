@@ -11,10 +11,10 @@ public class Contour {
         contourPoints = new LinkedList<>();
         ignoredPoints = new LinkedList<>();
 
-        makeContour(points);
+        makeConvexContour(points);
     }
 
-    private void makeContour(List<Point> points) {
+    private void makeConvexContour(List<Point> points) {
         Point lowest;
         Point highest;
 
