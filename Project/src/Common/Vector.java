@@ -16,12 +16,12 @@ public class Vector extends Point {
     }
 
 
-    private double scalarProduct(Point a, Point b) {
+    private double scalarProduct(Vector a, Vector b) {
         //TODO
         return 0;
     }
 
-    private double getLength(Point a) {
+    private double getLength() {
         //TODO
         return 0;
     }
