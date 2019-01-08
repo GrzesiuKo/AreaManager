@@ -27,8 +27,12 @@ public class Vector extends Point {
 
 
     private double scalarProduct(Vector a, Vector b) {
-        //TODO
-        return 0;
+        double x, y;
+
+        x = a.getX()*b.getX();
+        y = a.getY()*b.getY();
+
+        return x+y;
     }
 
     private double getLength() {
