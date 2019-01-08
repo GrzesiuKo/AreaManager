@@ -10,7 +10,7 @@ public class Vector extends Point {
     }
 
 
-    private double findCosinusBetween(Vector a, Vector b) {
+    public double findCosinusBetween(Vector a) {
         //TODO
         return 0;
     }
