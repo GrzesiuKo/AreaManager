@@ -107,7 +107,7 @@ public class Contour {
         for (Point p : points) {
             vector = new Vector(current, p);
             currentAngle = vector.findAngleBetween(new Vector(1, 0));
-
+            System.out.println("Curent angle: "+currentAngle);
             if (current.isOnTheRightSideOf(p) && currentAngle < bestAngle) {
                 next = p;
                 bestAngle = currentAngle;
