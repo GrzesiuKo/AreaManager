@@ -24,11 +24,10 @@ public class KeyPointsTest {
         objectPoints.add(new Point(0.2, 0.2));
         objectPoints.add(new Point(0.1, 0.2));
 
-        int xSize = 100;
-        int ySize = 100;
-
-        Voronoi voronoi = new Voronoi(new Point(xSize, ySize), keyPoints, objectPoints);
-        int[][] tab = new int[xSize][ySize];
+        int size = 10;
+        int precision = 10;
+        Voronoi voronoi = new Voronoi(size, keyPoints, objectPoints);
+        int[][] tab = new int[size][size];
         double x, y;
         int i = 1;
         int color = 0;
@@ -38,8 +37,8 @@ public class KeyPointsTest {
                 x = p.getX();
                 y = p.getY();
                 //System.out.println("("+x+", "+y+")");
-                x = Point.scaleCoordinateToInt(x, xSize);
-                y = Point.scaleCoordinateToInt(y, ySize);
+                x = Point.scaleCoordinateToInt(x,precision);
+                y = Point.scaleCoordinateToInt(y, precision);
                 if (color == 1) {
                     System.out.println(ANSI_GREEN+"(" + x + ", " + y + ")"+ANSI_RESET);
                 }else{

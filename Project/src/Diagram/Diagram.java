@@ -11,8 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Diagram {
-    public final static int X_SIZE = 10;
-    public final static int Y_SIZE = 10;
+    public final static int SIZE = 100;
 
     private List<KeyPoint> keyPoints;
     private Contour contour;
@@ -31,7 +30,7 @@ public class Diagram {
 
             keyPoints = fileReader.getKeyPoints();
 
-            voronoi = new Voronoi(new Point(X_SIZE, Y_SIZE), keyPoints, fileReader.getObjectPoints());
+            voronoi = new Voronoi(SIZE, keyPoints, fileReader.getObjectPoints());
 
             areaHasObject = voronoi.getDividedArea();
 

@@ -4,25 +4,15 @@ package Diagram;
 import Common.KeyPoint;
 import Common.Point;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Voronoi {
 
     private boolean[][] dividedAreaHasObject;
-    private int precisionX;
-    private int precisionY;
+    private int precision = 10;
 
-    public Voronoi(Point size, List<KeyPoint> keyPoints, List<Point> objectPoints) {
-        int x;
-        int y;
-
-        x = (int) size.getX();
-        y = (int) size.getY();
-        dividedAreaHasObject = new boolean[x][y];
-
-        precisionX = x;
-        precisionY = y;
+    public Voronoi(int size, List<KeyPoint> keyPoints, List<Point> objectPoints) {
+        dividedAreaHasObject = new boolean[size][size];
 
         makeAreas(keyPoints);
         indicateObjects(objectPoints);
@@ -33,7 +23,7 @@ public class Voronoi {
 
         for (int x = 0; x < dividedAreaHasObject.length; x++) {
             for (int y = 0; y < dividedAreaHasObject[0].length; y++) {
-                current = new Point(scale(x, precisionX), scale(y, precisionY));
+                current = new Point(scaleToDouble(x, precision), scaleToDouble(y, precision));
                 addToKeyPoint(current, keyPoints);
             }
         }
@@ -57,7 +47,7 @@ public class Voronoi {
         }
     }
 
-    private double scale(int a, int precision) {
+    private double scaleToDouble(int a, int precision) {
         return ((double) a) / (double) precision;
     }
 
@@ -73,10 +63,9 @@ public class Voronoi {
     private void indicateObjects(List<Point> objectPoints) {
         Point current;
 
-
-        for (int y = 0; y < dividedAreaHasObject[0].length; y++) {
+         for (int y = 0; y < dividedAreaHasObject[0].length; y++) {
             for (int x = 0; x < dividedAreaHasObject.length; x++) {
-                current = new Point(scale(x, precisionX), scale(y, precisionY));
+                current = new Point(scaleToDouble(x, precision), scaleToDouble(y, precision));
 
                 if (objectBelongsToTheField(current, objectPoints)) {
                     dividedAreaHasObject[x][y] = true;
