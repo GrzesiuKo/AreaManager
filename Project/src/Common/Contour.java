@@ -19,7 +19,9 @@ public class Contour {
         Point highest;
 
         lowest = getLowestPoint(points);
+        System.out.println("Lowest: "+lowest.toString());
         highest = getHighestPoint(points);
+        System.out.println("Highest: "+highest.toString());
 
         points = makeRightSide(points, lowest, highest);
         points = makeLeftSide(points, lowest, highest);
@@ -64,7 +66,7 @@ public class Contour {
 
         while (latest != highest) {
             latest = nextRightPoint(points, latest);
-            System.out.println("Next Right Point is: " + latest.toString());
+                                                        System.out.println("Next Right Point is: " + latest.toString());
             if (latest != lowest) {
                 points.remove(latest);
                 contourPoints.add(latest);
@@ -84,8 +86,7 @@ public class Contour {
 
         while (latest != lowest) {
             latest = nextLeftPoint(points, latest);
-            System.out.println("Next Left Point is: " + latest.toString());
-            if (latest != highest) {
+                                                                System.out.println("Next Left Point is: " + latest.toString());
                 points.remove(latest);
                 contourPoints.add(latest);
             }
@@ -107,18 +108,18 @@ public class Contour {
         for (Point p : points) {
             vector = new Vector(current, p);
             currentAngle = vector.findAngleBetween(new Vector(1, 0));
-            System.out.println("    Curent angle: "+currentAngle);
             if (current.isOnTheRightSideOf(p) && currentAngle < bestAngle) {
-                System.out.println("        Adding: "+p.toString());
+                System.out.println("    Lower, angle = "+currentAngle+" point "+p.toString());
                 next = p;
                 bestAngle = currentAngle;
 
             } else if (current.isOnTheLeftSideOf(p) && 360 - currentAngle < bestAngle) {
-                System.out.println("        Adding: "+p.toString());
+                System.out.println("    Higher, angle = "+currentAngle);
                 next = p;
                 bestAngle = 360 - currentAngle;
             }
         }
+        System.out.println("Next Point: "+next.toString());
         return next;
     }
 
@@ -138,12 +139,9 @@ public class Contour {
             currentAngle = vector.findAngleBetween(new Vector(-1, 0));
             System.out.println("    Curent angle: "+currentAngle);
             if (current.isOnTheLeftSideOf(p) && currentAngle < bestAngle) {
-                System.out.println("        Adding: "+p.toString());
                 next = p;
                 bestAngle = currentAngle;
-
             } else if (current.isOnTheRightSideOf(p) && 360 - currentAngle < bestAngle) {
-                System.out.println("        Adding: "+p.toString());
                 next = p;
                 bestAngle = 360 - currentAngle;
             }
