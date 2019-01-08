@@ -3,6 +3,7 @@ package Graphic;
 import Common.Point;
 import Diagram.Diagram;
 import FileData.FileReader;
+import Statistics.Statistics;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -16,7 +17,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+import java.awt.event.ItemEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -108,14 +111,36 @@ public class Main extends Application {
                             workTypeAlert.setContentText("Nie wybrano trybu pracy");
                             workTypeAlert.showAndWait();
                         } else if (selectWorkType.getValue().equals("Wyświetlanie statystyk")) {
-                            contextMenu.show(canvas , me.getScreenX(), me.getScreenY());
+                            contextMenu.show(canvas, me.getScreenX(), me.getScreenY());
+                            menuItem1.setOnAction(new EventHandler<ActionEvent>() {
+                                public void handle(ActionEvent e) {
+                                    Statistics.getInstance().printAllObjectList(new Point(me.getSceneX(),me.getSceneY()));
+                                }
+                            });
+                            menuItem2.setOnAction(new EventHandler<ActionEvent>() {
+                                public void handle(ActionEvent e) {
+                                    Statistics.getInstance().printGroupObjectList(new Point(me.getSceneX(),me.getSceneY()));
+                                }
+                            });
+                            menuItem3.setOnAction(new EventHandler<ActionEvent>() {
+                                public void handle(ActionEvent e) {
+                                    Statistics.getInstance().printResidentsNumber(new Point(me.getSceneX(),me.getSceneY()));
+                                }
+                            });
+
                         } else if (selectWorkType.getValue().equals("Edycja konturów")) {
-
                         } else if (selectWorkType.getValue().equals("Edycja punktów kluczowych")) {
-
                         }
                     }
                 });
+
+
+
+
+
+
+
+
 
         Scene scene = new Scene(verticalSplit);
         primaryStage.setTitle("Project");
