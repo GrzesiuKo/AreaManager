@@ -134,14 +134,6 @@ public class Main extends Application {
                     }
                 });
 
-
-
-
-
-
-
-
-
         Scene scene = new Scene(verticalSplit);
         primaryStage.setTitle("Project");
         primaryStage.setScene(scene);
