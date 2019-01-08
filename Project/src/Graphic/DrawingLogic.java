@@ -68,15 +68,15 @@ public class DrawingLogic {
         List<Bear> bears = toDraw.getBearList();
         List<School> schools = toDraw.getSchoolList();
         List<Residential> residentials = toDraw.getResidentialList();
-        gc.setFill(Color.CYAN);
+        gc.setFill(Color.BLUEVIOLET);
         for (int i = 0; i < bears.size(); i++) {
-            gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, 4, 4);
+            gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, 6, 6);
         }
         for (int i = 0; i < schools.size(); i++) {
-            gc.fillOval(schools.get(i).getLocalization().getX() * scale, schools.get(i).getLocalization().getY() * scale, 4, 4);
+            gc.fillOval(schools.get(i).getLocalization().getX() * scale, schools.get(i).getLocalization().getY() * scale, 6, 6);
         }
         for (int i = 0; i < residentials.size(); i++) {
-            gc.fillOval(residentials.get(i).getLocalization().getX() * scale, residentials.get(i).getLocalization().getY() * scale, 4, 4);
+            gc.fillOval(residentials.get(i).getLocalization().getX() * scale, residentials.get(i).getLocalization().getY() * scale, 6, 6);
         }
     }
 
@@ -84,7 +84,7 @@ public class DrawingLogic {
         List<KeyPoint> keyPoints = diagram.getKeyPoints();
         for (int i = 0; i < keyPoints.size(); i++) {
             List<Point> points = keyPoints.get(i).getAreaPoints();
-            gc.setFill(Color.color(0.1 * i, 0.2 * i, 0.15 * i, 0.03));
+            gc.setFill(Color.color(0.1 * i, 0.2 * i, 0.15 * i, 0.06));
             for (int j = 0; j < points.size(); j++) {
                 //if (contour.contains(points.get(j).getX() * scale, points.get(j).getY()* scale)) {
                     gc.fillOval((points.get(j).getX() - 0.01)  * scale , (points.get(j).getY() -0.01 ) * scale , 10 *drawingScale, 10 * drawingScale);
