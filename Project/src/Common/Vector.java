@@ -9,6 +9,14 @@ public class Vector extends Point {
         super(start,end);
     }
 
+    public double findAngleBetween(Vector a){
+        double cosinus, result;
+
+        cosinus = findCosinusBetween(a);
+        result = Math.acos(cosinus);
+
+        return result;
+    }
 
     public double findCosinusBetween(Vector a) {
         double scalar;
