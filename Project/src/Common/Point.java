@@ -72,12 +72,16 @@ public class Point {
         return this;
     }
 
-    public boolean isOnTheRightSideOf(Point p) {
-        return x - p.getX() > 0;
+    public boolean isHigherThan(Point p){
+        return y-p.getY()>0;
     }
 
-    public boolean isOnTheLeftSideOf(Point p) {
-        return x - p.getX() < 0;
+    public boolean isLowerThan(Point p){
+        return y-p.getY()<0;
+    }
+
+    public boolean hasTheSameHeightAs(Point p){
+        return y == p.getY();
     }
 
     public String toString() {
