@@ -37,11 +37,11 @@ public class KeyPointsTest {
                 x = p.getX();
                 y = p.getY();
                 //System.out.println("("+x+", "+y+")");
-                x = Point.scaleCoordinateToInt(x,precision);
+                x = Point.scaleCoordinateToInt(x, precision);
                 y = Point.scaleCoordinateToInt(y, precision);
                 if (color == 1) {
-                    System.out.println(ANSI_GREEN+"(" + x + ", " + y + ")"+ANSI_RESET);
-                }else{
+                    System.out.println(ANSI_GREEN + "(" + x + ", " + y + ")" + ANSI_RESET);
+                } else {
                     System.out.println("(" + x + ", " + y + ")");
                 }
                 tab[(int) y][(int) x] = i;
@@ -58,9 +58,9 @@ public class KeyPointsTest {
         for (int y = 0; y < array[0].length; y++) {
             System.out.print(y + ".  ");
             for (int x = 0; x < array.length; x++) {
-                if (array[x][y]==2){
-                    System.out.print(ANSI_GREEN+array[x][y]+ANSI_RESET);
-                }else {
+                if (array[x][y] == 2) {
+                    System.out.print(ANSI_GREEN + array[x][y] + ANSI_RESET);
+                } else {
                     System.out.print(array[x][y]);
                 }
             }

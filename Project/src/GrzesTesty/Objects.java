@@ -10,7 +10,7 @@ public class Objects {
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_RESET = "\u001B[0m";
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         LinkedList<KeyPoint> keyPoints = new LinkedList<>();
         LinkedList<Point> objectPoints = new LinkedList<>();
         boolean[][] mapObjects;
@@ -37,7 +37,7 @@ public class Objects {
         for (int y = 0; y < array[0].length; y++) {
             for (int x = 0; x < array.length; x++) {
                 if (array[x][y]) {
-                    System.out.print(ANSI_GREEN+array[x][y]+ANSI_RESET + " ");
+                    System.out.print(ANSI_GREEN + array[x][y] + ANSI_RESET + " ");
                 } else {
                     System.out.print(array[x][y] + " ");
                 }
