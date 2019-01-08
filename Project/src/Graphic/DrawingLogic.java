@@ -89,9 +89,9 @@ public class DrawingLogic {
             List<Point> points = keyPoints.get(i).getAreaPoints();
             gc.setFill(Color.color(0.1 * i, 0.2 * i, 0.15 * i, 0.06));
             for (int j = 0; j < points.size(); j++) {
-                System.out.println(j);
+                //System.out.println(j);
                 if (contour.contains(points.get(j).getX() * scale, points.get(j).getY() * scale)) {
-                    System.out.println(j);
+                   // System.out.println(j);
                     gc.fillOval((points.get(j).getX() * scale), (points.get(j).getY() * scale), 1, 1);
                 }
             }
