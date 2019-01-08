@@ -15,12 +15,12 @@ public class DrawingLogic {
     Polygon contour;
     GraphicsContext gc;
     Diagram diagram;
-    int scale;
+    Double scale;
     int drawingScale;
 
     public DrawingLogic(GraphicsContext gc, Diagram diagram) {
-        scale = (int) gc.getCanvas().getWidth();
-        drawingScale = (int) gc.getCanvas().getWidth()/200;
+        scale =  gc.getCanvas().getWidth() / 100;
+        drawingScale = 1;
         Double[] Points = new Double[diagram.getContour().getContourPoints().size() * 2];
         for (int i = 0; i < diagram.getContour().getContourPoints().size(); i++) {
             Points[2 * i] = diagram.getContour().getContourPoints().get(i).getX() * scale;
@@ -30,13 +30,12 @@ public class DrawingLogic {
         }
         contour = new Polygon();
         contour.getPoints().addAll(Points);
-        System.out.println(contour.getPoints());
         this.gc = gc;
         this.diagram = diagram;
     }
 
     public void draw() {
-        gc.setLineWidth(2);
+        gc.setLineWidth(5);
         int scale = (int) gc.getCanvas().getWidth();
         drawCountour();
         drawKeyPoints();
@@ -44,7 +43,7 @@ public class DrawingLogic {
         drawVoronoi();
     }
 
-    private void drawCountour( ) {
+    private void drawCountour() {
         List<Point> contour = diagram.getContour().getContourPoints();
         double[] xPoints = new double[contour.size()];
         double[] yPoints = new double[contour.size()];
@@ -59,36 +58,40 @@ public class DrawingLogic {
         List<KeyPoint> points = diagram.getKeyPoints();
         gc.setFill(Color.RED);
         for (int i = 0; i < points.size(); i++) {
-            gc.fillOval(points.get(i).getX() * scale, points.get(i).getY() * scale, 4 *drawingScale, 4*drawingScale);
+            gc.fillOval(points.get(i).getX() * scale, points.get(i).getY() * scale, 4 * drawingScale, 4 * drawingScale);
         }
     }
 
-    private  void drawUserPoints() {
+    private void drawUserPoints() {
         Statistics toDraw = Statistics.getInstance();
         List<Bear> bears = toDraw.getBearList();
         List<School> schools = toDraw.getSchoolList();
         List<Residential> residentials = toDraw.getResidentialList();
         gc.setFill(Color.BLUEVIOLET);
         for (int i = 0; i < bears.size(); i++) {
-            gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, 6, 6);
+            gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, 3, 3);
         }
         for (int i = 0; i < schools.size(); i++) {
-            gc.fillOval(schools.get(i).getLocalization().getX() * scale, schools.get(i).getLocalization().getY() * scale, 6, 6);
+            gc.fillOval(schools.get(i).getLocalization().getX() * scale, schools.get(i).getLocalization().getY() * scale, 3, 3);
         }
         for (int i = 0; i < residentials.size(); i++) {
-            gc.fillOval(residentials.get(i).getLocalization().getX() * scale, residentials.get(i).getLocalization().getY() * scale, 6, 6);
+            gc.fillOval(residentials.get(i).getLocalization().getX() * scale, residentials.get(i).getLocalization().getY() * scale, 3, 3);
         }
     }
 
     private void drawVoronoi() {
+        gc.getCanvas().setScaleX(0.6);
+        gc.getCanvas().setScaleY(0.6);
         List<KeyPoint> keyPoints = diagram.getKeyPoints();
         for (int i = 0; i < keyPoints.size(); i++) {
             List<Point> points = keyPoints.get(i).getAreaPoints();
             gc.setFill(Color.color(0.1 * i, 0.2 * i, 0.15 * i, 0.06));
             for (int j = 0; j < points.size(); j++) {
-                //if (contour.contains(points.get(j).getX() * scale, points.get(j).getY()* scale)) {
-                    gc.fillOval((points.get(j).getX() - 0.01)  * scale , (points.get(j).getY() -0.01 ) * scale , 10 *drawingScale, 10 * drawingScale);
-                //}
+                System.out.println(j);
+                if (contour.contains(points.get(j).getX() * scale, points.get(j).getY() * scale)) {
+                    System.out.println(j);
+                    gc.fillOval((points.get(j).getX() * scale), (points.get(j).getY() * scale), 1, 1);
+                }
             }
         }
     }

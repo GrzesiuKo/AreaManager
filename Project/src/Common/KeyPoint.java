@@ -1,5 +1,6 @@
 package Common;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class KeyPoint extends Point {
 
     public KeyPoint(double x, double y) {
         super(x, y);
-        areaPoints = new LinkedList<>();
+        areaPoints = new ArrayList<>();
     }
 
     public void addPoint(Point p) {
