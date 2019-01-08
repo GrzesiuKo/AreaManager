@@ -72,7 +72,15 @@ public class Point {
         return this;
     }
 
-    public String toString(){
+    public boolean isOnTheRightSideOf(Point p) {
+        return x - p.getX() > 0;
+    }
+
+    public boolean isOnTheLeftSideOf(Point p) {
+        return x - p.getX() < 0;
+    }
+
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("x = ");
         sb.append(x);
