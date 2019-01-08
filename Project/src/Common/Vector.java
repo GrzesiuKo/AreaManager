@@ -36,8 +36,9 @@ public class Vector extends Point {
     }
 
     private double getLength() {
-        //TODO
-        return 0;
+        double a = Math.pow(this.getX(), 2);
+        double b = Math.pow(this.getY(), 2);
+        return Math.sqrt(a+b);
     }
 
 }
