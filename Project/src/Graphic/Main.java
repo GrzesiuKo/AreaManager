@@ -38,7 +38,7 @@ public class Main extends Application {
         HBox workBox = new HBox(5);
 
         //Dodanie kontrolek
-        Canvas canvas = new Canvas(300, 300);
+        Canvas canvas = new Canvas(600, 600);
         canvas.setVisible(true);
         canvasPane.getChildren().addAll(canvas);
         Button selectFileButton = new Button("Wybierz plik danych");

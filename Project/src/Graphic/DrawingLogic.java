@@ -16,13 +16,15 @@ public class DrawingLogic {
     GraphicsContext gc;
     Diagram diagram;
     int scale;
+    int drawingScale;
 
     public DrawingLogic(GraphicsContext gc, Diagram diagram) {
         scale = (int) gc.getCanvas().getWidth();
+        drawingScale = (int) gc.getCanvas().getWidth()/200;
         Double[] Points = new Double[diagram.getContour().getContourPoints().size() * 2];
         for (int i = 0; i < diagram.getContour().getContourPoints().size(); i++) {
-            Points[2 * i] = Double.valueOf(Point.scaleCoordinateToInt(diagram.getContour().getContourPoints().get(i).getX(), Diagram.X_SIZE) * 3);
-            Points[2 * i + 1] = Double.valueOf(Point.scaleCoordinateToInt(diagram.getContour().getContourPoints().get(i).getY(), Diagram.Y_SIZE) * 3);
+            Points[2 * i] = diagram.getContour().getContourPoints().get(i).getX() * scale;
+            Points[2 * i + 1] = diagram.getContour().getContourPoints().get(i).getY() * scale;
         }
         for (int i = 0; i < diagram.getContour().getContourPoints().size() / 2; i++) {
         }
@@ -36,13 +38,14 @@ public class DrawingLogic {
     public void draw() {
         gc.setLineWidth(2);
         int scale = (int) gc.getCanvas().getWidth();
-        drawCountour(gc, diagram.getContour().getContourPoints(), scale);
-        drawKeyPoints(gc, diagram.getKeyPoints(), scale);
-        drawUserPoints(gc, scale);
-        drawVoronoi(gc, diagram.getKeyPoints(), scale);
+        drawCountour();
+        drawKeyPoints();
+        drawUserPoints();
+        drawVoronoi();
     }
 
-    private void drawCountour(GraphicsContext gc, List<Point> contour, int scale) {
+    private void drawCountour( ) {
+        List<Point> contour = diagram.getContour().getContourPoints();
         double[] xPoints = new double[contour.size()];
         double[] yPoints = new double[contour.size()];
         for (int i = 0; i < contour.size(); i++) {
@@ -52,19 +55,20 @@ public class DrawingLogic {
         gc.strokePolygon(xPoints, yPoints, contour.size());
     }
 
-    private static void drawKeyPoints(GraphicsContext gc, List<KeyPoint> points, int scale) {
+    private void drawKeyPoints() {
+        List<KeyPoint> points = diagram.getKeyPoints();
         gc.setFill(Color.RED);
         for (int i = 0; i < points.size(); i++) {
-            gc.fillOval(points.get(i).getX() * scale, points.get(i).getY() * scale, 4, 4);
+            gc.fillOval(points.get(i).getX() * scale, points.get(i).getY() * scale, 4 *drawingScale, 4*drawingScale);
         }
     }
 
-    private static void drawUserPoints(GraphicsContext gc, int scale) {
+    private  void drawUserPoints() {
         Statistics toDraw = Statistics.getInstance();
         List<Bear> bears = toDraw.getBearList();
         List<School> schools = toDraw.getSchoolList();
         List<Residential> residentials = toDraw.getResidentialList();
-        gc.setFill(Color.GREEN);
+        gc.setFill(Color.CYAN);
         for (int i = 0; i < bears.size(); i++) {
             gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, 4, 4);
         }
@@ -76,14 +80,15 @@ public class DrawingLogic {
         }
     }
 
-    private void drawVoronoi(GraphicsContext gc, List<KeyPoint> keyPoints, int scale) {
+    private void drawVoronoi() {
+        List<KeyPoint> keyPoints = diagram.getKeyPoints();
         for (int i = 0; i < keyPoints.size(); i++) {
             List<Point> points = keyPoints.get(i).getAreaPoints();
-            gc.setFill(Color.color(0.1 * i, 0.2 * i, 0.15 * i, 0.3));
+            gc.setFill(Color.color(0.1 * i, 0.2 * i, 0.15 * i, 0.03));
             for (int j = 0; j < points.size(); j++) {
-                if (contour.contains(Point.scaleCoordinateToInt(points.get(j).getX(), Diagram.X_SIZE) * 3, Point.scaleCoordinateToInt(points.get(j).getY(), Diagram.Y_SIZE) * 3)) {
-                    gc.fillOval(Point.scaleCoordinateToInt(points.get(j).getX(), Diagram.X_SIZE) * 3, Point.scaleCoordinateToInt(points.get(j).getY(), Diagram.Y_SIZE) * 3, 6, 6);
-                }
+                //if (contour.contains(points.get(j).getX() * scale, points.get(j).getY()* scale)) {
+                    gc.fillOval((points.get(j).getX() - 0.01)  * scale , (points.get(j).getY() -0.01 ) * scale , 10 *drawingScale, 10 * drawingScale);
+                //}
             }
         }
     }
