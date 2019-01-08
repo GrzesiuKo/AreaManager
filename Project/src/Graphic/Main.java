@@ -72,7 +72,8 @@ public class Main extends Application {
 
                 if (file != null) {
                     Diagram diagram = new Diagram(file);
-                    DrawingLogic.draw(gc, diagram);
+                    DrawingLogic dr = new DrawingLogic(gc,diagram);
+                    dr.draw();
                 }
             }
         });
