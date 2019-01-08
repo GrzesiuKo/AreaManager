@@ -96,20 +96,25 @@ public class Contour {
     private Point nextRightPoint(List<Point> points, Point current) {
         Vector vector;
         Point next;
-        double bestResult, currentResult;
-        if (points == null){
+        double bestAngle, currentAngle;
+        if (points == null) {
             return null;
         }
 
-        bestResult = -2;
+        bestAngle = 361;
         next = null;
 
-        for (Point p: points){
+        for (Point p : points) {
             vector = new Vector(current, p);
-            currentResult = vector.findCosinusBetween(new Vector(1, 0));
-            if (currentResult > bestResult){
+            currentAngle = vector.findAngleBetween(new Vector(1, 0));
+
+            if (current.isOnTheRightSideOf(p) && currentAngle < bestAngle) {
                 next = p;
-                bestResult = currentResult;
+                bestAngle = currentAngle;
+
+            } else if (current.isOnTheLeftSideOf(p) && 360 - currentAngle < bestAngle) {
+                next = p;
+                bestAngle = 360 - currentAngle;
             }
         }
         return next;
@@ -118,20 +123,25 @@ public class Contour {
     private Point nextLeftPoint(List<Point> points, Point current) {
         Vector vector;
         Point next;
-        double bestResult, currentResult;
-        if (points == null){
+        double bestAngle, currentAngle;
+        if (points == null) {
             return null;
         }
 
-        bestResult = -2;
+        bestAngle = 361;
         next = null;
 
-        for (Point p: points){
+        for (Point p : points) {
             vector = new Vector(current, p);
-            currentResult = vector.findCosinusBetween(new Vector(-1, 0));
-            if (currentResult > bestResult){
+            currentAngle = vector.findAngleBetween(new Vector(-1, 0));
+
+            if (current.isOnTheLeftSideOf(p) && currentAngle < bestAngle) {
                 next = p;
-                bestResult = currentResult;
+                bestAngle = currentAngle;
+
+            } else if (current.isOnTheRightSideOf(p) && 360 - currentAngle < bestAngle) {
+                next = p;
+                bestAngle = 360 - currentAngle;
             }
         }
         return next;
