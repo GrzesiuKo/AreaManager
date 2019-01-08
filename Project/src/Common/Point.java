@@ -32,4 +32,44 @@ public class Point {
         return (int) a;
     }
 
+    public Point getSmaller(Point p){
+        if (p==null){
+            return this;
+        }
+        if (getY()<p.getY()){
+            return this;
+        }else if (getY()>p.getY()){
+            return p;
+        }else if(getY()==p.getY()){
+            if (getX()<p.getX()){
+                return this;
+            }else if (getX()>p.getX()){
+                return p;
+            }else if(getX()==p.getX()){
+                return this;
+            }
+        }
+        return this;
+    }
+
+    public Point getBigger(Point p){
+        if (p==null){
+            return this;
+        }
+        if (getY()>p.getY()){
+            return this;
+        }else if (getY()<p.getY()){
+            return p;
+        }else if(getY()==p.getY()){
+            if (getX()>p.getX()){
+                return this;
+            }else if (getX()<p.getX()){
+                return p;
+            }else if(getX()==p.getX()){
+                return this;
+            }
+        }
+        return this;
+    }
+
 }
