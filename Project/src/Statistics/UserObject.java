@@ -1,14 +1,15 @@
 package Statistics;
 
+import Common.KeyPoint;
 import Common.Point;
 
 public class UserObject {
     private Point localization;
-    private Point memberOf;
+    private KeyPoint memberOf;
 
     public UserObject(Point point) {
         this.localization = point;
-        this.memberOf = checkMembership();
+        this.memberOf = null;
     }
 
     public static void addObject(Point point, String objectName) {
@@ -26,16 +27,16 @@ public class UserObject {
         st.addResidentail(new Residential(point, value));
     }
 
-    private Point checkMembership() {
-        return null;
-    }
-
     @Override
     public String toString() {
-        return "x: " + String.valueOf(localization.getX()) + "  y: " + String.valueOf(localization.getY());
+        return "x: " + String.valueOf(localization.getX()) + "  y: " + String.valueOf(localization.getY() + memberOf.toString());
     }
 
     public Point getLocalization() {
         return localization;
+    }
+
+    public void setMemberOf(KeyPoint memberOf) {
+        this.memberOf = memberOf;
     }
 }

@@ -71,6 +71,7 @@ public class DrawingLogic {
 
     private void drawUserPoints() {
         Statistics toDraw = Statistics.getInstance();
+        toDraw.recheckData(diagram.getKeyPoints() , diagram.getArea());
         List<Bear> bears = toDraw.getBearList();
         List<School> schools = toDraw.getSchoolList();
         List<Residential> residentials = toDraw.getResidentialList();
@@ -79,6 +80,7 @@ public class DrawingLogic {
         for (int i = 0; i < bears.size(); i++) {
             if (contour.contains(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale)) {
                 gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
+                System.out.println(bears.get(i).toString());
             } else {
                 toDraw.deleteObject(i, "Bear");
             }
@@ -107,9 +109,7 @@ public class DrawingLogic {
             List<Point> points = keyPoints.get(i).getAreaPoints();
             gc.setFill(Color.color(0.1 * i, 0.2 * i, 0.15 * i, 0.06));
             for (int j = 0; j < points.size(); j++) {
-                System.out.println(j);
                 if (contour.contains(points.get(j).getX() * scale, points.get(j).getY() * scale)) {
-                    System.out.println(j);
                     gc.fillOval((points.get(j).getX() * scale), (points.get(j).getY() * scale), 1, 1);
                 }
             }

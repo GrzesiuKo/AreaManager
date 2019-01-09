@@ -1,7 +1,9 @@
 package Statistics;
 
+import Common.KeyPoint;
 import Common.Point;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,32 +48,48 @@ public class Statistics {
     public void printResidentsNumber(Point fromUser) {
     }
 
-    public void recheckData() {
+    public void recheckData(List<KeyPoint> keyPoints, boolean[][] area) {
+        UserObject object = null;
+        for (int i = 0; i < bearList.size(); i++) {
+            object = bearList.get(i);
+            bearList.get(i).setMemberOf(findKeyPoint(object.getLocalization(), keyPoints));
+            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
+                deleteObject(i, "Bear");
+            }
+        }
+
+        for (int i = 0; i < residentialList.size(); i++) {
+            residentialList.get(i).setMemberOf(findKeyPoint(residentialList.get(i).getLocalization(), keyPoints));
+            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
+                deleteObject(i, "Residential");
+            }
+        }
+
+        for (int i = 0; i < schoolList.size(); i++) {
+            schoolList.get(i).setMemberOf(findKeyPoint(schoolList.get(i).getLocalization(), keyPoints));
+            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
+                deleteObject(i, "School");
+            }
+        }
     }
 
-    public void deleteObject(int index , String objectName){
-        if(objectName.equals("Bear")){
+    public void deleteObject(int index, String objectName) {
+        if (objectName.equals("Bear")) {
             bearList.remove(index);
-        }
-        else if(objectName.equals("Residential")){
+        } else if (objectName.equals("Residential")) {
             residentialList.remove(index);
-        }
-
-        else if(objectName.equals("School")){
+        } else if (objectName.equals("School")) {
             schoolList.remove(index);
         }
     }
 
-    private Point findKeyPoint(Point fromUser) {
-        List<Point> tmp = new ArrayList<Point>();
-        tmp.add(new Point(1, 1));
-        tmp.add(new Point(100, 100));
-        double distance = Math.sqrt(Math.pow(fromUser.getX() - tmp.get(0).getX(), 2) + Math.pow(fromUser.getY() - tmp.get(0).getY(), 2));
-        Point nearest = tmp.get(0);
-        for (int i = 0; i < tmp.size(); i++) {
-            if (Math.sqrt(Math.pow(fromUser.getX() - tmp.get(i).getX(), 2) + Math.pow(fromUser.getY() - tmp.get(i).getY(), 2)) < distance) {
-                distance = Math.sqrt(Math.pow(fromUser.getX() - tmp.get(i).getX(), 2) + Math.pow(fromUser.getY() - tmp.get(i).getY(), 2));
-                nearest = tmp.get(i);
+    private KeyPoint findKeyPoint(Point fromUser, List<KeyPoint> keyPoints) {
+        double distance = Math.sqrt(Math.pow(fromUser.getX() - keyPoints.get(0).getX(), 2) + Math.pow(fromUser.getY() - keyPoints.get(0).getY(), 2));
+        KeyPoint nearest = keyPoints.get(0);
+        for (int i = 0; i < keyPoints.size(); i++) {
+            if (Math.sqrt(Math.pow(fromUser.getX() - keyPoints.get(i).getX(), 2) + Math.pow(fromUser.getY() - keyPoints.get(i).getY(), 2)) < distance) {
+                distance = Math.sqrt(Math.pow(fromUser.getX() - keyPoints.get(i).getX(), 2) + Math.pow(fromUser.getY() - keyPoints.get(i).getY(), 2));
+                nearest = keyPoints.get(i);
             }
         }
         return nearest;
