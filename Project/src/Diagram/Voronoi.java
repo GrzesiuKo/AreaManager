@@ -145,8 +145,8 @@ public class Voronoi {
         wasFound = false;
 
         if (isValid(x, size) && isValid(y, size)) {
-                wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
-            }
+            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+        }
 
         return wasFound;
     }
@@ -160,9 +160,9 @@ public class Voronoi {
         wasFound = false;
 
 
-            if (isValid(x, size) && isValid(y, size)) {
-                wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
-            }
+        if (isValid(x, size) && isValid(y, size)) {
+            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+        }
 
         return wasFound;
     }
@@ -175,9 +175,9 @@ public class Voronoi {
         y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) - rimNumber;
         wasFound = false;
 
-            if (isValid(x, size) && isValid(y, size)) {
-                wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
-            }
+        if (isValid(x, size) && isValid(y, size)) {
+            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+        }
 
         return wasFound;
     }
@@ -191,9 +191,9 @@ public class Voronoi {
         wasFound = false;
 
 
-            if (isValid(x, size) && isValid(y, size)) {
-                wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
-            }
+        if (isValid(x, size) && isValid(y, size)) {
+            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+        }
 
         return wasFound;
     }
@@ -204,8 +204,8 @@ public class Voronoi {
         nearest = addToGivenKeyPoint(keyPoint, keyPoints, point);
 
         if (nearest.equals(keyPoint)) {
-            x = Point.scaleCoordinateToInt(point.getX(), precision) ;
-            y = Point.scaleCoordinateToInt(point.getY(), precision) ;
+            x = Point.scaleCoordinateToInt(point.getX(), precision);
+            y = Point.scaleCoordinateToInt(point.getY(), precision);
 
             area[x][y].setNearestKeyPoint(keyPoint);
             return true;
@@ -217,13 +217,13 @@ public class Voronoi {
         KeyPoint nearest = null;
         double smallestLength = Double.MAX_VALUE;
         double currentLength;
-System.out.println("Point: "+point.toString());
+        System.out.println("Point: " + point.toString());
         for (KeyPoint keyPoint : keyPoints) {
             currentLength = findLengthOfSegment(point, keyPoint);
             if (currentLength < smallestLength) {
                 nearest = keyPoint;
                 smallestLength = currentLength;
-                System.out.println("smallest: "+smallestLength+" to: "+nearest.string());
+                System.out.println("smallest: " + smallestLength + " to: " + nearest.string());
             }
         }
 
@@ -233,7 +233,7 @@ System.out.println("Point: "+point.toString());
         }
 
         System.out.println();
-        System.out.println("smallest: "+smallestLength+" to: "+nearest.string());
+        System.out.println("smallest: " + smallestLength + " to: " + nearest.string());
         System.out.println("-------------------------------------------------------------------");
         return nearest;
     }
@@ -250,7 +250,7 @@ System.out.println("Point: "+point.toString());
         return keyPoints;
     }
 
-    private boolean isValid(int a, int size){
-        return (a>=0) && (a<size);
+    private boolean isValid(int a, int size) {
+        return (a >= 0) && (a < size);
     }
 }
