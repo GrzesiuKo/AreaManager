@@ -112,13 +112,13 @@ public class Voronoi {
 
     private boolean seekAround(KeyPoint keyPoint, int rimNumber) {
         int limit;
-        boolean up, right, down, left;
+        boolean up, right, down, left, verdict;
 
         up = false;
         right = false;
         down = false;
         left = false;
-
+        verdict = false;
         limit = rimNumber * 2;
 
         while (limit >= 0) {
@@ -128,9 +128,12 @@ public class Voronoi {
             //down = seekDown(keyPoint, rimNumber);
             //left = seekLeft(keyPoint, rimNumber);
             limit--;
+            if (up){
+                verdict = up;
+            }
 
         }
-        return up ;//&& right && down && left;
+        return verdict;
     }
 
     private boolean seekUp(KeyPoint keyPoint, int rimNumber, int fieldNumber) {
@@ -141,7 +144,7 @@ public class Voronoi {
         y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) + rimNumber;
         wasFound = false;
 
-        if (y <= size) {
+        if (y < size) {
             if (x >= 0) {
                 wasFound = seek(keyPoint, new Point(x, y));
             }
