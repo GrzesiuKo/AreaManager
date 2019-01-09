@@ -84,10 +84,10 @@ public class Contour {
 
         while (latest != lowest) {
             latest = nextLeftPoint(points, latest);
-                points.remove(latest);
-                if (latest!=lowest) {
-                    contourPoints.add(latest);
-                }
+            points.remove(latest);
+            if (latest != lowest) {
+                contourPoints.add(latest);
+            }
         }
         return points;
     }
