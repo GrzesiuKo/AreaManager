@@ -122,10 +122,10 @@ public class Voronoi {
         limit = rimNumber * 2;
 
         while (limit >= 0) {
-            //up = seekUp(keyPoint, rimNumber, limit);
+            up = seekUp(keyPoint, rimNumber, limit);
             right = seekRight(keyPoint, rimNumber, limit);
-            //down = seekDown(keyPoint, rimNumber, limit);
-            //left = seekLeft(keyPoint, rimNumber, limit);
+            down = seekDown(keyPoint, rimNumber, limit);
+            left = seekLeft(keyPoint, rimNumber, limit);
             System.out.println("Was found? " + (up || right || down || left));
             limit--;
             if (up || right || down || left) {
@@ -144,11 +144,10 @@ public class Voronoi {
         y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) + rimNumber;
         wasFound = false;
 
-        if (y < size) {
-            if (x >= 0) {
+        if (isValid(x, size) && isValid(y, size)) {
                 wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
             }
-        }
+
         return wasFound;
     }
 
@@ -160,11 +159,11 @@ public class Voronoi {
         y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) - rimNumber + fieldNumber;
         wasFound = false;
 
-        if (0<=y && y < size) {
-            if (x < size && x >= 0) {
+
+            if (isValid(x, size) && isValid(y, size)) {
                 wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
             }
-        }
+
         return wasFound;
     }
 
@@ -176,11 +175,10 @@ public class Voronoi {
         y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) - rimNumber;
         wasFound = false;
 
-        if (0<=y && y < size) {
-            if (x < size && x >= 0) {
+            if (isValid(x, size) && isValid(y, size)) {
                 wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
             }
-        }
+
         return wasFound;
     }
 
@@ -192,11 +190,11 @@ public class Voronoi {
         y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) - rimNumber + fieldNumber;
         wasFound = false;
 
-        if (x >= 0) {
-            if (y < size && y >= 0) {
+
+            if (isValid(x, size) && isValid(y, size)) {
                 wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
             }
-        }
+
         return wasFound;
     }
 
@@ -250,5 +248,9 @@ System.out.println("Point: "+point.toString());
 
     public List<KeyPoint> getKeyPoints() {
         return keyPoints;
+    }
+
+    private boolean isValid(int a, int size){
+        return (a>=0) && (a<size);
     }
 }
