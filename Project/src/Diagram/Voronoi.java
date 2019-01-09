@@ -177,7 +177,7 @@ public class Voronoi {
     private boolean seek(List<KeyPoint> keyPoints, KeyPoint keyPoint, Point point) {
         KeyPoint nearest;
         int x, y;
-        nearest = addToKeyPoint(point, keyPoints);
+        nearest = addTogGivenKeyPoint(keyPoint, keyPoints, point);
 
         if (nearest.equals(keyPoint)) {
             x = (int) point.getX();
@@ -187,6 +187,25 @@ public class Voronoi {
             return true;
         }
         return false;
+    }
+
+    private KeyPoint addTogGivenKeyPoint(KeyPoint given, List<KeyPoint> keyPoints, Point point) {
+        KeyPoint nearest = null;
+        double smallestLength = Double.MAX_VALUE;
+        double currentLength;
+
+        for (KeyPoint keyPoint : keyPoints) {
+            currentLength = findLengthOfSegment(point, keyPoint);
+            if (currentLength < smallestLength) {
+                nearest = keyPoint;
+                smallestLength = currentLength;
+            }
+        }
+
+        if (nearest != null && !nearest.equals(point) && nearest.equals(given)) {
+            nearest.addPoint(point);
+        }
+        return nearest;
     }
 
     public boolean[][] getDividedArea() {
