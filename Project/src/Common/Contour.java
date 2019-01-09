@@ -12,6 +12,7 @@ public class Contour {
         ignoredPoints = new LinkedList<>();
 
         makeConvexContour(points);
+        checkContour(contourPoints);
     }
 
     private void makeConvexContour(List<Point> points) {
@@ -140,6 +141,49 @@ public class Contour {
         return next;
     }
 
+    private boolean checkContour(List<Point> contourPoints) {
+        boolean isEnoughPoints = false;
+        boolean isThereAnyArea = false;
+
+        if (contourPoints == null) {
+            return false;
+        }
+
+        isEnoughPoints = isEnoughPoints(contourPoints);
+        if (isEnoughPoints) {
+            isThereAnyArea = doPointsMakeAnyArea(contourPoints);
+        }
+
+        return isEnoughPoints && isThereAnyArea;
+    }
+
+    private boolean isEnoughPoints(List<Point> contourPoints) {
+        return contourPoints.size() >= 3;
+    }
+
+    private boolean doPointsMakeAnyArea(List<Point> contourPoints) {
+        Point a = null, b = null, c = null;
+
+        if (contourPoints == null) {
+            return false;
+        } else if (isEnoughPoints(contourPoints)) {
+            a = contourPoints.get(0);
+            b = contourPoints.get(1);
+            c = contourPoints.get(2);
+        }
+        return arePointsColinear(a, b, c);
+    }
+
+    private boolean arePointsColinear(Point a, Point b, Point c) {
+
+        if (a == null || b == null || c == null) {
+            return false;
+        }
+
+        //TODO
+
+        return true;
+    }
 
     public List<Point> getContourPoints() {
         return contourPoints;
