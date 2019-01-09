@@ -212,18 +212,24 @@ public class Voronoi {
         KeyPoint nearest = null;
         double smallestLength = Double.MAX_VALUE;
         double currentLength;
-
+System.out.println("Point: "+point.toString());
         for (KeyPoint keyPoint : keyPoints) {
             currentLength = findLengthOfSegment(point, keyPoint);
             if (currentLength < smallestLength) {
                 nearest = keyPoint;
                 smallestLength = currentLength;
+                System.out.println("smallest: "+smallestLength+" to: "+nearest.string());
             }
         }
 
         if (nearest != null && !nearest.equals(point) && nearest.equals(given)) {
             nearest.addPoint(point);
+            //System.out.println("nearest: "+nearest.string()+" given: "+given.string()+" point: "+point.toString());
         }
+
+        System.out.println();
+        System.out.println("smallest: "+smallestLength+" to: "+nearest.string());
+        System.out.println("-------------------------------------------------------------------");
         return nearest;
     }
 
