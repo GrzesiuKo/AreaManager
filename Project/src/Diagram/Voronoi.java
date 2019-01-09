@@ -93,7 +93,7 @@ public class Voronoi {
     }
 
     public void addKeyPoint(KeyPoint keyPoint, List<KeyPoint> keyPoints) {
-        int x, y, rim;
+        int rim;
         boolean wasFieldAdded;
         rim = 0;
         wasFieldAdded = true;
@@ -133,18 +133,18 @@ public class Voronoi {
 
     private boolean seekUp(List<KeyPoint> keyPoints, KeyPoint keyPoint, int rimNumber, int fieldNumber) {
         int x, y;
-        boolean result;
+        boolean wasFound;
 
-        x = Point.scaleCoordinateToInt(keyPoint.getX(), precision) - 1 + fieldNumber;
-        y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) + 1;
-        result = false;
+        x = Point.scaleCoordinateToInt(keyPoint.getX(), precision) - rimNumber + fieldNumber;
+        y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) + rimNumber;
+        wasFound = false;
 
         if (y <= size) {
             if (x >= 0) {
-                result = seek(keyPoints, keyPoint, new Point(x, y));
+                wasFound = seek(keyPoints, keyPoint, new Point(x, y));
             }
         }
-        return result;
+        return wasFound;
     }
 
     private boolean seekRight(KeyPoint keyPoint, int rimNumber) {
