@@ -175,7 +175,7 @@ public class Contour {
             b = contourPoints.get(1);
             c = contourPoints.get(2);
         }
-        return arePointsColinear(a, b, c);
+        return !arePointsColinear(a, b, c);
     }
 
     private boolean arePointsColinear(Point first, Point second, Point third) {
