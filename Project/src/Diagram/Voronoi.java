@@ -11,12 +11,13 @@ public class Voronoi {
     private boolean[][] dividedAreaHasObject;
     private AreaField[][] area;
     private int precision = 10;
+    private int size;
 
     public Voronoi(int size, List<KeyPoint> keyPoints, List<Point> objectPoints) {
         dividedAreaHasObject = new boolean[size][size];
         area = new AreaField[size][size];
-
-        makeAreas(keyPoints, size);
+        this.size = size;
+        makeAreas(keyPoints, this.size);
         indicateObjects(objectPoints);
     }
 
@@ -87,6 +88,103 @@ public class Voronoi {
             if (p.equals(field)) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public void addKeyPoint(KeyPoint keyPoint, List<KeyPoint> keyPoints) {
+        int x, y, rim;
+        boolean wasFieldAdded;
+        rim = 0;
+        wasFieldAdded = true;
+
+        keyPoints.add(keyPoint);
+        while (wasFieldAdded) {
+            wasFieldAdded = seekAround(keyPoints, keyPoint, rim);
+            rim++;
+        }
+
+    }
+
+    private boolean seekAround(List<KeyPoint> keyPoints, KeyPoint keyPoint, int rimNumber) {
+        int limit;
+        boolean up, right, down, left;
+
+        up = false;
+        right = false;
+        down = false;
+        left = false;
+
+        if (rimNumber == 0) {
+
+        } else {
+            limit = rimNumber * 2;
+
+            while (limit >= 0) {
+                up = seekUp(keyPoints, keyPoint, rimNumber, limit);
+                right = seekRight(keyPoint, rimNumber);
+                down = seekDown(keyPoint, rimNumber);
+                left = seekLeft(keyPoint, rimNumber);
+                limit--;
+            }
+        }
+        return up && right && down && left;
+    }
+
+    private boolean seekUp(List<KeyPoint> keyPoints, KeyPoint keyPoint, int rimNumber, int fieldNumber) {
+        int x, y;
+        boolean result;
+
+        x = Point.scaleCoordinateToInt(keyPoint.getX(), precision) - 1 + fieldNumber;
+        y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) + 1;
+        result = false;
+
+        if (y <= size) {
+            if (x >= 0) {
+                result = seek(keyPoints, keyPoint, new Point(x, y));
+            }
+        }
+        return result;
+    }
+
+    private boolean seekRight(KeyPoint keyPoint, int rimNumber) {
+        int x, y;
+
+        x = Point.scaleCoordinateToInt(keyPoint.getX(), precision);
+        y = Point.scaleCoordinateToInt(keyPoint.getY(), precision);
+        //TODO
+        return false;
+    }
+
+    private boolean seekDown(KeyPoint keyPoint, int rimNumber) {
+        int x, y;
+
+        x = Point.scaleCoordinateToInt(keyPoint.getX(), precision);
+        y = Point.scaleCoordinateToInt(keyPoint.getY(), precision);
+        //TODO
+        return false;
+    }
+
+    private boolean seekLeft(KeyPoint keyPoint, int rimNumber) {
+        int x, y;
+
+        x = Point.scaleCoordinateToInt(keyPoint.getX(), precision);
+        y = Point.scaleCoordinateToInt(keyPoint.getY(), precision);
+        //TODO
+        return false;
+    }
+
+    private boolean seek(List<KeyPoint> keyPoints, KeyPoint keyPoint, Point point) {
+        KeyPoint nearest;
+        int x, y;
+        nearest = addToKeyPoint(point, keyPoints);
+
+        if (nearest.equals(keyPoint)) {
+            x = (int) point.getX();
+            y = (int) point.getY();
+
+            area[x][y].setNearestKeyPoint(keyPoint);
+            return true;
         }
         return false;
     }
