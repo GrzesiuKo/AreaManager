@@ -95,7 +95,7 @@ public class Voronoi {
         return false;
     }
 
-    public void addKeyPoint(KeyPoint keyPoint, List<KeyPoint> keyPoints) {
+    public void addKeyPoint(KeyPoint keyPoint) {
         int rim;
         boolean wasFieldAdded;
         rim = 0;
@@ -103,13 +103,14 @@ public class Voronoi {
 
         keyPoints.add(keyPoint);
         while (wasFieldAdded) {
-            wasFieldAdded = seekAround(keyPoints, keyPoint, rim);
+            System.out.println("Seek rim: " + rim);
+            wasFieldAdded = seekAround(keyPoint, rim);
             rim++;
         }
 
     }
 
-    private boolean seekAround(List<KeyPoint> keyPoints, KeyPoint keyPoint, int rimNumber) {
+    private boolean seekAround(KeyPoint keyPoint, int rimNumber) {
         int limit;
         boolean up, right, down, left;
 
@@ -118,23 +119,21 @@ public class Voronoi {
         down = false;
         left = false;
 
-        if (rimNumber == 0) {
+        limit = rimNumber * 2;
 
-        } else {
-            limit = rimNumber * 2;
+        while (limit >= 0) {
+            up = seekUp(keyPoint, rimNumber, limit);
+            System.out.println("Was found? " + up);
+            //right = seekRight(keyPoint, rimNumber);
+            //down = seekDown(keyPoint, rimNumber);
+            //left = seekLeft(keyPoint, rimNumber);
+            limit--;
 
-            while (limit >= 0) {
-                up = seekUp(keyPoints, keyPoint, rimNumber, limit);
-                //right = seekRight(keyPoint, rimNumber);
-                //down = seekDown(keyPoint, rimNumber);
-                //left = seekLeft(keyPoint, rimNumber);
-                limit--;
-            }
         }
-        return up && right && down && left;
+        return up ;//&& right && down && left;
     }
 
-    private boolean seekUp(List<KeyPoint> keyPoints, KeyPoint keyPoint, int rimNumber, int fieldNumber) {
+    private boolean seekUp(KeyPoint keyPoint, int rimNumber, int fieldNumber) {
         int x, y;
         boolean wasFound;
 
@@ -144,7 +143,7 @@ public class Voronoi {
 
         if (y <= size) {
             if (x >= 0) {
-                wasFound = seek(keyPoints, keyPoint, new Point(x, y));
+                wasFound = seek(keyPoint, new Point(x, y));
             }
         }
         return wasFound;
@@ -177,10 +176,10 @@ public class Voronoi {
         return false;
     }
 
-    private boolean seek(List<KeyPoint> keyPoints, KeyPoint keyPoint, Point point) {
+    private boolean seek(KeyPoint keyPoint, Point point) {
         KeyPoint nearest;
         int x, y;
-        nearest = addTogGivenKeyPoint(keyPoint, keyPoints, point);
+        nearest = addToGivenKeyPoint(keyPoint, keyPoints, point);
 
         if (nearest.equals(keyPoint)) {
             x = (int) point.getX();
@@ -192,7 +191,7 @@ public class Voronoi {
         return false;
     }
 
-    private KeyPoint addTogGivenKeyPoint(KeyPoint given, List<KeyPoint> keyPoints, Point point) {
+    private KeyPoint addToGivenKeyPoint(KeyPoint given, List<KeyPoint> keyPoints, Point point) {
         KeyPoint nearest = null;
         double smallestLength = Double.MAX_VALUE;
         double currentLength;
