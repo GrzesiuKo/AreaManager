@@ -12,6 +12,10 @@ public class Contour {
         ignoredPoints = new LinkedList<>();
 
         makeConvexContour(points);
+        if (!checkContour(contourPoints)) {
+            contourPoints = null;
+            ignoredPoints = null;
+        }
     }
 
     private void makeConvexContour(List<Point> points) {
@@ -84,10 +88,10 @@ public class Contour {
 
         while (latest != lowest) {
             latest = nextLeftPoint(points, latest);
-                points.remove(latest);
-                if (latest!=lowest) {
-                    contourPoints.add(latest);
-                }
+            points.remove(latest);
+            if (latest != lowest) {
+                contourPoints.add(latest);
+            }
         }
         return points;
     }
@@ -140,6 +144,59 @@ public class Contour {
         return next;
     }
 
+    private boolean checkContour(List<Point> contourPoints) {
+        boolean isEnoughPoints = false;
+        boolean isThereAnyArea = false;
+
+        if (contourPoints == null) {
+            return false;
+        }
+
+        isEnoughPoints = isEnoughPoints(contourPoints);
+        if (isEnoughPoints) {
+            isThereAnyArea = doPointsMakeAnyArea(contourPoints);
+            System.out.println("Do points make any area? "+isThereAnyArea);
+        }
+
+        return isEnoughPoints && isThereAnyArea;
+    }
+
+    private boolean isEnoughPoints(List<Point> contourPoints) {
+        return contourPoints.size() >= 3;
+    }
+
+    private boolean doPointsMakeAnyArea(List<Point> contourPoints) {
+        Point a = null, b = null, c = null;
+
+        if (contourPoints == null) {
+            return false;
+        } else if (isEnoughPoints(contourPoints)) {
+            a = contourPoints.get(0);
+            b = contourPoints.get(1);
+            c = contourPoints.get(2);
+        }
+        return !arePointsColinear(a, b, c);
+    }
+
+    private boolean arePointsColinear(Point first, Point second, Point third) {
+        double a, b, c, d, result;
+        if (first == null || second == null || third == null) {
+            return false;
+        }
+
+        a = second.getY() - first.getY();
+        b = third.getX() - second.getX();
+        c = third.getY() - second.getY();
+        d = second.getX() - first.getX();
+
+        result = a * b - c * d;
+
+        return result == 0;
+    }
+
+    public boolean isContourValid() {
+        return contourPoints != null && ignoredPoints != null;
+    }
 
     public List<Point> getContourPoints() {
         return contourPoints;
