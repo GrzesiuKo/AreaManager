@@ -19,25 +19,27 @@ public class Voronoi {
         area = new AreaField[size][size];
         this.size = size;
         this.keyPoints = keyPoints;
-        makeAreas(keyPoints, this.size);
+        makeAreas(this.size);
         indicateObjects(objectPoints);
     }
 
-    private void makeAreas(List<KeyPoint> keyPoints, int areaSize) {
+    private void makeAreas( int areaSize) {
         Point current;
         KeyPoint keyPoint;
 
         for (int x = 0; x < areaSize; x++) {
             for (int y = 0; y < areaSize; y++) {
                 current = new Point(scaleToDouble(x, precision), scaleToDouble(y, precision));
-                keyPoint = addToKeyPoint(current, keyPoints);
+                keyPoint = addToKeyPoint(current);
+                current.setKeyPoint(keyPoint);
+                System.out.println("Długośc listy punktów: "+keyPoint.getAreaPoints().size());
                 area[x][y] = new AreaField(current, keyPoint);
             }
         }
 
     }
 
-    private KeyPoint addToKeyPoint(Point point, List<KeyPoint> keyPoints) {
+    private KeyPoint addToKeyPoint(Point point) {
         KeyPoint nearest = null;
         double smallestLength = Double.MAX_VALUE;
         double currentLength;
@@ -50,7 +52,8 @@ public class Voronoi {
             }
         }
 
-        if (nearest != null && !nearest.equals(point)) {
+        if (nearest != null) {
+            point.setKeyPoint(nearest);
             nearest.addPoint(point);
         }
         return nearest;
@@ -141,8 +144,10 @@ public class Voronoi {
         y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) + rimNumber;
         wasFound = false;
 
+
         if (isValid(x, size) && isValid(y, size)) {
-            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+            Point point = area[x][y].getPosition();
+            wasFound = seek(keyPoint, point);
         }
 
         return wasFound;
@@ -157,8 +162,10 @@ public class Voronoi {
         wasFound = false;
 
 
+
         if (isValid(x, size) && isValid(y, size)) {
-            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+            Point point = area[x][y].getPosition();
+            wasFound = seek(keyPoint, point);
         }
 
         return wasFound;
@@ -172,8 +179,10 @@ public class Voronoi {
         y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) - rimNumber;
         wasFound = false;
 
+
         if (isValid(x, size) && isValid(y, size)) {
-            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+            Point point = area[x][y].getPosition();
+            wasFound = seek(keyPoint, point);
         }
 
         return wasFound;
@@ -188,8 +197,10 @@ public class Voronoi {
         wasFound = false;
 
 
+
         if (isValid(x, size) && isValid(y, size)) {
-            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+            Point point = area[x][y].getPosition();
+            wasFound = seek(keyPoint, point);
         }
 
         return wasFound;
@@ -198,7 +209,7 @@ public class Voronoi {
     private boolean seek(KeyPoint keyPoint, Point point) {
         KeyPoint nearest;
         int x, y;
-        nearest = addToGivenKeyPoint(keyPoint, keyPoints, point);
+        nearest = addToGivenKeyPoint(keyPoint, point);
 
         if (nearest.equals(keyPoint)) {
             x = Point.scaleCoordinateToInt(point.getX(), precision);
@@ -210,8 +221,9 @@ public class Voronoi {
         return false;
     }
 
-    private KeyPoint addToGivenKeyPoint(KeyPoint given, List<KeyPoint> keyPoints, Point point) {
+    private KeyPoint addToGivenKeyPoint(KeyPoint given, Point point) {
         KeyPoint nearest = null;
+        KeyPoint old;
         double smallestLength = Double.MAX_VALUE;
         double currentLength;
         for (KeyPoint keyPoint : keyPoints) {
@@ -222,8 +234,13 @@ public class Voronoi {
             }
         }
 
-        if (nearest != null && !nearest.equals(point) && nearest.equals(given)) {
+        if (nearest != null && nearest.equals(given)) {
+            old = point.getKeyPoint();
+            System.out.println(" new "+point.toString()+" given "+given.string()+" "+old);
+            old.getAreaPoints().remove(point);
+
             nearest.addPoint(point);
+            point.setKeyPoint(nearest);
         }
 
         return nearest;
