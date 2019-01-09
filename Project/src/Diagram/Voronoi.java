@@ -122,10 +122,10 @@ public class Voronoi {
         limit = rimNumber * 2;
 
         while (limit >= 0) {
-            up = seekUp(keyPoint, rimNumber, limit);
-            //right = seekRight(keyPoint, rimNumber);
-            down = seekDown(keyPoint, rimNumber, limit);
-            left = seekLeft(keyPoint, rimNumber, limit);
+            //up = seekUp(keyPoint, rimNumber, limit);
+            right = seekRight(keyPoint, rimNumber, limit);
+            //down = seekDown(keyPoint, rimNumber, limit);
+            //left = seekLeft(keyPoint, rimNumber, limit);
             System.out.println("Was found? " + (up || right || down || left));
             limit--;
             if (up || right || down || left) {
@@ -152,13 +152,20 @@ public class Voronoi {
         return wasFound;
     }
 
-    private boolean seekRight(KeyPoint keyPoint, int rimNumber) {
+    private boolean seekRight(KeyPoint keyPoint, int rimNumber, int fieldNumber) {
         int x, y;
+        boolean wasFound;
 
-        x = Point.scaleCoordinateToInt(keyPoint.getX(), precision);
-        y = Point.scaleCoordinateToInt(keyPoint.getY(), precision);
-        //TODO
-        return false;
+        x = Point.scaleCoordinateToInt(keyPoint.getX(), precision) + rimNumber;
+        y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) - rimNumber + fieldNumber;
+        wasFound = false;
+
+        if (0<=y && y < size) {
+            if (x < size && x >= 0) {
+                wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+            }
+        }
+        return wasFound;
     }
 
     private boolean seekDown(KeyPoint keyPoint, int rimNumber, int fieldNumber) {
@@ -169,8 +176,8 @@ public class Voronoi {
         y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) - rimNumber;
         wasFound = false;
 
-        if (0<=y && y <= size) {
-            if (x <= size && x >= 0) {
+        if (0<=y && y < size) {
+            if (x < size && x >= 0) {
                 wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
             }
         }
@@ -186,7 +193,7 @@ public class Voronoi {
         wasFound = false;
 
         if (x >= 0) {
-            if (y <= size && y >= 0) {
+            if (y < size && y >= 0) {
                 wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
             }
         }
