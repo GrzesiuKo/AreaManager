@@ -52,7 +52,7 @@ public class Voronoi {
             }
         }
 
-        if (nearest != null && !nearest.equals(point)) {
+        if (nearest != null) {
             point.setKeyPoint(nearest);
             nearest.addPoint(point);
         }
@@ -234,7 +234,7 @@ public class Voronoi {
             }
         }
 
-        if (nearest != null && !nearest.equals(point) && nearest.equals(given)) {
+        if (nearest != null && nearest.equals(given)) {
             old = point.getKeyPoint();
             System.out.println(" new "+point.toString()+" given "+given.string()+" "+old);
             //old.getAreaPoints().remove(point);
