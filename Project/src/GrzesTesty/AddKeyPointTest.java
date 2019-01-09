@@ -17,7 +17,10 @@ public class AddKeyPointTest {
 
         diagram = new Diagram(file);
 
-        diagram.addKeyPoint(new KeyPoint(0.2,0.4));
+        System.out.println("Area Fields: ");
+        printArray(diagram.getAreaFields());
+
+        diagram.addKeyPoint(new KeyPoint(0.2,0.2));
 
         System.out.println("Area Fields: ");
         printArray(diagram.getAreaFields());
