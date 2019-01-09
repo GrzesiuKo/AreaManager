@@ -155,6 +155,7 @@ public class Contour {
         isEnoughPoints = isEnoughPoints(contourPoints);
         if (isEnoughPoints) {
             isThereAnyArea = doPointsMakeAnyArea(contourPoints);
+            System.out.println("Do points make any area? "+isThereAnyArea);
         }
 
         return isEnoughPoints && isThereAnyArea;
