@@ -4,7 +4,6 @@ import Common.Point;
 import Diagram.Diagram;
 import Diagram.IncorrectFileException;
 import Diagram.InvalidContourException;
-import FileData.FileReader;
 import Statistics.Statistics;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -19,14 +18,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-
-
-import java.awt.event.ItemEvent;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 
 public class Main extends Application {
@@ -111,11 +106,10 @@ public class Main extends Application {
                     InputStream targetStream = null;
                     try {
                         targetStream = new FileInputStream(file);
-
                         BackgroundImage myBI = new BackgroundImage(new Image(targetStream, canvasBox.getWidth(), canvasBox.getHeight(), false, false),
                                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                                 BackgroundSize.DEFAULT);
-                        canvasBox.setBackground(new Background(myBI));
+                        canvasPane.setBackground(new Background(myBI));
                     } catch (FileNotFoundException e) {
                         errorAlert.setContentText("Wczytywanie obrazu nie udało się");
                         errorAlert.showAndWait();
@@ -156,6 +150,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(verticalSplit);
         primaryStage.setTitle("Project");
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
 

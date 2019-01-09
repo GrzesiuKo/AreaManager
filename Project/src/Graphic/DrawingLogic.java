@@ -3,12 +3,13 @@ package Graphic;
 import Common.KeyPoint;
 import Common.Point;
 import Diagram.Diagram;
-import Statistics.*;
-import javafx.geometry.Point2D;
+import Statistics.Bear;
+import Statistics.Residential;
+import Statistics.School;
+import Statistics.Statistics;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
-import jdk.jshell.Diag;
 
 import java.util.List;
 
