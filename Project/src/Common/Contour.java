@@ -12,7 +12,10 @@ public class Contour {
         ignoredPoints = new LinkedList<>();
 
         makeConvexContour(points);
-        checkContour(contourPoints);
+        if (!checkContour(contourPoints)) {
+            contourPoints = null;
+            ignoredPoints = null;
+        }
     }
 
     private void makeConvexContour(List<Point> points) {
