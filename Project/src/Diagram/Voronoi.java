@@ -122,10 +122,10 @@ public class Voronoi {
         limit = rimNumber * 2;
 
         while (limit >= 0) {
-            //up = seekUp(keyPoint, rimNumber, limit);
+            up = seekUp(keyPoint, rimNumber, limit);
             //right = seekRight(keyPoint, rimNumber);
             down = seekDown(keyPoint, rimNumber, limit);
-            //left = seekLeft(keyPoint, rimNumber, limit);
+            left = seekLeft(keyPoint, rimNumber, limit);
             System.out.println("Was found? " + (up || right || down || left));
             limit--;
             if (up || right || down || left) {
@@ -146,7 +146,7 @@ public class Voronoi {
 
         if (y < size) {
             if (x >= 0) {
-                wasFound = seek(keyPoint, new Point(x, y));
+                wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
             }
         }
         return wasFound;
@@ -171,7 +171,7 @@ public class Voronoi {
 
         if (0<=y && y <= size) {
             if (x <= size && x >= 0) {
-                wasFound = seek(keyPoint, new Point(x, y));
+                wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
             }
         }
         return wasFound;
@@ -187,7 +187,7 @@ public class Voronoi {
 
         if (x >= 0) {
             if (y <= size && y >= 0) {
-                wasFound = seek(keyPoint, new Point(x, y));
+                wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
             }
         }
         return wasFound;
@@ -199,8 +199,8 @@ public class Voronoi {
         nearest = addToGivenKeyPoint(keyPoint, keyPoints, point);
 
         if (nearest.equals(keyPoint)) {
-            x = (int) point.getX();
-            y = (int) point.getY();
+            x = Point.scaleCoordinateToInt(point.getX(), precision) ;
+            y = Point.scaleCoordinateToInt(point.getY(), precision) ;
 
             area[x][y].setNearestKeyPoint(keyPoint);
             return true;
