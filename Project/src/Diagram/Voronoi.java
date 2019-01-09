@@ -128,8 +128,8 @@ public class Voronoi {
             //down = seekDown(keyPoint, rimNumber);
             //left = seekLeft(keyPoint, rimNumber);
             limit--;
-            if (up){
-                verdict = up;
+            if (up||right||down||left){
+                verdict = true;
             }
 
         }
