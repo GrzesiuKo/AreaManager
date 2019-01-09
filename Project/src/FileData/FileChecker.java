@@ -14,7 +14,7 @@ public class FileChecker {
     public final static int DOUBLE = 2;
     public final static int NOT_GIVEN = 3;
     private static int currentFilePart;
-    private List<Integer> errorLines;
+    private int errorLine;
     private Map<String, Integer> definitions;
 
     public FileChecker() {
@@ -37,12 +37,16 @@ public class FileChecker {
             return false;
         }
 
-
         while (!isFailFound && scanner.hasNextLine()) {
             currentLine = scanner.nextLine();
             currentLineNumber++;
             isFailFound = !checkLine(currentLine);
         }
+
+        if (isFailFound){
+            errorLine = currentLineNumber;
+        }
+
         return !isFailFound;
     }
 
@@ -172,4 +176,7 @@ public class FileChecker {
         return result;
     }
 
+    public int getErrorLine() {
+        return errorLine;
+    }
 }
