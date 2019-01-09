@@ -55,6 +55,10 @@ public class Diagram {
         }
     }
 
+    public void addKeyPoint(KeyPoint keyPoint){
+        voronoi.addKeyPoint(keyPoint, keyPoints);
+    }
+
     public List<KeyPoint> getKeyPoints() {
         return keyPoints;
     }
