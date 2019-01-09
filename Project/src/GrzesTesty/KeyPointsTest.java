@@ -16,8 +16,8 @@ public class KeyPointsTest {
         boolean[][] mapObjects;
 
         keyPoints.add(new KeyPoint(0.0, 0.0));
-        keyPoints.add(new KeyPoint(0.0, 0.1));
-        keyPoints.add(new KeyPoint(0.5, 0.5));
+//        keyPoints.add(new KeyPoint(0.0, 0.1));
+//        keyPoints.add(new KeyPoint(0.5, 0.5));
 
         objectPoints.add(new Point(0.5, 0.5));
         objectPoints.add(new Point(0.1, 0.0));
@@ -26,10 +26,32 @@ public class KeyPointsTest {
 
         int size = 10;
         int precision = 10;
+        int[][] tab;
         Voronoi voronoi = new Voronoi(size, keyPoints, objectPoints);
 
+        tab = printKeyPoints(size, voronoi, precision);
+        printArray(tab);
         voronoi.addKeyPoint(new KeyPoint(0.4, 0.2));
+        tab = printKeyPoints(size, voronoi, precision);
+        printArray(tab);
+    }
 
+    private static void printArray(int[][] array) {
+
+        for (int y = 0; y < array[0].length; y++) {
+            System.out.print(y + ".  ");
+            for (int x = 0; x < array.length; x++) {
+                if (array[x][y] == 2) {
+                    System.out.print(ANSI_GREEN + array[x][y] + ANSI_RESET);
+                } else {
+                    System.out.print(array[x][y]);
+                }
+            }
+            System.out.print(" \n");
+        }
+    }
+
+    private static int[][] printKeyPoints(int size, Voronoi voronoi, int precision){
         int[][] tab = new int[size][size];
         double x, y;
         int i = 1;
@@ -53,22 +75,7 @@ public class KeyPointsTest {
             System.out.println();
             i++;
         }
-        printArray(tab);
-    }
-
-    private static void printArray(int[][] array) {
-
-        for (int y = 0; y < array[0].length; y++) {
-            System.out.print(y + ".  ");
-            for (int x = 0; x < array.length; x++) {
-                if (array[x][y] == 2) {
-                    System.out.print(ANSI_GREEN + array[x][y] + ANSI_RESET);
-                } else {
-                    System.out.print(array[x][y]);
-                }
-            }
-            System.out.print(" \n");
-        }
+        return tab;
     }
 
 }
