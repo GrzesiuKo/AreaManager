@@ -13,9 +13,7 @@ public class KeyPoint extends Point {
     }
 
     public void addPoint(Point p) {
-        if (!areaPoints.contains(p)) {
-            areaPoints.add(p);
-        }
+        areaPoints.add(p);
     }
 
     public List<Point> getAreaPoints() {
