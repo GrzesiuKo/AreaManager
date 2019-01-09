@@ -87,7 +87,6 @@ public class Voronoi {
 
     private boolean objectBelongsToTheField(Point field, List<Point> objectPoints) {
         for (Point p : objectPoints) {
-            //System.out.println("Porónuje punkty: pole x = " + field.getX() + " y = " + field.getY() + " oraz objekt x = " + p.getX() + " y = " + p.getY());
             if (p.equals(field)) {
                 return true;
             }
@@ -103,7 +102,6 @@ public class Voronoi {
 
         keyPoints.add(keyPoint);
         while (wasFieldAdded) {
-            System.out.println("Seek rim: " + rim);
             wasFieldAdded = seekAround(keyPoint, rim);
             rim++;
         }
@@ -126,7 +124,6 @@ public class Voronoi {
             right = seekRight(keyPoint, rimNumber, limit);
             down = seekDown(keyPoint, rimNumber, limit);
             left = seekLeft(keyPoint, rimNumber, limit);
-            System.out.println("Was found? " + (up || right || down || left));
             limit--;
             if (up || right || down || left) {
                 verdict = true;
@@ -217,24 +214,18 @@ public class Voronoi {
         KeyPoint nearest = null;
         double smallestLength = Double.MAX_VALUE;
         double currentLength;
-        System.out.println("Point: " + point.toString());
         for (KeyPoint keyPoint : keyPoints) {
             currentLength = findLengthOfSegment(point, keyPoint);
             if (currentLength < smallestLength) {
                 nearest = keyPoint;
                 smallestLength = currentLength;
-                System.out.println("smallest: " + smallestLength + " to: " + nearest.string());
             }
         }
 
         if (nearest != null && !nearest.equals(point) && nearest.equals(given)) {
             nearest.addPoint(point);
-            //System.out.println("nearest: "+nearest.string()+" given: "+given.string()+" point: "+point.toString());
         }
 
-        System.out.println();
-        System.out.println("smallest: " + smallestLength + " to: " + nearest.string());
-        System.out.println("-------------------------------------------------------------------");
         return nearest;
     }
 
