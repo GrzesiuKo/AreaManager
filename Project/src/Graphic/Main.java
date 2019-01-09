@@ -1,5 +1,6 @@
 package Graphic;
 
+import Common.KeyPoint;
 import Common.Point;
 import Diagram.Diagram;
 import Diagram.IncorrectFileException;
@@ -18,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,6 +27,8 @@ import java.io.InputStream;
 
 
 public class Main extends Application {
+    Diagram diagram = null;
+    DrawingLogic drawing = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -76,7 +80,6 @@ public class Main extends Application {
                 File file = fileChooser.showOpenDialog(primaryStage);
 
                 if (file != null) {
-                    Diagram diagram = null;
                     try {
                         diagram = new Diagram(file);
                     } catch (IncorrectFileException e) {
@@ -87,8 +90,8 @@ public class Main extends Application {
                         errorAlert.showAndWait();
                     }
                     if (diagram != null) {
-                        DrawingLogic dr = new DrawingLogic(gc, diagram);
-                        dr.draw();
+                        drawing = new DrawingLogic(gc, diagram);
+                        drawing.draw();
                     }
 
                 }
@@ -125,6 +128,12 @@ public class Main extends Application {
                         if (selectWorkType.getValue() == null) {
                             errorAlert.setContentText("Nie wybrano trybu pracy");
                             errorAlert.showAndWait();
+                        } else if (diagram == null) {
+                            errorAlert.setContentText("Nie wczytano danych");
+                            errorAlert.showAndWait();
+                        } else if (!drawing.inContour(new Point(me.getSceneX(), me.getSceneY()))) {
+                            errorAlert.setContentText("Wybrano punkt poza konturem");
+                            errorAlert.showAndWait();
                         } else if (selectWorkType.getValue().equals("Wyświetlanie statystyk")) {
                             contextMenu.show(canvas, me.getScreenX(), me.getScreenY());
                             menuItem1.setOnAction(new EventHandler<ActionEvent>() {
@@ -145,6 +154,9 @@ public class Main extends Application {
 
                         } else if (selectWorkType.getValue().equals("Edycja konturów")) {
                         } else if (selectWorkType.getValue().equals("Edycja punktów kluczowych")) {
+                            diagram.addKeyPoint(new KeyPoint(Math.round(me.getSceneX() / 6), Math.round(me.getSceneY() / 6)));
+                            drawing = new DrawingLogic(gc, diagram);
+                            drawing.draw();
                         }
                     }
                 });
