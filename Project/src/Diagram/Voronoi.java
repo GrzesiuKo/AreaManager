@@ -122,9 +122,9 @@ public class Voronoi {
 
             while (limit >= 0) {
                 up = seekUp(keyPoints, keyPoint, rimNumber, limit);
-                right = seekRight(keyPoint, rimNumber);
-                down = seekDown(keyPoint, rimNumber);
-                left = seekLeft(keyPoint, rimNumber);
+                //right = seekRight(keyPoint, rimNumber);
+                //down = seekDown(keyPoint, rimNumber);
+                //left = seekLeft(keyPoint, rimNumber);
                 limit--;
             }
         }
