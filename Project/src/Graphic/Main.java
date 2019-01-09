@@ -2,6 +2,8 @@ package Graphic;
 
 import Common.Point;
 import Diagram.Diagram;
+import Diagram.IncorrectFileException;
+import Diagram.InvalidContourException;
 import FileData.FileReader;
 import Statistics.Statistics;
 import javafx.application.Application;
@@ -65,7 +67,9 @@ public class Main extends Application {
         contextMenu.getItems().add(menuItem1);
         contextMenu.getItems().add(menuItem2);
         contextMenu.getItems().add(menuItem3);
-
+        Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
+        errorAlert.setTitle("Błąd");
+        errorAlert.setHeaderText(null);
         //Dodanie eventów
         selectFileButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -77,9 +81,20 @@ public class Main extends Application {
                 File file = fileChooser.showOpenDialog(primaryStage);
 
                 if (file != null) {
-                    Diagram diagram = new Diagram(file);
-                    DrawingLogic dr = new DrawingLogic(gc,diagram);
-                    dr.draw();
+                    Diagram diagram = null;
+                    try {
+                        diagram = new Diagram(file);
+                    } catch (IncorrectFileException e) {
+                        errorAlert.setContentText("W linii: " + String.valueOf(e.getLine() + " pliku " + file.getName() + " wystąpił bład.\n Proszę wybrać inny plik lub naprawić błąd w podanej linii."));
+                        errorAlert.showAndWait();
+                    } catch (InvalidContourException e) {
+                        errorAlert.setContentText("Zadeklarowany w pliku kontur nie jest wielobokiem wypukłym");
+                        errorAlert.showAndWait();
+                    }
+                    if (diagram != null) {
+                        DrawingLogic dr = new DrawingLogic(gc, diagram);
+                        dr.draw();
+                    }
                 }
             }
         });
@@ -102,7 +117,8 @@ public class Main extends Application {
                                 BackgroundSize.DEFAULT);
                         canvasBox.setBackground(new Background(myBI));
                     } catch (FileNotFoundException e) {
-                        //TODO Okienko błedu
+                        errorAlert.setContentText("Wczytywanie obrazu nie udało się");
+                        errorAlert.showAndWait();
                     }
                 }
             }
@@ -112,26 +128,23 @@ public class Main extends Application {
                 new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent me) {
                         if (selectWorkType.getValue() == null) {
-                            Alert workTypeAlert = new Alert(Alert.AlertType.INFORMATION);
-                            workTypeAlert.setTitle("Błąd");
-                            workTypeAlert.setHeaderText(null);
-                            workTypeAlert.setContentText("Nie wybrano trybu pracy");
-                            workTypeAlert.showAndWait();
+                            errorAlert.setContentText("Nie wybrano trybu pracy");
+                            errorAlert.showAndWait();
                         } else if (selectWorkType.getValue().equals("Wyświetlanie statystyk")) {
                             contextMenu.show(canvas, me.getScreenX(), me.getScreenY());
                             menuItem1.setOnAction(new EventHandler<ActionEvent>() {
                                 public void handle(ActionEvent e) {
-                                    Statistics.getInstance().printAllObjectList(new Point(me.getSceneX(),me.getSceneY()));
+                                    Statistics.getInstance().printAllObjectList(new Point(me.getSceneX(), me.getSceneY()));
                                 }
                             });
                             menuItem2.setOnAction(new EventHandler<ActionEvent>() {
                                 public void handle(ActionEvent e) {
-                                    Statistics.getInstance().printGroupObjectList(new Point(me.getSceneX(),me.getSceneY()));
+                                    Statistics.getInstance().printGroupObjectList(new Point(me.getSceneX(), me.getSceneY()));
                                 }
                             });
                             menuItem3.setOnAction(new EventHandler<ActionEvent>() {
                                 public void handle(ActionEvent e) {
-                                    Statistics.getInstance().printResidentsNumber(new Point(me.getSceneX(),me.getSceneY()));
+                                    Statistics.getInstance().printResidentsNumber(new Point(me.getSceneX(), me.getSceneY()));
                                 }
                             });
 
