@@ -193,6 +193,10 @@ public class Contour {
         return result == 0;
     }
 
+    public boolean isContourValid() {
+        return contourPoints != null && ignoredPoints != null;
+    }
+
     public List<Point> getContourPoints() {
         return contourPoints;
     }
