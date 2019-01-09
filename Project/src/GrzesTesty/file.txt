@@ -4,8 +4,8 @@
 2. 0.1 2.0
 # Punkty kluczowe: Lp. x y Nazwa
 1. 0 0 KOK Krawczyka
-2. 0 3 KOK Kaczmarskiego
-2. 0 4 KOK
+2. 0 0.3 KOK Kaczmarskiego
+2. 0 0.4 KOK
 # Definicje obiektów: Lp. Typ_obiektu (Nazwa_zmiennej Typ_zmiennej)*
 1. SZKOŁA string 
 2. DOM int 

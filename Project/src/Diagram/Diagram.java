@@ -6,15 +6,13 @@ import FileData.FileChecker;
 import FileData.FileReader;
 
 import java.io.File;
+import java.security.Key;
 import java.util.List;
 
 public class Diagram {
-    public final static int SIZE = 1000;
+    public final static int SIZE = 10;
 
-    private List<KeyPoint> keyPoints;
     private Contour contour;
-    private boolean[][] areaHasObject;
-    private AreaField[][] area;
     private Voronoi voronoi;
 
     public Diagram(File file) throws IncorrectFileException, InvalidContourException {
