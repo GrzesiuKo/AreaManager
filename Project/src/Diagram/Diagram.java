@@ -15,6 +15,7 @@ public class Diagram {
     private Contour contour;
     private boolean[][] areaHasObject;
     private AreaField[][] area;
+    private Voronoi voronoi;
 
     public Diagram(File file) throws IncorrectFileException, InvalidContourException {
         FileChecker fileChecker = new FileChecker();
@@ -40,7 +41,6 @@ public class Diagram {
 
     private void handleCorrectFile(File file) throws InvalidContourException {
         FileReader fileReader = new FileReader();
-        Voronoi voronoi;
 
         fileReader.readFile(file);
         keyPoints = fileReader.getKeyPoints();
@@ -48,7 +48,6 @@ public class Diagram {
         voronoi = new Voronoi(SIZE, keyPoints, fileReader.getObjectPoints());
         areaHasObject = voronoi.getDividedArea();
         area = voronoi.getArea();
-
         contour = new Contour(fileReader.getContourPoints());
 
         if (!contour.isContourValid()){

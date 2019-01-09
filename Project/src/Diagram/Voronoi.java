@@ -32,6 +32,7 @@ public class Voronoi {
                 area[x][y] = new AreaField(current, keyPoint);
             }
         }
+
     }
 
     private KeyPoint addToKeyPoint(Point point, List<KeyPoint> keyPoints) {
