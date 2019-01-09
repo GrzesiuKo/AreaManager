@@ -174,15 +174,20 @@ public class Contour {
         return arePointsColinear(a, b, c);
     }
 
-    private boolean arePointsColinear(Point a, Point b, Point c) {
-
-        if (a == null || b == null || c == null) {
+    private boolean arePointsColinear(Point first, Point second, Point third) {
+        double a, b, c, d, result;
+        if (first == null || second == null || third == null) {
             return false;
         }
 
-        //TODO
+        a = second.getY() - first.getY();
+        b = third.getX() - second.getX();
+        c = third.getY() - second.getY();
+        d = second.getX() - first.getX();
 
-        return true;
+        result = a * b - c * d;
+
+        return result == 0;
     }
 
     public List<Point> getContourPoints() {
