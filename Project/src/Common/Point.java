@@ -3,6 +3,7 @@ package Common;
 public class Point {
     private double x;
     private double y;
+    private KeyPoint keyPoint;
 
     public Point(double x, double y) {
         this.x = x;
@@ -92,5 +93,13 @@ public class Point {
         sb.append(y);
 
         return sb.toString();
+    }
+
+    public KeyPoint getKeyPoint() {
+        return keyPoint;
+    }
+
+    public void setKeyPoint(KeyPoint keyPoint) {
+        this.keyPoint = keyPoint;
     }
 }
