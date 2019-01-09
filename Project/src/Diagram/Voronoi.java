@@ -123,10 +123,10 @@ public class Voronoi {
 
         while (limit >= 0) {
             up = seekUp(keyPoint, rimNumber, limit);
-            System.out.println("Was found? " + up);
             //right = seekRight(keyPoint, rimNumber);
             //down = seekDown(keyPoint, rimNumber);
             //left = seekLeft(keyPoint, rimNumber);
+            System.out.println("Was found? " + (up || right || down || left));
             limit--;
             if (up||right||down||left){
                 verdict = true;
