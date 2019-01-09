@@ -102,18 +102,21 @@ public class DrawingLogic {
     }
 
     private void drawVoronoi() {
-        gc.getCanvas().setScaleX(0.6);
-        gc.getCanvas().setScaleY(0.6);
         List<KeyPoint> keyPoints = diagram.getKeyPoints();
         for (int i = 0; i < keyPoints.size(); i++) {
             List<Point> points = keyPoints.get(i).getAreaPoints();
-            gc.setFill(Color.color(0.1 * i, 0.2 * i, 0.15 * i, 0.06));
+            gc.setFill(Color.rgb((20*i)%255,(90*i)%255,(70*i)%255,0.1));
+//            gc.setFill(Color.color(0.1 * i, 0.2 * i, 0.15 * i, 0.06));
             for (int j = 0; j < points.size(); j++) {
                 if (contour.contains(points.get(j).getX() * scale, points.get(j).getY() * scale)) {
                     gc.fillOval((points.get(j).getX() * scale), (points.get(j).getY() * scale), 1, 1);
                 }
             }
         }
+    }
+
+    public boolean inContour(Point point){
+        return contour.contains(point.getX(), point.getY());
     }
 
 //    private void checkKeyPoints(Diagram diagram){

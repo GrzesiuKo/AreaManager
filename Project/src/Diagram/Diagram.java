@@ -10,7 +10,7 @@ import java.security.Key;
 import java.util.List;
 
 public class Diagram {
-    public final static int SIZE = 10;
+    public final static int SIZE = 1000;
 
     private Contour contour;
     private Voronoi voronoi;
