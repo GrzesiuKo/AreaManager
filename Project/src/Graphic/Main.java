@@ -95,6 +95,7 @@ public class Main extends Application {
                         DrawingLogic dr = new DrawingLogic(gc, diagram);
                         dr.draw();
                     }
+
                 }
             }
         });
