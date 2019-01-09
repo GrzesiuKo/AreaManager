@@ -31,6 +31,7 @@ public class Voronoi {
             for (int y = 0; y < areaSize; y++) {
                 current = new Point(scaleToDouble(x, precision), scaleToDouble(y, precision));
                 keyPoint = addToKeyPoint(current);
+                current.setKeyPoint(keyPoint);
                 area[x][y] = new AreaField(current, keyPoint);
             }
         }
@@ -51,6 +52,7 @@ public class Voronoi {
         }
 
         if (nearest != null && !nearest.equals(point)) {
+            point.setKeyPoint(nearest);
             nearest.addPoint(point);
         }
         return nearest;
@@ -212,6 +214,7 @@ public class Voronoi {
 
     private KeyPoint addToGivenKeyPoint(KeyPoint given, Point point) {
         KeyPoint nearest = null;
+        KeyPoint old;
         double smallestLength = Double.MAX_VALUE;
         double currentLength;
         for (KeyPoint keyPoint : keyPoints) {
@@ -223,7 +226,11 @@ public class Voronoi {
         }
 
         if (nearest != null && !nearest.equals(point) && nearest.equals(given)) {
+            old = point.getKeyPoint();
+            //old.getAreaPoints().remove(point);
+
             nearest.addPoint(point);
+            point.setKeyPoint(nearest);
         }
 
         return nearest;
