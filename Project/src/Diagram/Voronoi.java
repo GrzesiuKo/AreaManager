@@ -32,7 +32,6 @@ public class Voronoi {
                 current = new Point(scaleToDouble(x, precision), scaleToDouble(y, precision));
                 keyPoint = addToKeyPoint(current);
                 current.setKeyPoint(keyPoint);
-                System.out.println("Długośc listy punktów: "+keyPoint.getAreaPoints().size());
                 area[x][y] = new AreaField(current, keyPoint);
             }
         }
@@ -236,7 +235,6 @@ public class Voronoi {
 
         if (nearest != null && nearest.equals(given)) {
             old = point.getKeyPoint();
-            System.out.println(" new "+point.toString()+" given "+given.string()+" "+old);
             old.getAreaPoints().remove(point);
 
             nearest.addPoint(point);

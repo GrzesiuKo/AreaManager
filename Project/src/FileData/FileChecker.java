@@ -56,31 +56,23 @@ public class FileChecker {
         hashCharIndex = line.indexOf("#");
 
         if (hashCharIndex == 0 || hashCharIndex == 1) {
-            System.out.println("Kolejna sekcja:");
             currentFilePart++;
             return true;
 
         } else if (FileNavigation.isContourPointsSection(currentFilePart)) {
-
-            System.out.println("Sprawdzam linie CONTOUR POINT:");
             return checkContourPointLine(line);
 
         } else if (FileNavigation.isKeyPointsSection(currentFilePart)) {
-            System.out.println("Sprawdzam linie KEY POINT:");
             return checkKeyPointLine(line);
 
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
-
-            System.out.println("Sprawdzam linie OBJECT DEFINITION:");
             if (checkObjectDefinitionLine(line)) {
-                System.out.println("    Dodaje definicje:");
                 readObjectDefinitionLine(line, definitions);
                 return true;
             }
             return false;
 
         } else if (FileNavigation.isObjectsSection(currentFilePart)) {
-            System.out.println("Sprawdzam linie OBJECT LINE:");
             return checkObjectLine(line);
 
         } else {
@@ -137,8 +129,6 @@ public class FileChecker {
         } else {
             typeId = NOT_GIVEN;
         }
-
-        // System.out.println("Dodaje do mapy: " + name);
         definitions.put(name, typeId);
     }
 
