@@ -27,11 +27,14 @@ public class KeyPointsTest {
         int size = 10;
         int precision = 10;
         Voronoi voronoi = new Voronoi(size, keyPoints, objectPoints);
+
+        voronoi.addKeyPoint(new KeyPoint(0.4, 0.2));
+
         int[][] tab = new int[size][size];
         double x, y;
         int i = 1;
         int color = 0;
-        for (KeyPoint k : keyPoints) {
+        for (KeyPoint k : voronoi.getKeyPoints()) {
             System.out.println("Punkty należące do obszaru punktu kluczowego (" + k.getX() + ", " + k.getY() + ")");
             for (Point p : k.getAreaPoints()) {
                 x = p.getX();
