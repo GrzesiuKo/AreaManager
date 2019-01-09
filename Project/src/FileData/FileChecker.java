@@ -21,57 +21,15 @@ public class FileChecker {
         definitions = new HashMap<>();
     }
 
-    public static void readObjectDefinitionLine(String line, Map<String, Integer> definitions) {
-        Scanner scanner;
-        String name;
-        String typeName;
-        int typeId;
-
-        try {
-            scanner = new Scanner(line);
-        } catch (NullPointerException e) {
-            return;
-        }
-        scanner.next();
-        name = scanner.next();
-
-        if (scanner.hasNext()) {
-            typeName = scanner.next();
-            typeId = recognizeTypeByVariableName(typeName);
-        } else {
-            typeId = NOT_GIVEN;
-        }
-
-        // System.out.println("Dodaje do mapy: " + name);
-        definitions.put(name, typeId);
-    }
-
-    private static int recognizeTypeByVariableName(String name) {
-        if (name == null) {
-            return NOT_GIVEN;
-        }
-
-        if (name.matches("(?i)string(?-i)")) {
-            return STRING;
-        } else if (name.matches("(?i)double(?-i)")) {
-            return DOUBLE;
-        } else if (name.matches("(?i)int(?-i)")) {
-            return INT;
-        } else {
-            return NOT_GIVEN;
-        }
-    }
 
     public boolean checkFile(File file) {
         boolean isFailFound;
         Scanner scanner;
         String currentLine;
         int currentLineNumber;
-        int currentFilePart;
 
         isFailFound = false;
         currentLineNumber = 0;
-        currentFilePart = 0;
 
         try {
             scanner = new Scanner(file, "UTF-8");
@@ -152,6 +110,47 @@ public class FileChecker {
                 return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s*");
             default:
                 return false;
+        }
+    }
+
+    public static void readObjectDefinitionLine(String line, Map<String, Integer> definitions) {
+        Scanner scanner;
+        String name;
+        String typeName;
+        int typeId;
+
+        try {
+            scanner = new Scanner(line);
+        } catch (NullPointerException e) {
+            return;
+        }
+        scanner.next();
+        name = scanner.next();
+
+        if (scanner.hasNext()) {
+            typeName = scanner.next();
+            typeId = recognizeTypeByVariableName(typeName);
+        } else {
+            typeId = NOT_GIVEN;
+        }
+
+        // System.out.println("Dodaje do mapy: " + name);
+        definitions.put(name, typeId);
+    }
+
+    private static int recognizeTypeByVariableName(String name) {
+        if (name == null) {
+            return NOT_GIVEN;
+        }
+
+        if (name.matches("(?i)string(?-i)")) {
+            return STRING;
+        } else if (name.matches("(?i)double(?-i)")) {
+            return DOUBLE;
+        } else if (name.matches("(?i)int(?-i)")) {
+            return INT;
+        } else {
+            return NOT_GIVEN;
         }
     }
 
