@@ -144,8 +144,10 @@ public class Voronoi {
         y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) + rimNumber;
         wasFound = false;
 
+
         if (isValid(x, size) && isValid(y, size)) {
-            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+            Point point = area[x][y].getPosition();
+            wasFound = seek(keyPoint, point);
         }
 
         return wasFound;
@@ -160,8 +162,10 @@ public class Voronoi {
         wasFound = false;
 
 
+
         if (isValid(x, size) && isValid(y, size)) {
-            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+            Point point = area[x][y].getPosition();
+            wasFound = seek(keyPoint, point);
         }
 
         return wasFound;
@@ -175,8 +179,10 @@ public class Voronoi {
         y = Point.scaleCoordinateToInt(keyPoint.getY(), precision) - rimNumber;
         wasFound = false;
 
+
         if (isValid(x, size) && isValid(y, size)) {
-            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+            Point point = area[x][y].getPosition();
+            wasFound = seek(keyPoint, point);
         }
 
         return wasFound;
@@ -191,8 +197,10 @@ public class Voronoi {
         wasFound = false;
 
 
+
         if (isValid(x, size) && isValid(y, size)) {
-            wasFound = seek(keyPoint, new Point(scaleToDouble(x, precision), scaleToDouble(y, precision)));
+            Point point = area[x][y].getPosition();
+            wasFound = seek(keyPoint, point);
         }
 
         return wasFound;
