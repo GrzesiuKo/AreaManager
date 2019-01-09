@@ -9,27 +9,31 @@ import java.util.List;
 public class Voronoi {
 
     private boolean[][] dividedAreaHasObject;
+    private AreaField[][] area;
     private int precision = 10;
 
     public Voronoi(int size, List<KeyPoint> keyPoints, List<Point> objectPoints) {
         dividedAreaHasObject = new boolean[size][size];
+        area = new AreaField[size][size];
 
-        makeAreas(keyPoints);
+        makeAreas(keyPoints, size);
         indicateObjects(objectPoints);
     }
 
-    private void makeAreas(List<KeyPoint> keyPoints) {
+    private void makeAreas(List<KeyPoint> keyPoints, int areaSize) {
         Point current;
+        KeyPoint keyPoint;
 
-        for (int x = 0; x < dividedAreaHasObject.length; x++) {
-            for (int y = 0; y < dividedAreaHasObject[0].length; y++) {
+        for (int x = 0; x < areaSize; x++) {
+            for (int y = 0; y < areaSize; y++) {
                 current = new Point(scaleToDouble(x, precision), scaleToDouble(y, precision));
-                addToKeyPoint(current, keyPoints);
+                keyPoint = addToKeyPoint(current, keyPoints);
+                area[x][y] = new AreaField(current, keyPoint);
             }
         }
     }
 
-    private void addToKeyPoint(Point point, List<KeyPoint> keyPoints) {
+    private KeyPoint addToKeyPoint(Point point, List<KeyPoint> keyPoints) {
         KeyPoint nearest = null;
         double smallestLength = Double.MAX_VALUE;
         double currentLength;
@@ -45,6 +49,7 @@ public class Voronoi {
         if (nearest != null && !nearest.equals(point)) {
             nearest.addPoint(point);
         }
+        return nearest;
     }
 
     private double scaleToDouble(int a, int precision) {
@@ -88,5 +93,9 @@ public class Voronoi {
 
     public boolean[][] getDividedArea() {
         return dividedAreaHasObject;
+    }
+
+    public AreaField[][] getArea() {
+        return area;
     }
 }
