@@ -8,6 +8,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import jdk.jshell.Diag;
 
 import java.util.List;
 
@@ -17,26 +18,30 @@ public class DrawingLogic {
     Diagram diagram;
     Double scale;
     int drawingScale;
+    int keyPointSize;
+    int objectPointSize;
 
 
     public DrawingLogic(GraphicsContext gc, Diagram diagram) {
-        scale =  gc.getCanvas().getWidth() / 100;
+        scale = gc.getCanvas().getWidth() / 100;
         drawingScale = 1;
         Double[] Points = new Double[diagram.getContour().getContourPoints().size() * 2];
         for (int i = 0; i < diagram.getContour().getContourPoints().size(); i++) {
-            Points[2 * i] = diagram.getContour().getContourPoints().get(i).getX() * scale;
-            Points[2 * i + 1] = diagram.getContour().getContourPoints().get(i).getY() * scale;
+            Points[2 * i] = diagram.getContour().getContourPoints().get(i).getX() * scale + 0.1;
+            Points[2 * i + 1] = diagram.getContour().getContourPoints().get(i).getY() * scale + 0.1;
         }
         for (int i = 0; i < diagram.getContour().getContourPoints().size() / 2; i++) {
         }
         contour = new Polygon();
         contour.getPoints().addAll(Points);
         this.gc = gc;
-        this.diagram = diagram;
+        this.diagram = diagram; // = checkKeyPoints(diagram);
+        keyPointSize = 10;
+        objectPointSize = 8;
     }
 
     public void draw() {
-        gc.setLineWidth(5);
+        gc.setLineWidth(6);
         int scale = (int) gc.getCanvas().getWidth();
         drawCountour();
         drawKeyPoints();
@@ -59,7 +64,7 @@ public class DrawingLogic {
         List<KeyPoint> points = diagram.getKeyPoints();
         gc.setFill(Color.RED);
         for (int i = 0; i < points.size(); i++) {
-            gc.fillOval(points.get(i).getX() * scale, points.get(i).getY() * scale, 4 * drawingScale, 4 * drawingScale);
+            gc.fillOval(points.get(i).getX() * scale, points.get(i).getY() * scale, keyPointSize, keyPointSize);
         }
     }
 
@@ -71,13 +76,25 @@ public class DrawingLogic {
 
         gc.setFill(Color.BLUEVIOLET);
         for (int i = 0; i < bears.size(); i++) {
-            gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, 3, 3);
+            if (contour.contains(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale)) {
+                gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
+            } else {
+                toDraw.deleteObject(i, "Bear");
+            }
         }
         for (int i = 0; i < schools.size(); i++) {
-            gc.fillOval(schools.get(i).getLocalization().getX() * scale, schools.get(i).getLocalization().getY() * scale, 3, 3);
+            if (contour.contains(schools.get(i).getLocalization().getX() * scale, schools.get(i).getLocalization().getY() * scale)) {
+                gc.fillOval(schools.get(i).getLocalization().getX() * scale, schools.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
+            } else {
+                toDraw.deleteObject(i, "School");
+            }
         }
         for (int i = 0; i < residentials.size(); i++) {
-            gc.fillOval(residentials.get(i).getLocalization().getX() * scale, residentials.get(i).getLocalization().getY() * scale, 3, 3);
+            if (contour.contains(residentials.get(i).getLocalization().getX() * scale, residentials.get(i).getLocalization().getY() * scale)) {
+                gc.fillOval(residentials.get(i).getLocalization().getX() * scale, residentials.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
+            } else {
+                toDraw.deleteObject(i, "Residential");
+            }
         }
     }
 
@@ -95,7 +112,13 @@ public class DrawingLogic {
                     gc.fillOval((points.get(j).getX() * scale), (points.get(j).getY() * scale), 1, 1);
                 }
             }
-
         }
     }
+
+//    private void checkKeyPoints(Diagram diagram){
+//        List<KeyPoint> points = diagram.getKeyPoints();
+//        for (int i = 0; i < points.size(); i++) {
+//            gc.fillOval(points.get(i).getX() * scale, points.get(i).getY() * scale, keyPointSize, keyPointSize);
+//        }
+//    }
 }

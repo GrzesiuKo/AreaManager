@@ -3,6 +3,7 @@ package Statistics;
 import Common.Point;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Statistics {
@@ -12,9 +13,9 @@ public class Statistics {
     private List<Residential> residentialList;
 
     private Statistics() {
-        bearList = new ArrayList<>();
-        schoolList = new ArrayList<>();
-        residentialList = new ArrayList<>();
+        bearList = new LinkedList<>();
+        schoolList = new LinkedList<>();
+        residentialList = new LinkedList<>();
     }
 
     public static Statistics getInstance() {
@@ -37,23 +38,28 @@ public class Statistics {
     }
 
     public void printAllObjectList(Point fromUser) {
-
-
     }
 
     public void printGroupObjectList(Point fromUser) {
-
-
     }
 
     public void printResidentsNumber(Point fromUser) {
-
-
     }
 
     public void recheckData() {
+    }
 
+    public void deleteObject(int index , String objectName){
+        if(objectName.equals("Bear")){
+            bearList.remove(index);
+        }
+        else if(objectName.equals("Residential")){
+            residentialList.remove(index);
+        }
 
+        else if(objectName.equals("School")){
+            schoolList.remove(index);
+        }
     }
 
     private Point findKeyPoint(Point fromUser) {
