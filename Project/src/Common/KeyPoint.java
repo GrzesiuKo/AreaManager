@@ -24,4 +24,15 @@ public class KeyPoint extends Point {
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
+
+    public String string() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+        sb.append(getX());
+        sb.append(",");
+        sb.append(getY());
+        sb.append(")");
+
+        return sb.toString();
+    }
 }

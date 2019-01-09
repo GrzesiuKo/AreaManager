@@ -6,14 +6,14 @@ import FileData.FileChecker;
 import FileData.FileReader;
 
 import java.io.File;
+import java.security.Key;
 import java.util.List;
 
 public class Diagram {
-    public final static int SIZE = 1000;
+    public final static int SIZE = 10;
 
-    private List<KeyPoint> keyPoints;
     private Contour contour;
-    private boolean[][] areaHasObject;
+    private Voronoi voronoi;
 
     public Diagram(File file) throws IncorrectFileException, InvalidContourException {
         FileChecker fileChecker = new FileChecker();
@@ -28,8 +28,32 @@ public class Diagram {
         }
     }
 
+
+    private void handleIncorrectFile(int lineNumber) throws IncorrectFileException {
+        contour = null;
+        throw new IncorrectFileException(lineNumber);
+    }
+
+    private void handleCorrectFile(File file) throws InvalidContourException {
+        FileReader fileReader = new FileReader();
+        List<KeyPoint> keyPoints;
+
+        fileReader.readFile(file);
+        keyPoints = fileReader.getKeyPoints();
+        voronoi = new Voronoi(SIZE, keyPoints, fileReader.getObjectPoints());
+        contour = new Contour(fileReader.getContourPoints());
+
+        if (!contour.isContourValid()){
+            throw new InvalidContourException();
+        }
+    }
+
+    public void addKeyPoint(KeyPoint keyPoint){
+        voronoi.addKeyPoint(keyPoint);
+    }
+
     public List<KeyPoint> getKeyPoints() {
-        return keyPoints;
+        return voronoi.getKeyPoints();
     }
 
     public Contour getContour() {
@@ -37,30 +61,10 @@ public class Diagram {
     }
 
     public boolean[][] getArea() {
-        return areaHasObject;
+        return voronoi.getDividedArea();
     }
 
-    private void handleIncorrectFile(int lineNumber) throws IncorrectFileException {
-        keyPoints = null;
-        areaHasObject = null;
-        contour = null;
-        throw new IncorrectFileException(lineNumber);
-    }
-
-    private void handleCorrectFile(File file) throws InvalidContourException {
-        FileReader fileReader = new FileReader();
-        Voronoi voronoi;
-
-        fileReader.readFile(file);
-        keyPoints = fileReader.getKeyPoints();
-
-        voronoi = new Voronoi(SIZE, keyPoints, fileReader.getObjectPoints());
-        areaHasObject = voronoi.getDividedArea();
-
-        contour = new Contour(fileReader.getContourPoints());
-
-        if (!contour.isContourValid()){
-            throw new InvalidContourException();
-        }
+    public AreaField[][] getAreaFields() {
+        return voronoi.getArea();
     }
 }
