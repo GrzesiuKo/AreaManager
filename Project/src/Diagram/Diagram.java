@@ -30,22 +30,17 @@ public class Diagram {
 
 
     private void handleIncorrectFile(int lineNumber) throws IncorrectFileException {
-        keyPoints = null;
-        areaHasObject = null;
         contour = null;
-        area = null;
         throw new IncorrectFileException(lineNumber);
     }
 
     private void handleCorrectFile(File file) throws InvalidContourException {
         FileReader fileReader = new FileReader();
+        List<KeyPoint> keyPoints;
 
         fileReader.readFile(file);
         keyPoints = fileReader.getKeyPoints();
-
         voronoi = new Voronoi(SIZE, keyPoints, fileReader.getObjectPoints());
-        areaHasObject = voronoi.getDividedArea();
-        area = voronoi.getArea();
         contour = new Contour(fileReader.getContourPoints());
 
         if (!contour.isContourValid()){
@@ -54,11 +49,11 @@ public class Diagram {
     }
 
     public void addKeyPoint(KeyPoint keyPoint){
-        voronoi.addKeyPoint(keyPoint, keyPoints);
+        voronoi.addKeyPoint(keyPoint);
     }
 
     public List<KeyPoint> getKeyPoints() {
-        return keyPoints;
+        return voronoi.getKeyPoints();
     }
 
     public Contour getContour() {
@@ -66,10 +61,10 @@ public class Diagram {
     }
 
     public boolean[][] getArea() {
-        return areaHasObject;
+        return voronoi.getDividedArea();
     }
 
     public AreaField[][] getAreaFields() {
-        return area;
+        return voronoi.getArea();
     }
 }

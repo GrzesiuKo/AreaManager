@@ -12,11 +12,13 @@ public class Voronoi {
     private AreaField[][] area;
     private int precision = 10;
     private int size;
+    private List<KeyPoint> keyPoints;
 
     public Voronoi(int size, List<KeyPoint> keyPoints, List<Point> objectPoints) {
         dividedAreaHasObject = new boolean[size][size];
         area = new AreaField[size][size];
         this.size = size;
+        this.keyPoints = keyPoints;
         makeAreas(keyPoints, this.size);
         indicateObjects(objectPoints);
     }
@@ -215,5 +217,9 @@ public class Voronoi {
 
     public AreaField[][] getArea() {
         return area;
+    }
+
+    public List<KeyPoint> getKeyPoints() {
+        return keyPoints;
     }
 }
