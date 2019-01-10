@@ -13,7 +13,7 @@ import javafx.scene.shape.Polygon;
 
 import java.util.List;
 
-public class DrawingLogic {
+public class    DrawingLogic {
     Polygon contour;
     GraphicsContext gc;
     Diagram diagram;
@@ -42,8 +42,8 @@ public class DrawingLogic {
     }
 
     public void draw() {
+        gc.clearRect(0,0,gc.getCanvas().getWidth(),gc.getCanvas().getHeight());
         gc.setLineWidth(6);
-        int scale = (int) gc.getCanvas().getWidth();
         drawCountour();
         drawKeyPoints();
         drawUserPoints();
@@ -102,14 +102,19 @@ public class DrawingLogic {
     }
 
     private void drawVoronoi() {
+        boolean[][] colored = new boolean[10000][10000];
+        double x,y;
         List<KeyPoint> keyPoints = diagram.getKeyPoints();
-        for (int i = 0; i < keyPoints.size(); i++) {
+        for (int i = keyPoints.size() - 1; i >= 0 ; i--) {
             List<Point> points = keyPoints.get(i).getAreaPoints();
-            gc.setFill(Color.rgb((20*i)%255,(90*i)%255,(70*i)%255,0.1));
-//            gc.setFill(Color.color(0.1 * i, 0.2 * i, 0.15 * i, 0.06));
-            for (int j = 0; j < points.size(); j++) {
-                if (contour.contains(points.get(j).getX() * scale, points.get(j).getY() * scale)) {
-                    gc.fillOval((points.get(j).getX() * scale), (points.get(j).getY() * scale), 1, 1);
+            gc.setFill(Color.rgb((80*i)%255,(90*i)%255,(70*i)%255,0.1));
+            for (int j = 0; j < points.size() ; j++) {
+                x = points.get(j).getX() * scale;
+                y = points.get(j).getY() * scale;
+                if (contour.contains(x, y) && !colored[(int)x * 10][(int)y * 10] ) {
+                    gc.fillOval(x,y, 3, 3);
+                    colored[(int)x * 10][(int)y *10] = true;
+                    System.out.println(points.get(j).getX() * scale);
                 }
             }
         }
