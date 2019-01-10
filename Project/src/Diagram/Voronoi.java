@@ -75,6 +75,10 @@ public class Voronoi {
     private void indicateObjects(List<Point> objectPoints) {
         Point current;
 
+        if (objectPoints == null){
+            return;
+        }
+
         for (int y = 0; y < dividedAreaHasObject[0].length; y++) {
             for (int x = 0; x < dividedAreaHasObject.length; x++) {
                 current = new Point(scaleToDouble(x, precision), scaleToDouble(y, precision));
