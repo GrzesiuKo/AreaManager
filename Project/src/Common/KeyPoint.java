@@ -35,4 +35,9 @@ public class KeyPoint extends Point {
 
         return sb.toString();
     }
+
+    public void cleanPointsList(){
+        areaPoints = new ArrayList<>();
+    }
+
 }

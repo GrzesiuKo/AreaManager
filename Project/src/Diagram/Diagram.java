@@ -10,7 +10,7 @@ import java.security.Key;
 import java.util.List;
 
 public class Diagram {
-    public final static int SIZE = 1000;
+    public static int SIZE = 1000;
 
     private Contour contour;
     private Voronoi voronoi;
@@ -28,6 +28,19 @@ public class Diagram {
         }
     }
 
+    public Diagram(File file, int size) throws IncorrectFileException, InvalidContourException {
+        FileChecker fileChecker = new FileChecker();
+        boolean isFileCorrect;
+
+        SIZE = size;
+        isFileCorrect = fileChecker.checkFile(file);
+
+        if (isFileCorrect) {
+            handleCorrectFile(file);
+        } else {
+            handleIncorrectFile(fileChecker.getErrorLine());
+        }
+    }
 
     private void handleIncorrectFile(int lineNumber) throws IncorrectFileException {
         contour = null;
@@ -50,6 +63,10 @@ public class Diagram {
 
     public void addKeyPoint(KeyPoint keyPoint){
         voronoi.addKeyPoint(keyPoint);
+    }
+
+    public void remakeVoronoi(List<KeyPoint> keyPoints){
+        voronoi.makeAreas(SIZE, keyPoints);
     }
 
     public List<KeyPoint> getKeyPoints() {
