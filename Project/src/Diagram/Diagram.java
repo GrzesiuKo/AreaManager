@@ -67,7 +67,6 @@ public class Diagram {
 
     public void remakeVoronoi(List<KeyPoint> keyPoints){
         voronoi.makeAreas(SIZE, keyPoints);
-        return;
     }
 
     public List<KeyPoint> getKeyPoints() {
