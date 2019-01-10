@@ -10,9 +10,9 @@ public class FileChecker {
     public final static int INT = 1;
     public final static int DOUBLE = 2;
     public final static int NOT_GIVEN = 3;
-    public final static int X = 1;
-    public final static int Y = 2;
-    public final static int CHOICE = 3;
+    public final static int X = -1;
+    public final static int Y = -2;
+    public final static int CHOICE = -3;
     public final static int MAX_NUMBER_OF_ARGUMENTS = 3;
     private static int currentFilePart;
     private int errorLine;
