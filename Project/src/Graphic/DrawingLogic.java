@@ -44,10 +44,10 @@ public class    DrawingLogic {
     public void draw() {
         gc.clearRect(0,0,gc.getCanvas().getWidth(),gc.getCanvas().getHeight());
         gc.setLineWidth(6);
+        drawVoronoi();
         drawCountour();
         drawKeyPoints();
         drawUserPoints();
-        drawVoronoi();
     }
 
     private void drawCountour() {
@@ -114,7 +114,6 @@ public class    DrawingLogic {
                 if (contour.contains(x, y) && !colored[(int)x * 10][(int)y * 10] ) {
                     gc.fillOval(x,y, 3, 3);
                     colored[(int)x * 10][(int)y *10] = true;
-                    System.out.println(points.get(j).getX() * scale);
                 }
             }
         }

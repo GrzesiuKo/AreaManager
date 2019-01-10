@@ -52,7 +52,7 @@ public class Main extends Application {
         Button selectImageButton = new Button("Wybierz obraz tła");
         choosers.getChildren().addAll(selectFileButton, selectImageButton);
         Label workType = new Label("Wybierz tryb pracy: ");
-        ChoiceBox selectWorkType = new ChoiceBox(FXCollections.observableArrayList("Wyświetlanie statystyk", "Edycja konturów", "Edycja punktów kluczowych"));
+        ChoiceBox selectWorkType = new ChoiceBox(FXCollections.observableArrayList("Wyświetlanie statystyk", "Edycja konturów", "Dodawanie punktów kluczowych"));
         workBox.getChildren().addAll(workType, selectWorkType);
         TextField statisticOutput = new TextField("Syyyyf");
         statisticOutput.setEditable(false);
@@ -153,7 +153,7 @@ public class Main extends Application {
                             });
 
                         } else if (selectWorkType.getValue().equals("Edycja konturów")) {
-                        } else if (selectWorkType.getValue().equals("Edycja punktów kluczowych")) {
+                        } else if (selectWorkType.getValue().equals("Dodawanie punktów kluczowych")) {
                             diagram.addKeyPoint(new KeyPoint(Math.round(me.getSceneX() / 6), Math.round(me.getSceneY() / 6)));
                             drawing = new DrawingLogic(gc, diagram);
                             drawing.draw();
