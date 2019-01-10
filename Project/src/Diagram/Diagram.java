@@ -63,6 +63,10 @@ public class Diagram {
         voronoi.makeAreas(SIZE, keyPoints);
     }
 
+    public void deleteKeyPoint(KeyPoint keyPoint){
+        voronoi.deleteKeyPoint(keyPoint);
+    }
+
     public List<KeyPoint> getKeyPoints() {
         return voronoi.getKeyPoints();
     }

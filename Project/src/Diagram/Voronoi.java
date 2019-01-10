@@ -258,6 +258,22 @@ public class Voronoi {
         return nearest;
     }
 
+    public void deleteKeyPoint(KeyPoint chosen){
+        keyPoints.remove(chosen);
+        updateVoronoi(chosen.getAreaPoints());
+    }
+
+    private void updateVoronoi(List<Point> points){
+        int x, y;
+        KeyPoint keyPoint;
+        for (Point p: points){
+            keyPoint = addToKeyPoint(p);
+            x = Point.scaleCoordinateToInt(p.getX(), precision);
+            y = Point.scaleCoordinateToInt(p.getY(), precision);
+            area[x][y].setNearestKeyPoint(keyPoint);
+        }
+    }
+
     public boolean[][] getDividedArea() {
         return dividedAreaHasObject;
     }
