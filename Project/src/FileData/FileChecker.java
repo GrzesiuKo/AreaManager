@@ -2,7 +2,10 @@ package FileData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Scanner;
 
 public class FileChecker {
     public final static int UNKNOWN = -100;
@@ -16,11 +19,10 @@ public class FileChecker {
     public final static int MAX_NUMBER_OF_ARGUMENTS = 3;
     private static int currentFilePart;
     private int errorLine;
-    private static Map<String, Integer> definitions;
     private static Map<String, LinkedList<Integer>> argumentsOrders;
 
     public FileChecker() {
-        definitions = new HashMap<>();
+        argumentsOrders = new HashMap<>();
     }
 
 
@@ -45,7 +47,7 @@ public class FileChecker {
             isFailFound = !checkLine(currentLine);
         }
 
-        if (isFailFound){
+        if (isFailFound) {
             errorLine = currentLineNumber;
         }
 
@@ -91,7 +93,42 @@ public class FileChecker {
     }
 
     private boolean checkObjectDefinitionLine(String line) {
-        return line.matches(".*\\s.{1,40}(\\s*|(\\s(?i)(string|int|double)(?-i)(\\s)*))");
+        Scanner scanner;
+        String text;
+        int part;
+        String name;
+        LinkedList<Integer> order;
+
+        if (!line.matches("(.*\\s){6}((.*\\s){2}\\s*|\\s*)")) {
+            return false;
+        }
+
+        try {
+            scanner = new Scanner(line);
+        } catch (NullPointerException e) {
+            return false;
+        }
+
+        scanner.next();
+        name = scanner.next();
+        order = new LinkedList<>();
+        text = scanner.next();
+
+        for (int i = 0; i < MAX_NUMBER_OF_ARGUMENTS; i++) {
+            if (isCoordinateDefinition(text)) {
+                part = recognizeCoordinate(text);
+                order.add(part);
+                scanner.next();
+            } else {
+                handleUserVariable(name, text, scanner.next());
+            }
+            text = scanner.next();
+        }
+
+        if (order.contains(X) && order.contains(Y)) {
+
+        }
+
     }
 
     private boolean checkObjectLine(String line) {
@@ -112,58 +149,24 @@ public class FileChecker {
     }
 
     public static void readObjectDefinitionLine(String line, Map<String, Integer> definitions) {
-        Scanner scanner;
-        String name;
-        String text;
-        int order;
-
-        try {
-            scanner = new Scanner(line);
-        } catch (NullPointerException e) {
-            return;
-        }
-        scanner.next();
-        name = scanner.next();
-
-        addNameToDictionary(name);
-
-        text = scanner.next();
-
-        for (int i = 0; i< MAX_NUMBER_OF_ARGUMENTS; i++) {
-            if (isCoordinateDefinition(text)) {
-                order = recognizeCoordinate(text);
-                argumentsOrders.get(name).add(order);
-                scanner.next();
-            }else{
-                handleUserVariable(name, text, scanner.next());
-            }
-            text = scanner.next();
-        }
-
-
-
+        //TODO
     }
 
-    private static void addNameToDictionary(String name){
-        argumentsOrders.put(name, new LinkedList<>());
-        definitions.put(name, UNKNOWN);
-    }
-
-    private static boolean isCoordinateDefinition(String text){
+    private static boolean isCoordinateDefinition(String text) {
         return text.matches("(?i)x(?-i)") || text.matches("(?i)y(?-i)");
     }
 
-    private static int recognizeCoordinate(String name){
-        if (name.matches("(?i)x(?-i)")){
+    private static int recognizeCoordinate(String name) {
+        if (name.matches("(?i)x(?-i)")) {
             return X;
-        }else if (name.matches("(?i)y(?-i)")){
+        } else if (name.matches("(?i)y(?-i)")) {
             return Y;
-        }else{
+        } else {
             return UNKNOWN;
         }
     }
 
-    private static void handleUserVariable(String objectName, String name, String type){
+    private static void handleUserVariable(String objectName, String name, String type) {
 
     }
 
