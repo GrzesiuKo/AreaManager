@@ -19,14 +19,15 @@ public class Voronoi {
         area = new AreaField[size][size];
         this.size = size;
         this.keyPoints = keyPoints;
-        makeAreas(this.size);
+        makeAreas(this.size, keyPoints);
         indicateObjects(objectPoints);
     }
 
-    private void makeAreas( int areaSize) {
+    public void makeAreas( int areaSize, List<KeyPoint> keyPoints) {
         Point current;
         KeyPoint keyPoint;
 
+        this.keyPoints = keyPoints;
         for (int x = 0; x < areaSize; x++) {
             for (int y = 0; y < areaSize; y++) {
                 current = new Point(scaleToDouble(x, precision), scaleToDouble(y, precision));
