@@ -15,24 +15,18 @@ public class Diagram {
     private Contour contour;
     private Voronoi voronoi;
 
-    public Diagram(File file) throws IncorrectFileException, InvalidContourException {
-        FileChecker fileChecker = new FileChecker();
-        boolean isFileCorrect;
-
-        isFileCorrect = fileChecker.checkFile(file);
-
-        if (isFileCorrect) {
-            handleCorrectFile(file);
-        } else {
-            handleIncorrectFile(fileChecker.getErrorLine());
-        }
+    public Diagram(){
+        SIZE = 1000;
     }
 
-    public Diagram(File file, int size) throws IncorrectFileException, InvalidContourException {
+    public Diagram(int size){
+        SIZE = size;
+    }
+
+    public void readFile(File file) throws InvalidContourException, IncorrectFileException {
         FileChecker fileChecker = new FileChecker();
         boolean isFileCorrect;
 
-        SIZE = size;
         isFileCorrect = fileChecker.checkFile(file);
 
         if (isFileCorrect) {

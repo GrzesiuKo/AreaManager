@@ -80,7 +80,8 @@ public class Main extends Application {
 
                 if (file != null) {
                     try {
-                        diagram = new Diagram(file);
+                        diagram = new Diagram();
+                        diagram.readFile(file);
                     } catch (IncorrectFileException e) {
                         errorAlert.setContentText("W linii: " + String.valueOf(e.getLine() + " pliku " + file.getName() + " wystąpił bład.\n Proszę wybrać inny plik lub naprawić błąd w podanej linii."));
                         errorAlert.showAndWait();

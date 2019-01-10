@@ -15,7 +15,8 @@ public class AddKeyPointTest {
 
         file = new File("src\\GrzesTesty\\file.txt");
 
-        diagram = new Diagram(file);
+        diagram = new Diagram();
+        diagram.readFile(file);
 
         System.out.println("Area Fields: ");
         printArray(diagram.getAreaFields());

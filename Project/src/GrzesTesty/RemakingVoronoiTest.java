@@ -21,7 +21,8 @@ public class RemakingVoronoiTest {
 
         file = new File("src\\GrzesTesty\\file.txt");
 
-        diagram = new Diagram(file, 10);
+        diagram = new Diagram(10);
+        diagram.readFile(file);
 
         diagram.getKeyPoints().add(new KeyPoint(0, 0));
 
