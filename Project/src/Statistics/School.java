@@ -11,5 +11,8 @@ public class School extends UserObject {
 
     }
 
-
+    @Override
+    public String toString() {
+        return name + " " + super.toString();
+    }
 }

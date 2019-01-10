@@ -54,8 +54,7 @@ public class Main extends Application {
         Label workType = new Label("Wybierz tryb pracy: ");
         ChoiceBox selectWorkType = new ChoiceBox(FXCollections.observableArrayList("Wyświetlanie statystyk", "Edycja konturów", "Dodawanie punktów kluczowych"));
         workBox.getChildren().addAll(workType, selectWorkType);
-        TextField statisticOutput = new TextField("Syyyyf");
-        statisticOutput.setEditable(false);
+        Label statisticOutput = new Label();
         controlBox.getChildren().addAll(choosers, workBox, statisticOutput);
         verticalSplit.getChildren().addAll(canvasPane, controlBox);
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -138,7 +137,7 @@ public class Main extends Application {
                             contextMenu.show(canvas, me.getScreenX(), me.getScreenY());
                             menuItem1.setOnAction(new EventHandler<ActionEvent>() {
                                 public void handle(ActionEvent e) {
-                                    Statistics.getInstance().printAllObjectList(new Point(me.getSceneX(), me.getSceneY()));
+                                   StatisticOutput.print( Statistics.getInstance().printAllObjectList(new Point(me.getSceneX() / 6, me.getSceneY() / 6) , diagram.getKeyPoints()) , statisticOutput);
                                 }
                             });
                             menuItem2.setOnAction(new EventHandler<ActionEvent>() {

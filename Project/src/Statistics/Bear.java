@@ -10,6 +10,6 @@ public class Bear extends UserObject {
 
     @Override
     public String toString() {
-        return "bear " + super.toString();
+        return "Bear " + super.toString();
     }
 }

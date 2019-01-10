@@ -29,11 +29,15 @@ public class UserObject {
 
     @Override
     public String toString() {
-        return "x: " + String.valueOf(localization.getX()) + "  y: " + String.valueOf(localization.getY() + memberOf.toString());
+        return  String.valueOf(localization.toString() );
     }
 
     public Point getLocalization() {
         return localization;
+    }
+
+    public KeyPoint getMemberOf() {
+        return memberOf;
     }
 
     public void setMemberOf(KeyPoint memberOf) {

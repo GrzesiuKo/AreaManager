@@ -39,7 +39,29 @@ public class Statistics {
         residentialList.add(residential);
     }
 
-    public void printAllObjectList(Point fromUser) {
+    public List<UserObject> printAllObjectList(Point fromUser, List<KeyPoint> keyPoints) {
+        KeyPoint closes = findKeyPoint(fromUser, keyPoints);
+        List<UserObject> result = new LinkedList<>();
+        for (int i = 0; i < bearList.size(); i++) {
+            if (bearList.get(i).getMemberOf().equals(closes)) {
+                result.add(bearList.get(i));
+            }
+        }
+
+        for (int i = 0; i < residentialList.size(); i++) {
+            if (residentialList.get(i).getMemberOf().equals(closes)) {
+                result.add(residentialList.get(i));
+            }
+        }
+
+
+        for (int i = 0; i < schoolList.size(); i++) {
+            if (schoolList.get(i).getMemberOf().equals(closes)) {
+                result.add(schoolList.get(i));
+            }
+        }
+
+        return result;
     }
 
     public void printGroupObjectList(Point fromUser) {
@@ -53,23 +75,23 @@ public class Statistics {
         for (int i = 0; i < bearList.size(); i++) {
             object = bearList.get(i);
             bearList.get(i).setMemberOf(findKeyPoint(object.getLocalization(), keyPoints));
-            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
-                deleteObject(i, "Bear");
-            }
+//            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
+//                deleteObject(i, "Bear");
+//            }
         }
 
         for (int i = 0; i < residentialList.size(); i++) {
             residentialList.get(i).setMemberOf(findKeyPoint(residentialList.get(i).getLocalization(), keyPoints));
-            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
-                deleteObject(i, "Residential");
-            }
+//            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
+//                deleteObject(i, "Residential");
+//            }
         }
 
         for (int i = 0; i < schoolList.size(); i++) {
             schoolList.get(i).setMemberOf(findKeyPoint(schoolList.get(i).getLocalization(), keyPoints));
-            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
-                deleteObject(i, "School");
-            }
+//            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
+//                deleteObject(i, "School");
+//            }
         }
     }
 
