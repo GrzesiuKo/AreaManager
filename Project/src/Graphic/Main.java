@@ -109,10 +109,10 @@ public class Main extends Application {
                     InputStream targetStream = null;
                     try {
                         targetStream = new FileInputStream(file);
-                        BackgroundImage myBI = new BackgroundImage(new Image(targetStream, canvasBox.getWidth(), canvasBox.getHeight(), false, false),
-                                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                                BackgroundSize.DEFAULT);
-                        canvasPane.setBackground(new Background(myBI));
+                        Image image = new Image(targetStream, canvasPane.getWidth(), canvasPane.getHeight(), true, false );
+                        BackgroundSize backgroundSize = new BackgroundSize(canvasPane.getWidth(),canvasPane.getHeight(),false,false, false , false);
+                        BackgroundImage canvasBackground = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+                        canvasPane.setBackground(new Background(canvasBackground));
                     } catch (FileNotFoundException e) {
                         errorAlert.setContentText("Wczytywanie obrazu nie udało się");
                         errorAlert.showAndWait();
