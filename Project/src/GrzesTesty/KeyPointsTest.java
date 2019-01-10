@@ -14,6 +14,7 @@ public class KeyPointsTest {
         LinkedList<KeyPoint> keyPoints = new LinkedList<>();
         LinkedList<Point> objectPoints = new LinkedList<>();
         boolean[][] mapObjects;
+        KeyPoint keyPoint;
 
         keyPoints.add(new KeyPoint(0.0, 0.0));
 //        keyPoints.add(new KeyPoint(0.0, 0.1));
@@ -31,6 +32,15 @@ public class KeyPointsTest {
 
         tab = printKeyPoints(size, voronoi, precision);
         printArray(tab);
+        voronoi.addKeyPoint(new KeyPoint(0.4, 0.2));
+        tab = printKeyPoints(size, voronoi, precision);
+        printArray(tab);
+
+        keyPoint = new KeyPoint(0.4, 0.2);
+        voronoi.deleteKeyPoint(keyPoint);
+        tab = printKeyPoints(size, voronoi, precision);
+        printArray(tab);
+
         voronoi.addKeyPoint(new KeyPoint(0.4, 0.2));
         tab = printKeyPoints(size, voronoi, precision);
         printArray(tab);
