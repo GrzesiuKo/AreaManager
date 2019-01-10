@@ -52,6 +52,11 @@ public class Diagram {
         voronoi.addKeyPoint(keyPoint);
     }
 
+    public Diagram remakeVoronoi(Diagram diagram, List<KeyPoint> keyPoints){
+        //TODO zwrocic diagram z nowymi obszarami dla tych key Pointw (dodawanie KeyPoint poza konturem i dublujácych sié)
+        return null;
+    }
+
     public List<KeyPoint> getKeyPoints() {
         return voronoi.getKeyPoints();
     }
