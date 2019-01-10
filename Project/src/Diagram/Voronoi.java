@@ -27,7 +27,10 @@ public class Voronoi {
         Point current;
         KeyPoint keyPoint;
 
+
+        cleanVoronoiArea(keyPoints);
         this.keyPoints = keyPoints;
+
         for (int x = 0; x < areaSize; x++) {
             for (int y = 0; y < areaSize; y++) {
                 current = new Point(scaleToDouble(x, precision), scaleToDouble(y, precision));
@@ -37,6 +40,12 @@ public class Voronoi {
             }
         }
 
+    }
+
+    private void cleanVoronoiArea(List<KeyPoint> keyPoints){
+        for (KeyPoint keyPoint: keyPoints){
+            keyPoint.cleanPointsList();
+        }
     }
 
     private KeyPoint addToKeyPoint(Point point) {
