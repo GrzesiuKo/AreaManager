@@ -264,8 +264,13 @@ public class Voronoi {
     }
 
     private void updateVoronoi(List<Point> points){
+        int x, y;
+        KeyPoint keyPoint;
         for (Point p: points){
-            addToKeyPoint(p);
+            keyPoint = addToKeyPoint(p);
+            x = Point.scaleCoordinateToInt(p.getX(), precision);
+            y = Point.scaleCoordinateToInt(p.getY(), precision);
+            area[x][y].setNearestKeyPoint(keyPoint);
         }
     }
 
