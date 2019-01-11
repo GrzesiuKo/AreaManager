@@ -92,7 +92,7 @@ public class FileChecker {
         return line.matches(".*\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s.*)*");
     }
 
-    private boolean checkObjectDefinitionLine(String line) {
+    public boolean checkObjectDefinitionLine(String line) {
         Scanner scanner;
         String text;
         int part;
@@ -219,5 +219,9 @@ public class FileChecker {
 
     public int getErrorLine() {
         return errorLine;
+    }
+
+    public static Map<String, LinkedList<Integer>> getArgumentsOrders() {
+        return argumentsOrders;
     }
 }
