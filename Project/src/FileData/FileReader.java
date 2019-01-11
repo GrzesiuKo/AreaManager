@@ -21,8 +21,8 @@ public class FileReader {
         String currentLine;
 
         currentFilePart = 0;
-        this.definitions = definitions;
-        initializeFileReader();
+        initializeFileReader(definitions);
+
 
         try {
             scanner = new Scanner(file, "UTF-8");
@@ -191,10 +191,10 @@ public class FileReader {
     }
 
 
-    private void initializeFileReader() {
+    private void initializeFileReader(Map<String, LinkedList<Integer>> definitions) {
         keyPoints = new LinkedList<>();
         contourPoints = new LinkedList<>();
-        definitions = new HashMap<>();
+        this.definitions = definitions;
         objectPoints = new LinkedList<>();
     }
 
