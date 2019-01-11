@@ -14,13 +14,13 @@ import javafx.scene.shape.Polygon;
 import java.util.List;
 
 public class    DrawingLogic {
-    Polygon contour;
-    GraphicsContext gc;
-    Diagram diagram;
-    Double scale;
-    int drawingScale;
-    int keyPointSize;
-    int objectPointSize;
+    private Polygon contour;
+    private GraphicsContext gc;
+    private Diagram diagram;
+    private Double scale;
+    private int drawingScale;
+    private int keyPointSize;
+    private int objectPointSize;
 
 
     public DrawingLogic(GraphicsContext gc, Diagram diagram) {
@@ -80,7 +80,6 @@ public class    DrawingLogic {
         for (int i = 0; i < bears.size(); i++) {
             if (contour.contains(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale)) {
                 gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
-                System.out.println(bears.get(i).toString());
             } else {
                 toDraw.deleteObject(i, "Bear");
             }
@@ -129,4 +128,16 @@ public class    DrawingLogic {
 //            gc.fillOval(points.get(i).getX() * scale, points.get(i).getY() * scale, keyPointSize, keyPointSize);
 //        }
 //    }
+
+    public KeyPoint checkTwojaStara(Point fromUser){
+       KeyPoint nearest = Statistics.findKeyPoint(fromUser , diagram.getKeyPoints());
+       if (Math.sqrt(Math.pow(fromUser.getX() - nearest.getX(), 2) + Math.pow(fromUser.getY() - nearest.getY(), 2)) < 3){
+           return  nearest;
+       }
+       return null;
+    }
+
+    public Double getScale() {
+        return scale;
+    }
 }

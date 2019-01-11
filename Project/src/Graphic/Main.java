@@ -52,7 +52,7 @@ public class Main extends Application {
         Button selectImageButton = new Button("Wybierz obraz tła");
         choosers.getChildren().addAll(selectFileButton, selectImageButton);
         Label workType = new Label("Wybierz tryb pracy: ");
-        ChoiceBox selectWorkType = new ChoiceBox(FXCollections.observableArrayList("Wyświetlanie statystyk", "Edycja konturów", "Dodawanie punktów kluczowych"));
+        ChoiceBox selectWorkType = new ChoiceBox(FXCollections.observableArrayList("Wyświetlanie statystyk", "Edycja konturów", "Dodawanie punktów kluczowych" , "Usuwanie punktów kluczowych"));
         workBox.getChildren().addAll(workType, selectWorkType);
         Label statisticOutput = new Label();
         controlBox.getChildren().addAll(choosers, workBox, statisticOutput);
@@ -154,9 +154,15 @@ public class Main extends Application {
 
                         } else if (selectWorkType.getValue().equals("Edycja konturów")) {
                         } else if (selectWorkType.getValue().equals("Dodawanie punktów kluczowych")) {
-                            diagram.addKeyPoint(new KeyPoint(Math.round(me.getSceneX() / 6), Math.round(me.getSceneY() / 6)));
+                            diagram.addKeyPoint(new KeyPoint(Math.round(me.getSceneX() / drawing.getScale()), Math.round(me.getSceneY() / drawing.getScale())));
                             drawing = new DrawingLogic(gc, diagram);
                             drawing.draw();
+                        }else if(selectWorkType.getValue().equals("Usuwanie punktów kluczowych")){
+                            KeyPoint point = drawing.checkTwojaStara(new KeyPoint(Math.round(me.getSceneX() / drawing.getScale()), Math.round(me.getSceneY() / drawing.getScale())));
+                            if(point != null){
+                                diagram.deleteKeyPoint(point);
+                                drawing.draw();
+                            }
                         }
                     }
                 });

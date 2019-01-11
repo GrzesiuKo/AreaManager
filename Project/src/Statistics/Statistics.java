@@ -105,7 +105,10 @@ public class Statistics {
         }
     }
 
-    private KeyPoint findKeyPoint(Point fromUser, List<KeyPoint> keyPoints) {
+    public static KeyPoint findKeyPoint(Point fromUser, List<KeyPoint> keyPoints) {
+        if (keyPoints.isEmpty()){
+            return null;
+        }
         double distance = Math.sqrt(Math.pow(fromUser.getX() - keyPoints.get(0).getX(), 2) + Math.pow(fromUser.getY() - keyPoints.get(0).getY(), 2));
         KeyPoint nearest = keyPoints.get(0);
         for (int i = 0; i < keyPoints.size(); i++) {
