@@ -1,15 +1,10 @@
 package FileData;
 
 public class UserArgument {
-    String valueString;
-    double valueDouble;
-    int valueInt;
-
-    int id;
-
-    public UserArgument(int id){
-        this.id = id;
-    }
+    private String valueString;
+    private double valueDouble;
+    private int valueInt;
+    private int id;
 
     public UserArgument(int id, String value){
         this.id = id;
@@ -28,5 +23,17 @@ public class UserArgument {
 
     public int getId() {
         return id;
+    }
+
+    public String getString() {
+        return valueString;
+    }
+
+    public double getDouble() {
+        return valueDouble;
+    }
+
+    public int getInt() {
+        return valueInt;
     }
 }
