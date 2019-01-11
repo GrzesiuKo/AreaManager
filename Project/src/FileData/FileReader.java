@@ -42,18 +42,24 @@ public class FileReader {
         hashCharIndex = line.indexOf("#");
 
         if (hashCharIndex == 0 || hashCharIndex == 1) {
+            System.out.println("Kolejna sekcja...");
             currentFilePart++;
         }else if(line.matches("$")){
+            System.out.println("Pusta linia...");
             //avoid empty line
         } else if (FileNavigation.isContourPointsSection(currentFilePart)) {
+            System.out.println("Linia konturu...");
             readContourPointLine(line);
 
         } else if (FileNavigation.isKeyPointsSection(currentFilePart)) {
+            System.out.println("Linia punktu kluczowego...");
             readKeyPointLine(line, keyPoints);
 
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
+            System.out.println("Linia definicji obiektu...");
 
         } else if (FileNavigation.isObjectsSection(currentFilePart)) {
+            System.out.println("Linia OBIEKTU...");
             readObjectLine(line);
 
         }
