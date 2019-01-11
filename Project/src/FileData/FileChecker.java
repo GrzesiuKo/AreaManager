@@ -122,11 +122,11 @@ public class FileChecker {
         text = scanner.next();
 
         for (int i = 0; i < MAX_NUMBER_OF_ARGUMENTS; i++) {
-            System.out.println(text);
+            //System.out.println(text);
             if (isCoordinateDefinition(text)) {
-                System.out.println("    CoordinateDefinition");
+               // System.out.println("    CoordinateDefinition");
                 part = recognizeCoordinate(text);
-                System.out.println("        recognized coordinate: "+part);
+               // System.out.println("        recognized coordinate: "+part);
                 order.add(part);
                 if (scanner.hasNext()) {
                     scanner.next();
@@ -134,7 +134,7 @@ public class FileChecker {
                     break;
                 }
             } else if (scanner.hasNext()) {
-                System.out.println("    UserVaraiable");
+               // System.out.println("    UserVaraiable");
                 order.add(handleUserVariable(scanner.next()));
             }
             if (scanner.hasNext()) {
