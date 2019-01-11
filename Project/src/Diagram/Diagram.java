@@ -7,7 +7,9 @@ import FileData.FileReader;
 
 import java.io.File;
 import java.security.Key;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Diagram {
     public static int SIZE = 1000;
@@ -30,7 +32,7 @@ public class Diagram {
         isFileCorrect = fileChecker.checkFile(file);
 
         if (isFileCorrect) {
-            handleCorrectFile(file);
+            handleCorrectFile(file, fileChecker.getDefinitions());
         } else {
             handleIncorrectFile(fileChecker.getErrorLine());
         }
@@ -41,11 +43,11 @@ public class Diagram {
         throw new IncorrectFileException(lineNumber);
     }
 
-    private void handleCorrectFile(File file) throws InvalidContourException {
+    private void handleCorrectFile(File file, Map<String, LinkedList<Integer>> definitions) throws InvalidContourException {
         FileReader fileReader = new FileReader();
         List<KeyPoint> keyPoints;
 
-        fileReader.readFile(file);
+        fileReader.readFile(file, definitions);
         keyPoints = fileReader.getKeyPoints();
         voronoi = new Voronoi(SIZE, keyPoints, fileReader.getObjectPoints());
         contour = new Contour(fileReader.getContourPoints());
