@@ -164,9 +164,9 @@ public class FileChecker {
         String name;
         String text;
 
-        if (!line.matches("[^\\s]+(\\s[^\\s]+){3}(\\s[^\\s]+)?\\s*")) {
-            return false;
-        }
+//        if (!line.matches("[^\\s]+(\\s[^\\s]+){3}(\\s[^\\s]+)?\\s*")) {
+//            return false;
+//        }
         scanner = new Scanner(line);
         isArgumentValid = true;
         scanner.next();
@@ -178,15 +178,23 @@ public class FileChecker {
             System.out.println("Sprawdzam argument");
             if (scanner.hasNext()) {
                 text = scanner.next();
-                isArgumentValid = checkArgument(order.removeFirst(), text);
-            }else{
+                try {
+                    isArgumentValid = checkArgument(order.removeFirst(), text);
+                } catch (StringArgumentException e) {
+                    isArgumentValid = true;
+                    scanner.useDelimiter("\"");
+                    System.out.println(scanner.next());
+                    scanner.useDelimiter(" ");
+                    System.out.println(scanner.next());
+                }
+            } else {
                 return false;
             }
         }
         return isArgumentValid;
     }
 
-    private boolean checkArgument(int type, String argument) {
+    private boolean checkArgument(int type, String argument) throws StringArgumentException {
         if (type == X || type == Y) {
             System.out.println("Coordinate: "+argument);
             return argument.matches("[0-9]{1,2}((([,.])[0-9])|[,.])?");
@@ -196,14 +204,16 @@ public class FileChecker {
         }
     }
 
-    private boolean checkUserVariable(int type, String argument) {
+    private boolean checkUserVariable(int type, String argument) throws StringArgumentException {
         switch (type) {
             case DOUBLE:
                 return argument.matches("[0-9]{1,2}((([,.])[0-9])|[,.])?");
             case INT:
                 return argument.matches("\\d+");
             case STRING:
-                return argument.matches("[^\\s]+");
+                if (argument.matches("\".*")) {
+                    throw new StringArgumentException();
+                }
             default:
                 return false;
         }
