@@ -16,7 +16,7 @@
 3. NIEDŹWIEDŹ X double Y double
 
 # Obiekty: Typ_obiektu (zgodnie z definicją)
-1. SZKOŁA "Szkołarobieniadużychpieniędzy" 4 1
+1. SZKOŁA "Szkołaro bi efwf eniaduży " 54 35
 2. DOM 4 3 100
 3. DOM 4 17 120
 4. DOM 4 18 80
