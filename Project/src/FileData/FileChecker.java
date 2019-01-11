@@ -166,7 +166,7 @@ public class FileChecker {
         isArgumentValid = true;
         scanner.next();
         name = scanner.next();
-        order = argumentsOrders.get(name);
+        order = new LinkedList<>(argumentsOrders.get(name));
 
         System.out.println("Nazwa obiektu:"+name+" a jej lista: "+order);
         while (!order.isEmpty() && isArgumentValid) {
