@@ -119,6 +119,7 @@ public class FileReader {
             }else if (argumentId == FileChecker.Y){
                 y = handleCoordinate(value);
             }else if (argumentId == FileChecker.STRING) {
+                value = readStringUserArgument(value, scanner);
                 userArgument = new UserArgument(argumentId, value);
             }else{
                 userArgument = handleUserArgumentNoString(argumentId, value);
@@ -129,6 +130,23 @@ public class FileReader {
 
     private double handleCoordinate(String value){
         return getDoubleFromString(value);
+    }
+
+    private String readStringUserArgument(String start, Scanner scanner){
+        StringBuilder stringBuilder;
+
+        if (scanner == null || start == null){
+            return null;
+        }
+
+        stringBuilder = new StringBuilder(start);
+
+        scanner.useDelimiter("\"");
+        stringBuilder.append(scanner.next());
+        scanner.useDelimiter(" ");
+        stringBuilder.append(scanner.next());
+
+        return stringBuilder.toString();
     }
 
     private UserArgument handleUserArgumentNoString(int id, String value){
