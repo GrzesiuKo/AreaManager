@@ -40,8 +40,11 @@ public class Statistics {
     }
 
     public List<UserObject> printAllObjectList(Point fromUser, List<KeyPoint> keyPoints) {
-        KeyPoint closes = findKeyPoint(fromUser, keyPoints);
         List<UserObject> result = new LinkedList<>();
+        if(keyPoints.isEmpty()){
+            return null;
+        }
+        KeyPoint closes = findKeyPoint(fromUser, keyPoints);
         for (int i = 0; i < bearList.size(); i++) {
             if (bearList.get(i).getMemberOf().equals(closes)) {
                 result.add(bearList.get(i));

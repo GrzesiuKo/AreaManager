@@ -138,7 +138,12 @@ public class Main extends Application {
                             contextMenu.show(canvas, me.getScreenX(), me.getScreenY());
                             menuItem1.setOnAction(new EventHandler<ActionEvent>() {
                                 public void handle(ActionEvent e) {
-                                   StatisticOutput.print( Statistics.getInstance().printAllObjectList(new Point(me.getSceneX() / 6, me.getSceneY() / 6) , diagram.getKeyPoints()) , statisticOutput);
+                                    try {
+                                        StatisticOutput.print( Statistics.getInstance().printAllObjectList(new Point(me.getSceneX() / 6, me.getSceneY() / 6) , diagram.getKeyPoints()) , statisticOutput);
+                                    } catch (Exception e1) {
+                                        errorAlert.setContentText("Nie istnieją żaden punkt kluczowy");
+                                        errorAlert.showAndWait();
+                                    }
                                 }
                             });
                             menuItem2.setOnAction(new EventHandler<ActionEvent>() {

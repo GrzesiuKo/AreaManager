@@ -10,7 +10,10 @@ import java.util.List;
 
 public class StatisticOutput {
 
-    public static void print(List<UserObject> objects , Label statisticOutput){
+    public static void print(List<UserObject> objects , Label statisticOutput) throws Exception {
+        if(objects.isEmpty()){
+            throw new Exception();
+        }
         StringBuilder sb = new StringBuilder();
         for(int i = 0 ; i < objects.size() ; i++){
             sb.append(objects.get(i).toString() );
