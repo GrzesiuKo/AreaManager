@@ -11,14 +11,13 @@ public class DefinitionLineCheckingTest {
     public static void main(String[] args) {
         LinkedList<Integer> kolej;
         Map<String, LinkedList<Integer>> argumentsOrders;
-        String line = "3. ALA X double Y double gdas tjrt";
+        String line = "3. ALA X double Y double FAS STRING";
         System.out.println(fileChecker.checkObjectDefinitionLine(line));
         argumentsOrders = fileChecker.getArgumentsOrders();
         kolej =argumentsOrders.get("ALA");
         System.out.println("Ala : ");
-        System.out.println(kolej.removeFirst());
-        System.out.println(kolej.removeFirst());
-        System.out.println(kolej.removeFirst());
+        String objectline = "wef ALA 45.6 fgdg.6 3245";
+        System.out.println(fileChecker.checkObjectLine(objectline));
 
     }
 }
