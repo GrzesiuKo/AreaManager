@@ -64,7 +64,7 @@ public class FileChecker {
             currentFilePart++;
             return true;
 
-        }else if(line.matches("$")){
+        } else if (line.matches("$")) {
             System.out.println("Pusta linia: ");
             return true;
         } else if (FileNavigation.isContourPointsSection(currentFilePart)) {
@@ -78,7 +78,7 @@ public class FileChecker {
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
             System.out.println("Deinicja obiektu linia: ");
             if (checkObjectDefinitionLine(line)) {
-               readObjectDefinitionLine(line);
+                readObjectDefinitionLine(line);
                 return true;
             }
             return false;
@@ -115,10 +115,10 @@ public class FileChecker {
         scanner.next();
         scanner.next();
 
-        while(scanner.hasNext()){
+        while (scanner.hasNext()) {
             scanner.next();
             typeName = scanner.next();
-            if (recognizeTypeByVariableName(typeName) == UNKNOWN){
+            if (recognizeTypeByVariableName(typeName) == UNKNOWN) {
                 return false;
             }
         }
@@ -138,22 +138,22 @@ public class FileChecker {
         scanner.next();
         objectName = scanner.next();
 
-        while (scanner.hasNext()){
+        while (scanner.hasNext()) {
             name = scanner.next();
             typeName = scanner.next();
             System.out.println(name);
             if (isCoordinateDefinition(name)) {
-                 System.out.println("    CoordinateDefinition");
+                System.out.println("    CoordinateDefinition");
                 part = recognizeCoordinate(name);
-                 System.out.println("        recognized coordinate: "+part);
+                System.out.println("        recognized coordinate: " + part);
                 order.add(part);
-            } else{
-                 System.out.println("    UserVaraiable");
+            } else {
+                System.out.println("    UserVaraiable");
                 order.add(handleUserVariable(typeName));
             }
         }
 
-            definitions.put(objectName, order);
+        definitions.put(objectName, order);
 
     }
 
@@ -173,11 +173,12 @@ public class FileChecker {
         name = scanner.next();
         order = new LinkedList<>(definitions.get(name));
 
-        System.out.println("Nazwa obiektu:"+name+" a jej lista: "+order);
+        System.out.println("Nazwa obiektu:" + name + " a jej lista: " + order);
         while (!order.isEmpty() && isArgumentValid) {
             System.out.println("Sprawdzam argument");
             if (scanner.hasNext()) {
                 text = scanner.next();
+                System.out.println("kolejny kawałek to: " + text);
                 try {
                     isArgumentValid = checkArgument(order.removeFirst(), text);
                 } catch (StringArgumentException e) {
@@ -191,15 +192,17 @@ public class FileChecker {
                 return false;
             }
         }
+
+        System.out.println("koncze isArgument: " + isArgumentValid);
         return isArgumentValid;
     }
 
     private boolean checkArgument(int type, String argument) throws StringArgumentException {
         if (type == X || type == Y) {
-            System.out.println("Coordinate: "+argument);
+            System.out.println("Coordinate: " + argument);
             return argument.matches("[0-9]{1,2}((([,.])[0-9])|[,.])?");
         } else {
-            System.out.println("Variable: "+argument);
+            System.out.println("Variable: " + argument + " type: " + type);
             return checkUserVariable(type, argument);
         }
     }
@@ -277,7 +280,7 @@ public class FileChecker {
         return errorLine;
     }
 
-    public  Map<String, LinkedList<Integer>> getDefinitions() {
+    public Map<String, LinkedList<Integer>> getDefinitions() {
         return definitions;
     }
 }
