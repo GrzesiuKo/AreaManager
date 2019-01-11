@@ -79,17 +79,20 @@ public class Main extends Application {
                 File file = fileChooser.showOpenDialog(primaryStage);
 
                 if (file != null) {
+                    boolean exception = false;
                     try {
                         diagram = new Diagram();
                         diagram.readFile(file);
                     } catch (IncorrectFileException e) {
                         errorAlert.setContentText("W linii: " + String.valueOf(e.getLine() + " pliku " + file.getName() + " wystąpił bład.\n Proszę wybrać inny plik lub naprawić błąd w podanej linii."));
                         errorAlert.showAndWait();
+                        exception = true;
                     } catch (InvalidContourException e) {
                         errorAlert.setContentText("Zadeklarowany w pliku kontur nie jest wielobokiem wypukłym");
                         errorAlert.showAndWait();
+                        exception = true;
                     }
-                    if (diagram != null) {
+                    if (!exception) {
                         drawing = new DrawingLogic(gc, diagram);
                         drawing.draw();
                     }
