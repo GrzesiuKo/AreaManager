@@ -267,7 +267,7 @@ public class FileChecker {
         return errorLine;
     }
 
-    public static Map<String, LinkedList<Integer>> getDefinitions() {
+    public  Map<String, LinkedList<Integer>> getDefinitions() {
         return definitions;
     }
 }
