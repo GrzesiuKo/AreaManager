@@ -119,17 +119,23 @@ public class FileChecker {
             if (isCoordinateDefinition(text)) {
                 part = recognizeCoordinate(text);
                 order.add(part);
-                scanner.next();
-            } else {
-                handleUserVariable(name, text, scanner.next());
+                if (scanner.hasNext()) {
+                    scanner.next();
+                }
+            } else if (scanner.hasNext()) {
+                order.add(handleUserVariable(scanner.next()));
             }
-            text = scanner.next();
+            if (scanner.hasNext()) {
+                text = scanner.next();
+            }
         }
 
         if (order.contains(X) && order.contains(Y)) {
-
+            argumentsOrders.put(objectName, order);
+            return true;
+        } else {
+            return false;
         }
-
     }
 
     private boolean checkObjectLine(String line) {
@@ -167,8 +173,10 @@ public class FileChecker {
         }
     }
 
-    private static void handleUserVariable(String objectName, String name, String type) {
-
+    private static int handleUserVariable(String type) {
+        int typeNumber;
+        typeNumber = recognizeTypeByVariableName(type);
+        return typeNumber;
     }
 
     private static int recognizeTypeByVariableName(String name) {
