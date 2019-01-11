@@ -15,8 +15,6 @@ public class FileChecker {
     public final static int NOT_GIVEN = 3;
     public final static int X = -1;
     public final static int Y = -2;
-    public final static int CHOICE = -3;
-    public final static int MAX_NUMBER_OF_ARGUMENTS = 3;
     private static int currentFilePart;
     private int errorLine;
     private static Map<String, LinkedList<Integer>> definitions;
@@ -152,9 +150,6 @@ public class FileChecker {
         String name;
         String text;
 
-//        if (!line.matches("[^\\s]+(\\s[^\\s]+){3}(\\s[^\\s]+)?\\s*")) {
-//            return false;
-//        }
         scanner = new Scanner(line);
         isArgumentValid = true;
         scanner.next();
@@ -239,24 +234,6 @@ public class FileChecker {
         } else {
             return UNKNOWN;
         }
-    }
-
-    private int checkTypeByDefinedName(String objectLine) {
-        Scanner scanner;
-        String key;
-        int result;
-
-        scanner = new Scanner(objectLine);
-        scanner.useDelimiter(" ");
-
-        scanner.next();
-        key = scanner.next();
-        try {
-            result = 0;//definitions.get(key);
-        } catch (NullPointerException e) {
-            result = UNKNOWN;
-        }
-        return result;
     }
 
     public int getErrorLine() {
