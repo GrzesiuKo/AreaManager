@@ -96,7 +96,7 @@ public class FileChecker {
         Scanner scanner;
         String text;
         int part;
-        String name;
+        String objectName;
         LinkedList<Integer> order;
 
         if (!line.matches("(.*\\s){6}((.*\\s){2}\\s*|\\s*)")) {
@@ -110,7 +110,7 @@ public class FileChecker {
         }
 
         scanner.next();
-        name = scanner.next();
+        objectName = scanner.next();
         order = new LinkedList<>();
         text = scanner.next();
 
