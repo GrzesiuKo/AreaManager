@@ -71,7 +71,7 @@ public class FileChecker {
 
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
             if (checkObjectDefinitionLine(line)) {
-                readObjectDefinitionLine(line, definitions);
+             //   readObjectDefinitionLine(line, definitions);
                 return true;
             }
             return false;
@@ -210,7 +210,7 @@ public class FileChecker {
         scanner.next();
         key = scanner.next();
         try {
-            result = definitions.get(key);
+            result = 0;//definitions.get(key);
         } catch (NullPointerException e) {
             result = UNKNOWN;
         }
