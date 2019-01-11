@@ -60,23 +60,18 @@ public class FileChecker {
         hashCharIndex = line.indexOf("#");
 
         if (hashCharIndex == 0 || hashCharIndex == 1) {
-            System.out.println("Kolejna sekcja: ");
             currentFilePart++;
             return true;
 
         } else if (line.matches("$")) {
-            System.out.println("Pusta linia: ");
             return true;
         } else if (FileNavigation.isContourPointsSection(currentFilePart)) {
-            System.out.println("Linia konturu: ");
             return checkContourPointLine(line);
 
         } else if (FileNavigation.isKeyPointsSection(currentFilePart)) {
-            System.out.println("Linia key Point: ");
             return checkKeyPointLine(line);
 
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
-            System.out.println("Deinicja obiektu linia: ");
             if (checkObjectDefinitionLine(line)) {
                 readObjectDefinitionLine(line);
                 return true;
@@ -84,7 +79,6 @@ public class FileChecker {
             return false;
 
         } else if (FileNavigation.isObjectsSection(currentFilePart)) {
-            System.out.println("Linia obiektu: ");
             return checkObjectLine(line);
 
         } else {
@@ -106,8 +100,6 @@ public class FileChecker {
 
 
         if (!line.matches("([^\\s]+\\s){5}[^\\s]+(\\s([^\\s]+\\s[^\\s]+\\s*)|\\s*)")) {
-            System.out.println("Linia cała słaba:");
-            System.out.println(line);
             return false;
         }
 
@@ -141,14 +133,10 @@ public class FileChecker {
         while (scanner.hasNext()) {
             name = scanner.next();
             typeName = scanner.next();
-            System.out.println(name);
             if (isCoordinateDefinition(name)) {
-                System.out.println("    CoordinateDefinition");
                 part = recognizeCoordinate(name);
-                System.out.println("        recognized coordinate: " + part);
                 order.add(part);
             } else {
-                System.out.println("    UserVaraiable");
                 order.add(handleUserVariable(typeName));
             }
         }
@@ -173,36 +161,29 @@ public class FileChecker {
         name = scanner.next();
         order = new LinkedList<>(definitions.get(name));
 
-        System.out.println("Nazwa obiektu:" + name + " a jej lista: " + order);
         while (!order.isEmpty() && isArgumentValid) {
-            System.out.println("Sprawdzam argument");
             if (scanner.hasNext()) {
                 text = scanner.next();
-                System.out.println("kolejny kawałek to: " + text);
                 try {
                     isArgumentValid = checkArgument(order.removeFirst(), text);
                 } catch (StringArgumentException e) {
                     isArgumentValid = true;
                     scanner.useDelimiter("\"");
-                    System.out.println(scanner.next());
+                    scanner.next();
                     scanner.useDelimiter(" ");
-                    System.out.println(scanner.next());
+                    scanner.next();
                 }
             } else {
                 return false;
             }
         }
-
-        System.out.println("koncze isArgument: " + isArgumentValid);
         return isArgumentValid;
     }
 
     private boolean checkArgument(int type, String argument) throws StringArgumentException {
         if (type == X || type == Y) {
-            System.out.println("Coordinate: " + argument);
             return argument.matches("[0-9]{1,2}((([,.])[0-9])|[,.])?");
         } else {
-            System.out.println("Variable: " + argument + " type: " + type);
             return checkUserVariable(type, argument);
         }
     }
