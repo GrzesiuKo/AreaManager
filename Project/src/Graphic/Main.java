@@ -52,7 +52,7 @@ public class Main extends Application {
         Button selectImageButton = new Button("Wybierz obraz tła");
         choosers.getChildren().addAll(selectFileButton, selectImageButton);
         Label workType = new Label("Wybierz tryb pracy: ");
-        ChoiceBox selectWorkType = new ChoiceBox(FXCollections.observableArrayList("Wyświetlanie statystyk", "Edycja konturów", "Dodawanie punktów kluczowych" , "Usuwanie punktów kluczowych"));
+        ChoiceBox selectWorkType = new ChoiceBox(FXCollections.observableArrayList("Wyświetlanie statystyk", "Edycja konturów", "Dodawanie punktów kluczowych", "Usuwanie punktów kluczowych"));
         workBox.getChildren().addAll(workType, selectWorkType);
         Label statisticOutput = new Label();
         controlBox.getChildren().addAll(choosers, workBox, statisticOutput);
@@ -110,8 +110,8 @@ public class Main extends Application {
                     InputStream targetStream = null;
                     try {
                         targetStream = new FileInputStream(file);
-                        Image image = new Image(targetStream, canvasPane.getWidth(), canvasPane.getHeight(), true, false );
-                        BackgroundSize backgroundSize = new BackgroundSize(canvasPane.getWidth(),canvasPane.getHeight(),false,false, false , false);
+                        Image image = new Image(targetStream, canvasPane.getWidth(), canvasPane.getHeight(), true, false);
+                        BackgroundSize backgroundSize = new BackgroundSize(canvasPane.getWidth(), canvasPane.getHeight(), false, false, false, false);
                         BackgroundImage canvasBackground = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
                         canvasPane.setBackground(new Background(canvasBackground));
                     } catch (FileNotFoundException e) {
@@ -125,6 +125,7 @@ public class Main extends Application {
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED,
                 new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent me) {
+                        Point actual = new Point(me.getSceneX() / drawing.getScale(), me.getSceneY() / drawing.getScale());
                         if (selectWorkType.getValue() == null) {
                             errorAlert.setContentText("Nie wybrano trybu pracy");
                             errorAlert.showAndWait();
@@ -139,16 +140,21 @@ public class Main extends Application {
                             menuItem1.setOnAction(new EventHandler<ActionEvent>() {
                                 public void handle(ActionEvent e) {
                                     try {
-                                        StatisticOutput.print( Statistics.getInstance().printAllObjectList(new Point(me.getSceneX() / 6, me.getSceneY() / 6) , diagram.getKeyPoints()) , statisticOutput);
+                                        StatisticOutput.print(Statistics.getInstance().printAllObjectList(actual, diagram.getKeyPoints()), statisticOutput);
                                     } catch (Exception e1) {
-                                        errorAlert.setContentText("Nie istnieją żaden punkt kluczowy");
+                                        errorAlert.setContentText("Nie istnieje żaden punkt kluczowy");
                                         errorAlert.showAndWait();
                                     }
                                 }
                             });
                             menuItem2.setOnAction(new EventHandler<ActionEvent>() {
                                 public void handle(ActionEvent e) {
-                                    Statistics.getInstance().printGroupObjectList(new Point(me.getSceneX(), me.getSceneY()));
+                                    try {
+                                        StatisticOutput.print(Statistics.getInstance().printGroupObjectList(actual, diagram.getKeyPoints()), statisticOutput);
+                                    } catch (Exception e1) {
+                                        errorAlert.setContentText("Nie istnieje żaden punkt kluczowy");
+                                        errorAlert.showAndWait();
+                                    }
                                 }
                             });
                             menuItem3.setOnAction(new EventHandler<ActionEvent>() {
@@ -162,9 +168,9 @@ public class Main extends Application {
                             diagram.addKeyPoint(new KeyPoint(Math.round(me.getSceneX() / drawing.getScale()), Math.round(me.getSceneY() / drawing.getScale())));
                             drawing = new DrawingLogic(gc, diagram);
                             drawing.draw();
-                        }else if(selectWorkType.getValue().equals("Usuwanie punktów kluczowych")){
+                        } else if (selectWorkType.getValue().equals("Usuwanie punktów kluczowych")) {
                             KeyPoint point = drawing.checkTwojaStara(new KeyPoint(Math.round(me.getSceneX() / drawing.getScale()), Math.round(me.getSceneY() / drawing.getScale())));
-                            if(point != null){
+                            if (point != null) {
                                 diagram.deleteKeyPoint(point);
                                 drawing.draw();
                             }

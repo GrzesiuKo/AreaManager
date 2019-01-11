@@ -39,35 +39,62 @@ public class Statistics {
         residentialList.add(residential);
     }
 
-    public List<UserObject> printAllObjectList(Point fromUser, List<KeyPoint> keyPoints) {
-        List<UserObject> result = new LinkedList<>();
-        if(keyPoints.isEmpty()){
-            return null;
+    public List<String> printAllObjectList(Point fromUser, List<KeyPoint> keyPoints) throws EmptyKeyPointsList {
+        List<String> result = new LinkedList<>();
+        if (keyPoints.isEmpty()) {
+            throw new EmptyKeyPointsList();
         }
         KeyPoint closes = findKeyPoint(fromUser, keyPoints);
         for (int i = 0; i < bearList.size(); i++) {
             if (bearList.get(i).getMemberOf().equals(closes)) {
-                result.add(bearList.get(i));
+                result.add(bearList.get(i).toString());
             }
         }
 
         for (int i = 0; i < residentialList.size(); i++) {
             if (residentialList.get(i).getMemberOf().equals(closes)) {
-                result.add(residentialList.get(i));
+                result.add(residentialList.get(i).toString());
             }
         }
 
 
         for (int i = 0; i < schoolList.size(); i++) {
             if (schoolList.get(i).getMemberOf().equals(closes)) {
-                result.add(schoolList.get(i));
+                result.add(schoolList.get(i).toString());
             }
         }
 
         return result;
     }
 
-    public void printGroupObjectList(Point fromUser) {
+    public List<String> printGroupObjectList(Point fromUser, List<KeyPoint> keyPoints) throws EmptyKeyPointsList {
+        if (keyPoints.isEmpty()) {
+            throw new EmptyKeyPointsList();
+        }
+        KeyPoint closes = findKeyPoint(fromUser, keyPoints);
+        List<String> result = new LinkedList<>();
+        int counter = 0;
+        for (int i = 0; i < bearList.size(); i++) {
+            if (bearList.get(i).getMemberOf().equals(closes)) {
+                counter++;
+            }
+        }
+        result.add("Miśkuf " + counter);
+        counter = 0;
+        for (int i = 0; i < residentialList.size(); i++) {
+            if (residentialList.get(i).getMemberOf().equals(closes)) {
+                counter++;
+            }
+        }
+        result.add("Domków " + counter);
+        counter = 0;
+        for (int i = 0; i < schoolList.size(); i++) {
+            if (schoolList.get(i).getMemberOf().equals(closes)) {
+                counter++;
+            }
+        }
+        result.add("Niedzielnych szkółek " + counter);
+        return result;
     }
 
     public void printResidentsNumber(Point fromUser) {
@@ -109,7 +136,7 @@ public class Statistics {
     }
 
     public static KeyPoint findKeyPoint(Point fromUser, List<KeyPoint> keyPoints) {
-        if (keyPoints.isEmpty()){
+        if (keyPoints.isEmpty()) {
             return null;
         }
         double distance = Math.sqrt(Math.pow(fromUser.getX() - keyPoints.get(0).getX(), 2) + Math.pow(fromUser.getY() - keyPoints.get(0).getY(), 2));
