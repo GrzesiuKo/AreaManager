@@ -78,7 +78,7 @@ public class FileChecker {
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
             System.out.println("Deinicja obiektu linia: ");
             if (checkObjectDefinitionLine(line)) {
-             //   readObjectDefinitionLine(line, definitions);
+               readObjectDefinitionLine(line);
                 return true;
             }
             return false;
@@ -102,10 +102,8 @@ public class FileChecker {
 
     public boolean checkObjectDefinitionLine(String line) {
         Scanner scanner;
-        String text;
-        int part;
-        String objectName;
-        LinkedList<Integer> order;
+        String typeName;
+
 
         if (!line.matches("([^\\s]+\\s){5}[^\\s]+(\\s([^\\s]+\\s[^\\s]+\\s*)|\\s*)")) {
             System.out.println("Linia cała słaba:");
@@ -113,46 +111,50 @@ public class FileChecker {
             return false;
         }
 
-        try {
-            scanner = new Scanner(line);
-        } catch (NullPointerException e) {
-            return false;
+        scanner = new Scanner(line);
+        scanner.next();
+        scanner.next();
+
+        while(scanner.hasNext()){
+            scanner.next();
+            typeName = scanner.next();
+            if (recognizeTypeByVariableName(typeName) == UNKNOWN){
+                return false;
+            }
         }
+        return true;
+    }
+
+    public static void readObjectDefinitionLine(String line) {
+        Scanner scanner;
+        String objectName, name, typeName;
+        int part;
+        LinkedList<Integer> order;
+
+
+        scanner = new Scanner(line);
+        order = new LinkedList<>();
 
         scanner.next();
         objectName = scanner.next();
-        order = new LinkedList<>();
-        text = scanner.next();
 
-        for (int i = 0; i < MAX_NUMBER_OF_ARGUMENTS; i++) {
-            //System.out.println(text);
-            if (isCoordinateDefinition(text)) {
-               // System.out.println("    CoordinateDefinition");
-                part = recognizeCoordinate(text);
-               // System.out.println("        recognized coordinate: "+part);
+        while (scanner.hasNext()){
+            name = scanner.next();
+            typeName = scanner.next();
+            System.out.println(name);
+            if (isCoordinateDefinition(name)) {
+                 System.out.println("    CoordinateDefinition");
+                part = recognizeCoordinate(name);
+                 System.out.println("        recognized coordinate: "+part);
                 order.add(part);
-                if (scanner.hasNext()) {
-                    scanner.next();
-                }else{
-                    break;
-                }
-            } else if (scanner.hasNext()) {
-               // System.out.println("    UserVaraiable");
-                order.add(handleUserVariable(scanner.next()));
-            }
-            if (scanner.hasNext()) {
-                text = scanner.next();
-            }else{
-                break;
+            } else{
+                 System.out.println("    UserVaraiable");
+                order.add(handleUserVariable(typeName));
             }
         }
 
-        if (order.contains(X) && order.contains(Y)) {
             definitions.put(objectName, order);
-            return true;
-        } else {
-            return false;
-        }
+
     }
 
     public boolean checkObjectLine(String line) {
@@ -207,10 +209,6 @@ public class FileChecker {
         }
     }
 
-    public static void readObjectDefinitionLine(String line, Map<String, Integer> definitions) {
-        //TODO
-    }
-
     private static boolean isCoordinateDefinition(String text) {
         return text.matches("(?i)x(?-i)") || text.matches("(?i)y(?-i)");
     }
@@ -243,7 +241,7 @@ public class FileChecker {
         } else if (name.matches("(?i)int(?-i)")) {
             return INT;
         } else {
-            return NOT_GIVEN;
+            return UNKNOWN;
         }
     }
 
