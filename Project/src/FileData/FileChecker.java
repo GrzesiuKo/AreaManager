@@ -130,6 +130,8 @@ public class FileChecker {
                 order.add(part);
                 if (scanner.hasNext()) {
                     scanner.next();
+                }else{
+                    break;
                 }
             } else if (scanner.hasNext()) {
                 System.out.println("    UserVaraiable");
@@ -137,6 +139,8 @@ public class FileChecker {
             }
             if (scanner.hasNext()) {
                 text = scanner.next();
+            }else{
+                break;
             }
         }
 
@@ -153,6 +157,7 @@ public class FileChecker {
         Scanner scanner;
         boolean isArgumentValid;
         String name;
+        String text;
 
         if (!line.matches("[^\\s]+(\\s[^\\s]+){3}(\\s[^\\s]+)?\\s*")) {
             return false;
@@ -166,7 +171,12 @@ public class FileChecker {
         System.out.println("Nazwa obiektu:"+name+" a jej lista: "+order);
         while (!order.isEmpty() && isArgumentValid) {
             System.out.println("Sprawdzam argument");
-            isArgumentValid = checkArgument(order.removeFirst(), scanner.next());
+            if (scanner.hasNext()) {
+                text = scanner.next();
+                isArgumentValid = checkArgument(order.removeFirst(), text);
+            }else{
+                return false;
+            }
         }
         return isArgumentValid;
     }
