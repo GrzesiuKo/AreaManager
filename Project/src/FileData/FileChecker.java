@@ -99,7 +99,8 @@ public class FileChecker {
         String objectName;
         LinkedList<Integer> order;
 
-        if (!line.matches("(.*\\s){6}((.*\\s){2}\\s*|\\s*)")) {
+        if (!line.matches("([^\\s]+\\s){6}(([^\\s]+\\s[^\\s]+\\s*)|\\s*)")) {
+            System.out.println("Linia cała słaba.");
             return false;
         }
 
