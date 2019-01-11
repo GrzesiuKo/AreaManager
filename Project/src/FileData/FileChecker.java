@@ -143,17 +143,40 @@ public class FileChecker {
     }
 
     private boolean checkObjectLine(String line) {
-        int objectType;
-        objectType = checkTypeByDefinedName(line);
-        switch (objectType) {
-            case STRING:
-                return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s.*)?");
-            case INT:
-                return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s\\d*\\s*");
+        LinkedList<Integer> order;
+        Scanner scanner;
+        boolean isArgumentValid;
+
+        if (!line.matches("[^\\s]+(\\s[^\\s]+){3}(\\s[^\\s]+)?\\s*")) {
+            return false;
+        }
+        scanner = new Scanner(line);
+        isArgumentValid = true;
+        scanner.next();
+        order = argumentsOrders.get(scanner.next());
+
+        while (!order.isEmpty() && isArgumentValid) {
+            isArgumentValid = checkArgument(order.removeFirst(), scanner.next());
+        }
+        return isArgumentValid;
+    }
+
+    private boolean checkArgument(int type, String argument) {
+        if (type == X || type == Y) {
+            return argument.matches("[0-9]{1,2}((([,.])[0-9])|[,.])?");
+        } else {
+            return checkUserVariable(type, argument);
+        }
+    }
+
+    private boolean checkUserVariable(int type, String argument) {
+        switch (type) {
             case DOUBLE:
-                return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]+((([,.])[0-9]*)|[,.])?\\s*");
-            case NOT_GIVEN:
-                return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s*");
+                return argument.matches("[0-9]{1,2}((([,.])[0-9])|[,.])?");
+            case INT:
+                return argument.matches("\\d+");
+            case STRING:
+                return argument.matches("[^\\s]+");
             default:
                 return false;
         }
