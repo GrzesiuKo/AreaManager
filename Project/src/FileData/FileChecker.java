@@ -142,10 +142,11 @@ public class FileChecker {
         }
     }
 
-    private boolean checkObjectLine(String line) {
+    public boolean checkObjectLine(String line) {
         LinkedList<Integer> order;
         Scanner scanner;
         boolean isArgumentValid;
+        String name;
 
         if (!line.matches("[^\\s]+(\\s[^\\s]+){3}(\\s[^\\s]+)?\\s*")) {
             return false;
@@ -153,9 +154,13 @@ public class FileChecker {
         scanner = new Scanner(line);
         isArgumentValid = true;
         scanner.next();
-        order = argumentsOrders.get(scanner.next());
+        name = scanner.next();
+        order = argumentsOrders.get(name);
 
+        System.out.println("Sprawdzam Linie i nazwa:"+name+" a jej lista: "+order);
+        System.out.println("Lista ALA: "+argumentsOrders.get("ALA"));
         while (!order.isEmpty() && isArgumentValid) {
+            System.out.println("Sprawdzam argument");
             isArgumentValid = checkArgument(order.removeFirst(), scanner.next());
         }
         return isArgumentValid;
@@ -163,8 +168,10 @@ public class FileChecker {
 
     private boolean checkArgument(int type, String argument) {
         if (type == X || type == Y) {
+            System.out.println("Coordinate: "+argument);
             return argument.matches("[0-9]{1,2}((([,.])[0-9])|[,.])?");
         } else {
+            System.out.println("Variable: "+argument);
             return checkUserVariable(type, argument);
         }
     }
