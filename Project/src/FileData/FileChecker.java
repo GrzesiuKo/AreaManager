@@ -3,7 +3,7 @@ package FileData;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -13,9 +13,11 @@ public class FileChecker {
     public final static int INT = 1;
     public final static int DOUBLE = 2;
     public final static int NOT_GIVEN = 3;
+    public final static int X = -1;
+    public final static int Y = -2;
     private static int currentFilePart;
     private int errorLine;
-    private Map<String, Integer> definitions;
+    private static Map<String, LinkedList<Integer>> definitions;
 
     public FileChecker() {
         definitions = new HashMap<>();
@@ -43,7 +45,7 @@ public class FileChecker {
             isFailFound = !checkLine(currentLine);
         }
 
-        if (isFailFound){
+        if (isFailFound) {
             errorLine = currentLineNumber;
         }
 
@@ -59,6 +61,8 @@ public class FileChecker {
             currentFilePart++;
             return true;
 
+        } else if (line.matches("$")) {
+            return true;
         } else if (FileNavigation.isContourPointsSection(currentFilePart)) {
             return checkContourPointLine(line);
 
@@ -67,7 +71,7 @@ public class FileChecker {
 
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
             if (checkObjectDefinitionLine(line)) {
-                readObjectDefinitionLine(line, definitions);
+                readObjectDefinitionLine(line);
                 return true;
             }
             return false;
@@ -88,48 +92,132 @@ public class FileChecker {
         return line.matches(".*\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s.*)*");
     }
 
-    private boolean checkObjectDefinitionLine(String line) {
-        return line.matches(".*\\s.{1,40}(\\s*|(\\s(?i)(string|int|double)(?-i)(\\s)*))");
+    public boolean checkObjectDefinitionLine(String line) {
+        Scanner scanner;
+        String typeName;
+
+
+        if (!line.matches("([^\\s]+\\s){5}[^\\s]+(\\s([^\\s]+\\s[^\\s]+\\s*)|\\s*)")) {
+            return false;
+        }
+
+        scanner = new Scanner(line);
+        scanner.next();
+        scanner.next();
+
+        while (scanner.hasNext()) {
+            scanner.next();
+            typeName = scanner.next();
+            if (recognizeTypeByVariableName(typeName) == UNKNOWN) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    private boolean checkObjectLine(String line) {
-        int objectType;
-        objectType = checkTypeByDefinedName(line);
-        switch (objectType) {
-            case STRING:
-                return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s.*)?");
-            case INT:
-                return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s\\d*\\s*");
+    public static void readObjectDefinitionLine(String line) {
+        Scanner scanner;
+        String objectName, name, typeName;
+        int part;
+        LinkedList<Integer> order;
+
+
+        scanner = new Scanner(line);
+        order = new LinkedList<>();
+
+        scanner.next();
+        objectName = scanner.next();
+
+        while (scanner.hasNext()) {
+            name = scanner.next();
+            typeName = scanner.next();
+            if (isCoordinateDefinition(name)) {
+                part = recognizeCoordinate(name);
+                order.add(part);
+            } else {
+                order.add(handleUserVariable(typeName));
+            }
+        }
+
+        definitions.put(objectName, order);
+
+    }
+
+    public boolean checkObjectLine(String line) {
+        LinkedList<Integer> order;
+        Scanner scanner;
+        boolean isArgumentValid;
+        String name;
+        String text;
+
+        scanner = new Scanner(line);
+        isArgumentValid = true;
+        scanner.next();
+        name = scanner.next();
+        order = new LinkedList<>(definitions.get(name));
+
+        while (!order.isEmpty() && isArgumentValid) {
+            if (scanner.hasNext()) {
+                text = scanner.next();
+                try {
+                    isArgumentValid = checkArgument(order.removeFirst(), text);
+                } catch (StringArgumentException e) {
+                    isArgumentValid = true;
+                    scanner.useDelimiter("\"");
+                    scanner.next();
+                    scanner.useDelimiter(" ");
+                    scanner.next();
+                }
+            } else {
+                return false;
+            }
+        }
+        return isArgumentValid;
+    }
+
+    private boolean checkArgument(int type, String argument) throws StringArgumentException {
+        if (type == X || type == Y) {
+            return argument.matches("[0-9]{1,2}((([,.])[0-9])|[,.])?");
+        } else {
+            return checkUserVariable(type, argument);
+        }
+    }
+
+    private boolean checkUserVariable(int type, String argument) throws StringArgumentException {
+        switch (type) {
             case DOUBLE:
-                return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]+((([,.])[0-9]*)|[,.])?\\s*");
-            case NOT_GIVEN:
-                return line.matches(".*\\s.{1,40}\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s*");
+                return argument.matches("[0-9]{1,2}((([,.])[0-9])|[,.])?");
+            case INT:
+                return argument.matches("\\d+");
+            case STRING:
+                if (argument.matches("\"\"")){
+                    return false;
+                }else if (argument.matches("(\")|(\".+)")) {
+                    throw new StringArgumentException();
+                }
             default:
                 return false;
         }
     }
 
-    public static void readObjectDefinitionLine(String line, Map<String, Integer> definitions) {
-        Scanner scanner;
-        String name;
-        String typeName;
-        int typeId;
+    private static boolean isCoordinateDefinition(String text) {
+        return text.matches("(?i)x(?-i)") || text.matches("(?i)y(?-i)");
+    }
 
-        try {
-            scanner = new Scanner(line);
-        } catch (NullPointerException e) {
-            return;
-        }
-        scanner.next();
-        name = scanner.next();
-
-        if (scanner.hasNext()) {
-            typeName = scanner.next();
-            typeId = recognizeTypeByVariableName(typeName);
+    private static int recognizeCoordinate(String name) {
+        if (name.matches("(?i)x(?-i)")) {
+            return X;
+        } else if (name.matches("(?i)y(?-i)")) {
+            return Y;
         } else {
-            typeId = NOT_GIVEN;
+            return UNKNOWN;
         }
-        definitions.put(name, typeId);
+    }
+
+    private static int handleUserVariable(String type) {
+        int typeNumber;
+        typeNumber = recognizeTypeByVariableName(type);
+        return typeNumber;
     }
 
     private static int recognizeTypeByVariableName(String name) {
@@ -144,29 +232,15 @@ public class FileChecker {
         } else if (name.matches("(?i)int(?-i)")) {
             return INT;
         } else {
-            return NOT_GIVEN;
+            return UNKNOWN;
         }
-    }
-
-    private int checkTypeByDefinedName(String objectLine) {
-        Scanner scanner;
-        String key;
-        int result;
-
-        scanner = new Scanner(objectLine);
-        scanner.useDelimiter(" ");
-
-        scanner.next();
-        key = scanner.next();
-        try {
-            result = definitions.get(key);
-        } catch (NullPointerException e) {
-            result = UNKNOWN;
-        }
-        return result;
     }
 
     public int getErrorLine() {
         return errorLine;
+    }
+
+    public Map<String, LinkedList<Integer>> getDefinitions() {
+        return definitions;
     }
 }

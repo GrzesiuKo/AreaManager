@@ -22,7 +22,7 @@ class FileReaderTest {
         FileReader fileReader = new FileReader();
         File file = null;
         //Then
-        assertThrows(NullPointerException.class, ()-> fileReader.readFile(file));
+        assertThrows(NullPointerException.class, ()-> fileReader.readFile(file, null));
     }
 
     @Test
@@ -31,7 +31,7 @@ class FileReaderTest {
         FileReader fileReader = new FileReader();
         File file = new File("Tests/TestFiles/dobryPlik.txt");
         //When
-        fileReader.readFile(file);
+        fileReader.readFile(file, null);
 
         //Then
 //        System.out.println("Contour points:");
