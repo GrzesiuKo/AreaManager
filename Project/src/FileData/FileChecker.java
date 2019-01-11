@@ -19,10 +19,10 @@ public class FileChecker {
     public final static int MAX_NUMBER_OF_ARGUMENTS = 3;
     private static int currentFilePart;
     private int errorLine;
-    private static Map<String, LinkedList<Integer>> argumentsOrders;
+    private static Map<String, LinkedList<Integer>> definitions;
 
     public FileChecker() {
-        argumentsOrders = new HashMap<>();
+        definitions = new HashMap<>();
     }
 
 
@@ -148,7 +148,7 @@ public class FileChecker {
         }
 
         if (order.contains(X) && order.contains(Y)) {
-            argumentsOrders.put(objectName, order);
+            definitions.put(objectName, order);
             return true;
         } else {
             return false;
@@ -169,7 +169,7 @@ public class FileChecker {
         isArgumentValid = true;
         scanner.next();
         name = scanner.next();
-        order = new LinkedList<>(argumentsOrders.get(name));
+        order = new LinkedList<>(definitions.get(name));
 
         System.out.println("Nazwa obiektu:"+name+" a jej lista: "+order);
         while (!order.isEmpty() && isArgumentValid) {
@@ -269,7 +269,7 @@ public class FileChecker {
         return errorLine;
     }
 
-    public static Map<String, LinkedList<Integer>> getArgumentsOrders() {
-        return argumentsOrders;
+    public static Map<String, LinkedList<Integer>> getDefinitions() {
+        return definitions;
     }
 }

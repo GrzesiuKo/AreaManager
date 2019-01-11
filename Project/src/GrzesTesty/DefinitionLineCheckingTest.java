@@ -13,7 +13,7 @@ public class DefinitionLineCheckingTest {
         Map<String, LinkedList<Integer>> argumentsOrders;
         String line = "3. ALA X double Y double FAS STRING";
         System.out.println(fileChecker.checkObjectDefinitionLine(line));
-        argumentsOrders = fileChecker.getArgumentsOrders();
+        argumentsOrders = fileChecker.getDefinitions();
         kolej =argumentsOrders.get("ALA");
         System.out.println("Ala : ");
         String objectline = "wef ALA 45.6 fgdg.6 3245";
