@@ -60,16 +60,20 @@ public class FileChecker {
         hashCharIndex = line.indexOf("#");
 
         if (hashCharIndex == 0 || hashCharIndex == 1) {
+            System.out.println("Kolejna sekcja: ");
             currentFilePart++;
             return true;
 
         } else if (FileNavigation.isContourPointsSection(currentFilePart)) {
+            System.out.println("Linia konturu: ");
             return checkContourPointLine(line);
 
         } else if (FileNavigation.isKeyPointsSection(currentFilePart)) {
+            System.out.println("Linia key Point: ");
             return checkKeyPointLine(line);
 
         } else if (FileNavigation.isObjectsDefinitionSection(currentFilePart)) {
+            System.out.println("Deinicja obiektu linia: ");
             if (checkObjectDefinitionLine(line)) {
              //   readObjectDefinitionLine(line, definitions);
                 return true;
@@ -77,6 +81,7 @@ public class FileChecker {
             return false;
 
         } else if (FileNavigation.isObjectsSection(currentFilePart)) {
+            System.out.println("Linia obiektu: ");
             return checkObjectLine(line);
 
         } else {
@@ -99,8 +104,9 @@ public class FileChecker {
         String objectName;
         LinkedList<Integer> order;
 
-        if (!line.matches("([^\\s]+\\s){6}(([^\\s]+\\s[^\\s]+\\s*)|\\s*)")) {
-            System.out.println("Linia cała słaba.");
+        if (!line.matches("([^\\s]+\\s){5}[^\\s]+(\\s([^\\s]+\\s[^\\s]+\\s*)|\\s*)")) {
+            System.out.println("Linia cała słaba:");
+            System.out.println(line);
             return false;
         }
 
@@ -157,8 +163,7 @@ public class FileChecker {
         name = scanner.next();
         order = argumentsOrders.get(name);
 
-        System.out.println("Sprawdzam Linie i nazwa:"+name+" a jej lista: "+order);
-        System.out.println("Lista ALA: "+argumentsOrders.get("ALA"));
+        System.out.println("Nazwa obiektu:"+name+" a jej lista: "+order);
         while (!order.isEmpty() && isArgumentValid) {
             System.out.println("Sprawdzam argument");
             isArgumentValid = checkArgument(order.removeFirst(), scanner.next());
