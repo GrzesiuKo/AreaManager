@@ -43,7 +43,8 @@ public class FileReader {
 
         if (hashCharIndex == 0 || hashCharIndex == 1) {
             currentFilePart++;
-
+        }else if(line.matches("$")){
+            //avoid empty line
         } else if (FileNavigation.isContourPointsSection(currentFilePart)) {
             readContourPointLine(line);
 
