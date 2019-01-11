@@ -64,6 +64,9 @@ public class FileChecker {
             currentFilePart++;
             return true;
 
+        }else if(line.matches("$")){
+            System.out.println("Pusta linia: ");
+            return true;
         } else if (FileNavigation.isContourPointsSection(currentFilePart)) {
             System.out.println("Linia konturu: ");
             return checkContourPointLine(line);
