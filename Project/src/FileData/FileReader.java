@@ -112,7 +112,6 @@ public class FileReader {
         while(!order.isEmpty()){
 
             argumentId = order.removeFirst();
-            scanner.next();
             value = scanner.next();
 
             if (argumentId == FileChecker.X){
