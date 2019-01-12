@@ -114,8 +114,9 @@ public class FileChecker {
         Scanner scanner;
         String typeName;
 
-
-        if (!line.matches("([^\\s]+\\s){5}[^\\s]+(\\s([^\\s]+\\s[^\\s]+\\s*)|\\s*)")) {
+        if (line == null){
+            return false;
+        }else if (!line.matches("([^\\s]+\\s){5}[^\\s]+(\\s([^\\s]+\\s[^\\s]+\\s*)|\\s*)")) {
             throw new IncorrectLineException(currentLineNumber, line);
         }
 
@@ -169,6 +170,10 @@ public class FileChecker {
         boolean isArgumentValid;
         String name;
         String text;
+
+        if (line == null){
+            return false;
+        }
 
         scanner = new Scanner(line);
         isArgumentValid = true;
