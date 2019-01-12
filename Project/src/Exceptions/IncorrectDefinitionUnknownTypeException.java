@@ -11,4 +11,15 @@ public class IncorrectDefinitionUnknownTypeException extends Exception {
         this.type = type;
     }
 
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
+    public String getLine() {
+        return line;
+    }
+
+    public String getType() {
+        return type;
+    }
 }
