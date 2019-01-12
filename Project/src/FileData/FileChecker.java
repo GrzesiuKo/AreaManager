@@ -32,6 +32,7 @@ public class FileChecker {
 
         isFailFound = false;
         currentLineNumber = 0;
+        currentFilePart = 0;
 
         try {
             scanner = new Scanner(file, "UTF-8");
