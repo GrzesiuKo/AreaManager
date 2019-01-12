@@ -148,4 +148,13 @@ class FileCheckerTest {
         assertFalse(fileChecker.checkObjectDefinitionLine(line));
     }
 
+    @Test
+    void checkFileWithDotsAndComas() throws IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException, IncorrectLineException {
+        //Given
+        FileChecker fileChecker = new FileChecker();
+        File file = new File("Tests" + File.separator + "TestFiles" + File.separator + "DotsAndComas.txt");
+        //When
+        fileChecker.checkFile(file);
+    }
+
 }
