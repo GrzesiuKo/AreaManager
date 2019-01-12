@@ -192,10 +192,7 @@ public class FileChecker {
                     isArgumentValid = checkArgument(order.removeFirst(), text);
                 } catch (StringArgumentException e) {
                     isArgumentValid = true;
-                    scanner.useDelimiter("\"");
-                    scanner.next();
-                    scanner.useDelimiter(" ");
-                    scanner.next();
+                    scanner = skipToEndOfStringArgument(scanner);
                 }
             } else {
                 return false;
@@ -233,6 +230,17 @@ public class FileChecker {
             default:
                 return false;
         }
+    }
+
+    private Scanner skipToEndOfStringArgument(Scanner scanner){
+        if(scanner == null){
+            return null;
+        }
+        scanner.useDelimiter("\"");
+        scanner.next();
+        scanner.useDelimiter(" ");
+        scanner.next();
+        return scanner;
     }
 
     private static boolean isCoordinateDefinition(String text) {
