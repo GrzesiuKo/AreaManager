@@ -114,8 +114,9 @@ public class FileChecker {
         Scanner scanner;
         String typeName;
 
-
-        if (!line.matches("([^\\s]+\\s){5}[^\\s]+(\\s([^\\s]+\\s[^\\s]+\\s*)|\\s*)")) {
+        if (line == null){
+            return false;
+        }else if (!line.matches("([^\\s]+\\s){5}[^\\s]+(\\s([^\\s]+\\s[^\\s]+\\s*)|\\s*)")) {
             throw new IncorrectLineException(currentLineNumber, line);
         }
 
@@ -170,11 +171,19 @@ public class FileChecker {
         String name;
         String text;
 
+        if (line == null){
+            return false;
+        }
+
         scanner = new Scanner(line);
         isArgumentValid = true;
         scanner.next();
         name = scanner.next();
-        order = new LinkedList<>(definitions.get(name));
+        try{
+            order = new LinkedList<>(definitions.get(name));
+        }catch(NullPointerException e){
+            throw new IncorrectObjectLineException(currentLineNumber, line, null);
+        }
 
         while (!order.isEmpty() && isArgumentValid) {
             if (scanner.hasNext()) {
@@ -183,10 +192,7 @@ public class FileChecker {
                     isArgumentValid = checkArgument(order.removeFirst(), text);
                 } catch (StringArgumentException e) {
                     isArgumentValid = true;
-                    scanner.useDelimiter("\"");
-                    scanner.next();
-                    scanner.useDelimiter(" ");
-                    scanner.next();
+                    scanner = skipToEndOfStringArgument(scanner);
                 }
             } else {
                 return false;
@@ -214,14 +220,27 @@ public class FileChecker {
             case INT:
                 return argument.matches("\\d+");
             case STRING:
-                if (argument.matches("\"\"")){
+                if (argument.matches("\"\"")) {
                     return false;
+                }else if (argument.matches("\"[^\\s]+\"")){
+                    return true;
                 }else if (argument.matches("(\")|(\".+)")) {
                     throw new StringArgumentException();
                 }
             default:
                 return false;
         }
+    }
+
+    private Scanner skipToEndOfStringArgument(Scanner scanner){
+        if(scanner == null){
+            return null;
+        }
+        scanner.useDelimiter("\"");
+        scanner.next();
+        scanner.useDelimiter(" ");
+        scanner.next();
+        return scanner;
     }
 
     private static boolean isCoordinateDefinition(String text) {
@@ -270,5 +289,9 @@ public class FileChecker {
 
     public Map<String, LinkedList<Integer>> getDefinitions() {
         return definitions;
+    }
+
+    public static void setDefinitions(Map<String, LinkedList<Integer>> definitions) {
+        FileChecker.definitions = definitions;
     }
 }

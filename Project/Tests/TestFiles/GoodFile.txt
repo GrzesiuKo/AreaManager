@@ -18,7 +18,9 @@
 # Obiekty: Typ_obiektu (zgodnie z definicją)
 1. SZKOŁA 4 1 "sdgsadg"
 2. DOM 40 99 100
+3. DOM 4 17 120
+4. DOM 4 18 80
+5. NIEDŹWIEDŹ 20 20
+6. NIEDŹWIEDŹ 40 1
 7. NIEDŹWIEDŹ 39 1
-5. kajdsgfdskjfb 0.4 0.6 2
-5. Kuna 0.2 0.2
-5. ŁOŚ 0.4 0.6 2
+8. NIEDŹWIEDŹ 39 2

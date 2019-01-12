@@ -6,11 +6,12 @@ import java.util.List;
 public class Contour {
     private List<Point> contourPoints;
     private List<Point> ignoredPoints;
+    private List<Point> points;
 
     public Contour(List<Point> points) {
         contourPoints = new LinkedList<>();
         ignoredPoints = new LinkedList<>();
-
+        points = new LinkedList<>(points);
         makeConvexContour(points);
         if (!checkContour(contourPoints)) {
             contourPoints = null;
