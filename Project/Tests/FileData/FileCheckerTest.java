@@ -1,5 +1,8 @@
 package FileData;
 
+import Exceptions.IncorrectDefinitionUnknownTypeException;
+import Exceptions.IncorrectLineException;
+import Exceptions.IncorrectObjectLineException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +21,7 @@ class FileCheckerTest {
     }
 
     @Test
-    void checkFileUndefinedUserObject() {
+    void checkFileUndefinedUserObject() throws IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException, IncorrectLineException {
         //Given
         File file = new File("Tests\\TestFiles\\UndefinedUserObject.txt");
         boolean result;
@@ -29,7 +32,7 @@ class FileCheckerTest {
     }
 
     @Test
-    void checkFileMismatchOfUserTypes() {
+    void checkFileMismatchOfUserTypes() throws IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException, IncorrectLineException {
         //Given
         File file = new File("Tests\\TestFiles\\MismatchOfUserTypes.txt");
         boolean result;
@@ -40,7 +43,7 @@ class FileCheckerTest {
     }
 
     @Test
-    void checkFileLackOfSection() {
+    void checkFileLackOfSection() throws IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException, IncorrectLineException {
         //Given
         File file = new File("Tests\\TestFiles\\LackOfSection.txt");
         boolean result;
