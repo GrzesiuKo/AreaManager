@@ -4,6 +4,7 @@ import Common.Contour;
 import Common.KeyPoint;
 import FileData.FileChecker;
 import FileData.FileReader;
+import Statistics.Statistics;
 
 import java.io.File;
 import java.security.Key;
@@ -47,6 +48,8 @@ public class Diagram {
         FileReader fileReader = new FileReader();
         List<KeyPoint> keyPoints;
 
+
+        Statistics.delete();
         fileReader.readFile(file, definitions);
         keyPoints = fileReader.getKeyPoints();
         voronoi = new Voronoi(SIZE, keyPoints, fileReader.getObjectPoints());

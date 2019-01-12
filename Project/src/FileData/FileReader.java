@@ -18,7 +18,6 @@ public class FileReader {
     private List<Point> objectPoints;
 
     public void readFile(File file, Map<String, LinkedList<Integer>> definitions) {
-        Statistics.delete();
         Scanner scanner;
         String currentLine;
 
