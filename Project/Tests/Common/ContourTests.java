@@ -58,7 +58,7 @@ class ContourTests {
         contour = new Contour(points);
         //Then
         assertTrue(contour.isContourValid());
-        assertEquals(points, contour.getContourPoints());
+        assertTrue(contour.getContourPoints().containsAll(points));
         assertTrue(contour.getIgnoredPoints().isEmpty());
     }
 
