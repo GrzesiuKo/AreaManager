@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FileCheckerTest {
 
@@ -21,36 +21,38 @@ class FileCheckerTest {
     }
 
     @Test
-    void checkFileUndefinedUserObject() throws IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException, IncorrectLineException {
+    void checkFileUndefinedUserObject() {
         //Given
-        File file = new File("Tests\\TestFiles\\UndefinedUserObject.txt");
-        boolean result;
+        File file = new File("Tests" + File.separator + "TestFiles" + File.separator + "UndefinedUserObject.txt");
         //When
-        result = fileChecker.checkFile(file);
-        //Then
-        assertTrue(!result);
+        assertThrows(IncorrectObjectLineException.class, () -> fileChecker.checkFile(file));
     }
 
     @Test
-    void checkFileMismatchOfUserTypes() throws IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException, IncorrectLineException {
+    void checkFileMismatchOfUserTypes() {
         //Given
-        File file = new File("Tests\\TestFiles\\MismatchOfUserTypes.txt");
-        boolean result;
+        File file = new File("Tests"+ File.separator + "TestFiles"+ File.separator + "MismatchOfUserTypes.txt");
         //When
-        result = fileChecker.checkFile(file);
-        //Then
-        assertTrue(!result);
+        assertThrows(IncorrectObjectLineException.class, () -> fileChecker.checkFile(file));
     }
 
     @Test
     void checkFileLackOfSection() throws IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException, IncorrectLineException {
         //Given
-        File file = new File("Tests\\TestFiles\\LackOfSection.txt");
-        boolean result;
+        File file = new File("Tests"+ File.separator + "TestFiles"+ File.separator + "LackOfSection.txt");
         //When
-        result = fileChecker.checkFile(file);
-        //Then
-        assertTrue(!result);
+        assertThrows(Exception.class, () -> fileChecker.checkFile(file));
     }
 
+    @Test
+    void checkObjectDefinitionLine() {
+    }
+
+    @Test
+    void readObjectDefinitionLine() {
+    }
+
+    @Test
+    void checkObjectLine() {
+    }
 }
