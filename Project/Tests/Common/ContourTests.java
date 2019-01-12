@@ -52,14 +52,106 @@ class ContourTests {
         //Given
         points = new LinkedList<>();
         points.add(new Point(0, 0));
-        points.add(new Point(0, 2));
-        points.add(new Point(2, 2));
+        points.add(new Point(2, 1));
+        points.add(new Point(1, 2));
         //When
         contour = new Contour(points);
         //Then
         assertTrue(contour.isContourValid());
         assertTrue(contour.getContourPoints().containsAll(points));
         assertTrue(contour.getIgnoredPoints().isEmpty());
+    }
+
+    @Test
+    public void onePointToIgnore(){
+        //Given
+        LinkedList<Point> expectedIgnored = new LinkedList<>();
+        Point toIgnore = new Point(1, 1);
+        expectedIgnored.add(toIgnore);
+
+        points = new LinkedList<>();
+        points.add(new Point(0, -1));
+        points.add(new Point(0, 2));
+        points.add(new Point(0, 3));
+        points.add(new Point(2, 2));
+        points.add(toIgnore);
+
+        //When
+        contour = new Contour(points);
+        points.remove(toIgnore);
+        //Then
+        assertTrue(contour.isContourValid());
+        assertTrue(contour.getContourPoints().containsAll(points));
+        assertEquals(expectedIgnored, contour.getIgnoredPoints());
+    }
+
+    @Test
+    public void onePointToIgnoreTwoPointsSameMaxHeight(){
+        //Given
+        LinkedList<Point> expectedIgnored = new LinkedList<>();
+        Point toIgnore = new Point(1, 1);
+        expectedIgnored.add(toIgnore);
+
+        points = new LinkedList<>();
+        points.add(new Point(0, 0));
+        points.add(new Point(2, 1));
+        points.add(new Point(0, 2));
+        points.add(new Point(2, 2));
+        points.add(toIgnore);
+
+        //When
+        contour = new Contour(points);
+        points.remove(toIgnore);
+        //Then
+        assertTrue(contour.isContourValid());
+        assertTrue(contour.getContourPoints().containsAll(points));
+        assertEquals(expectedIgnored, contour.getIgnoredPoints());
+    }
+
+    @Test
+    public void onePointToIgnoreTwoPointsSameMinHeight(){
+        //Given
+        LinkedList<Point> expectedIgnored = new LinkedList<>();
+        Point toIgnore = new Point(1, 1);
+        expectedIgnored.add(toIgnore);
+
+        points = new LinkedList<>();
+        points.add(new Point(0, 0));
+        points.add(new Point(2, 0));
+        points.add(new Point(0, 1));
+        points.add(new Point(2, 2));
+        points.add(toIgnore);
+
+        //When
+        contour = new Contour(points);
+        points.remove(toIgnore);
+        //Then
+        assertTrue(contour.isContourValid());
+        assertTrue(contour.getContourPoints().containsAll(points));
+        assertEquals(expectedIgnored, contour.getIgnoredPoints());
+    }
+
+    @Test
+    public void onePointToIgnoreInSquare(){
+        //Given
+        LinkedList<Point> expectedIgnored = new LinkedList<>();
+        Point toIgnore = new Point(1, 1);
+        expectedIgnored.add(toIgnore);
+
+        points = new LinkedList<>();
+        points.add(new Point(0, 0));
+        points.add(new Point(2, 0));
+        points.add(new Point(0, 2));
+        points.add(new Point(2, 2));
+        points.add(toIgnore);
+
+        //When
+        contour = new Contour(points);
+        points.remove(toIgnore);
+        //Then
+        assertTrue(contour.isContourValid());
+        assertTrue(contour.getContourPoints().containsAll(points));
+        assertEquals(expectedIgnored, contour.getIgnoredPoints());
     }
 
 }
