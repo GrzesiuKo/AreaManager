@@ -214,8 +214,10 @@ public class FileChecker {
             case INT:
                 return argument.matches("\\d+");
             case STRING:
-                if (argument.matches("\"\"")){
+                if (argument.matches("\"\"")) {
                     return false;
+                }else if (argument.matches("\"[^\\s]+\"")){
+                    return true;
                 }else if (argument.matches("(\")|(\".+)")) {
                     throw new StringArgumentException();
                 }

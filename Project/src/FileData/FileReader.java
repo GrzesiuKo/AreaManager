@@ -132,16 +132,18 @@ public class FileReader {
 
         if (scanner == null || start == null){
             return null;
+        } else if (start.matches("\"[^\\s]+\"")){
+            return start;
+        }else{
+            stringBuilder = new StringBuilder(start);
+
+            scanner.useDelimiter("\"");
+            stringBuilder.append(scanner.next());
+            scanner.useDelimiter(" ");
+            stringBuilder.append(scanner.next());
+
+            return stringBuilder.toString();
         }
-
-        stringBuilder = new StringBuilder(start);
-
-        scanner.useDelimiter("\"");
-        stringBuilder.append(scanner.next());
-        scanner.useDelimiter(" ");
-        stringBuilder.append(scanner.next());
-
-        return stringBuilder.toString();
     }
 
     private UserArgument handleUserArgumentNoString(int id, String value){
