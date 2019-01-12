@@ -45,17 +45,27 @@ class VoronoiTest {
     @Test
     void addKeyPoint() {
         //Given
-        size = 10;
-        keyPoints.add(new KeyPoint(0.0, 0.0));
-        keyPoints.add(new KeyPoint(0.9, 0.0));
-        keyPoints.add(new KeyPoint(0.0, 0.9));
-        keyPoints.add(new KeyPoint(0.9, 0.9));
-
+        size = 100;
+        KeyPoint a = new KeyPoint(0.4, 0.0);
+        KeyPoint b = new KeyPoint(0.0, 0.4);
+        KeyPoint c = new KeyPoint(0.0, 0.2);
+        keyPoints.add(a);
+        keyPoints.add(b);
         //When
         voronoi = new Voronoi(size, keyPoints, null);
-        keyPoints.add(new KeyPoint(5, 5));
-        voronoi.makeAreas(100, keyPoints);
+        voronoi.makeAreas(size, keyPoints);
+        voronoi.addKeyPoint(c);
         //Then
+        for (Point p : a.getAreaPoints()) {
+            assertTrue(findLengthOfSegment(p, a) <= findLengthOfSegment(p, b));
+        }
+        for (Point p : b.getAreaPoints()) {
+            assertTrue(findLengthOfSegment(p, a) >= findLengthOfSegment(p, b));
+        }
+        for (Point p : c.getAreaPoints()) {
+            assertTrue(findLengthOfSegment(p, a) >= findLengthOfSegment(p, c));
+            assertTrue(findLengthOfSegment(p, b) >= findLengthOfSegment(p, c));
+        }
     }
 
     @Test
