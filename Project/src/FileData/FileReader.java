@@ -21,6 +21,10 @@ public class FileReader {
         Scanner scanner;
         String currentLine;
 
+        if (file == null){
+            return;
+        }
+
         currentFilePart = 0;
         initializeFileReader(definitions);
 
