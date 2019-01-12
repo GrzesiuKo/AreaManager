@@ -174,7 +174,11 @@ public class FileChecker {
         isArgumentValid = true;
         scanner.next();
         name = scanner.next();
-        order = new LinkedList<>(definitions.get(name));
+        try{
+            order = new LinkedList<>(definitions.get(name));
+        }catch(NullPointerException e){
+            throw new IncorrectObjectLineException(currentLineNumber, line, null);
+        }
 
         while (!order.isEmpty() && isArgumentValid) {
             if (scanner.hasNext()) {
