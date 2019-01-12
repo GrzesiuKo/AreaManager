@@ -70,6 +70,19 @@ class VoronoiTest {
 
     @Test
     void deleteKeyPoint() {
+        //Given
+        size = 100;
+        KeyPoint a = new KeyPoint(0.4, 0.0);
+        KeyPoint b = new KeyPoint(0.0, 0.4);
+        keyPoints.add(a);
+        keyPoints.add(b);
+        //When
+        voronoi = new Voronoi(size, keyPoints, null);
+        voronoi.makeAreas(size, keyPoints);
+        voronoi.deleteKeyPoint(a);
+        //Then
+        assertTrue(!voronoi.getKeyPoints().contains(a));
+        assertTrue(b.getAreaPoints().size() == size*size);
     }
 
     private double findLengthOfSegment(Point a, Point b) {
