@@ -2,14 +2,16 @@ package GrzesTesty;
 
 import Common.KeyPoint;
 import Diagram.Diagram;
-import Diagram.IncorrectFileException;
-import Diagram.InvalidContourException;
+import Exceptions.IncorrectDefinitionUnknownTypeException;
+import Exceptions.IncorrectLineException;
+import Exceptions.IncorrectObjectLineException;
+import Exceptions.InvalidContourException;
 import Diagram.AreaField;
 
 import java.io.File;
 
 public class AddKeyPointTest {
-    public static void main(String[] args) throws IncorrectFileException, InvalidContourException {
+    public static void main(String[] args) throws IncorrectLineException, InvalidContourException, IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException {
         Diagram diagram;
         File file;
 

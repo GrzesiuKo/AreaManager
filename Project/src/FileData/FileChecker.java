@@ -1,5 +1,10 @@
 package FileData;
 
+import Exceptions.IncorrectDefinitionUnknownTypeException;
+import Exceptions.IncorrectLineException;
+import Exceptions.IncorrectObjectLineException;
+import Exceptions.StringArgumentException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -16,21 +21,25 @@ public class FileChecker {
     public final static int X = -1;
     public final static int Y = -2;
     private static int currentFilePart;
-    private int errorLine;
+    private static int currentLineNumber;
+    private int errorLineNumber;
+    private String errorLine;
     private static Map<String, LinkedList<Integer>> definitions;
+    private static Map<String, String> definitionsLines;
 
     public FileChecker() {
         definitions = new HashMap<>();
+        definitionsLines = new HashMap<>();
     }
 
 
-    public boolean checkFile(File file) {
+    public boolean checkFile(File file) throws IncorrectObjectLineException, IncorrectLineException, IncorrectDefinitionUnknownTypeException {
         boolean isFailFound;
         Scanner scanner;
         String currentLine;
-        int currentLineNumber;
 
         isFailFound = false;
+        currentLine = null;
         currentLineNumber = 0;
         currentFilePart = 0;
 
@@ -47,13 +56,14 @@ public class FileChecker {
         }
 
         if (isFailFound) {
-            errorLine = currentLineNumber;
+            errorLineNumber = currentLineNumber;
+            errorLine = currentLine;
         }
 
         return !isFailFound;
     }
 
-    private boolean checkLine(String line) {
+    private boolean checkLine(String line) throws IncorrectObjectLineException, IncorrectLineException, IncorrectDefinitionUnknownTypeException {
         int hashCharIndex;
 
         hashCharIndex = line.indexOf("#");
@@ -65,7 +75,7 @@ public class FileChecker {
         } else if (line.matches("$")) {
             return true;
         } else if (FileNavigation.isContourPointsSection(currentFilePart)) {
-            return checkContourPointLine(line);
+                return checkContourPointLine(line);
 
         } else if (FileNavigation.isKeyPointsSection(currentFilePart)) {
             return checkKeyPointLine(line);
@@ -78,28 +88,35 @@ public class FileChecker {
             return false;
 
         } else if (FileNavigation.isObjectsSection(currentFilePart)) {
-            return checkObjectLine(line);
-
+                return checkObjectLine(line);
         } else {
             return false;
         }
     }
 
-    private boolean checkContourPointLine(String line) {
-        return line.matches(".*\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s)*");
+    private boolean checkContourPointLine(String line) throws IncorrectLineException {
+        if(line.matches(".*\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s)*")){
+            return true;
+        }else{
+            throw new IncorrectLineException(currentLineNumber, line);
+        }
     }
 
-    private boolean checkKeyPointLine(String line) {
-        return line.matches(".*\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s.*)*");
+    private boolean checkKeyPointLine(String line) throws IncorrectLineException {
+        if(line.matches(".*\\s[0-9]{1,2}((([,.])[0-9])|[,.])?\\s[0-9]{1,2}((([,.])[0-9])|[,.])?(\\s.*)*")){
+            return true;
+        }else{
+            throw new IncorrectLineException(currentLineNumber, line);
+        }
     }
 
-    public boolean checkObjectDefinitionLine(String line) {
+    public boolean checkObjectDefinitionLine(String line) throws IncorrectDefinitionUnknownTypeException, IncorrectLineException {
         Scanner scanner;
         String typeName;
 
 
         if (!line.matches("([^\\s]+\\s){5}[^\\s]+(\\s([^\\s]+\\s[^\\s]+\\s*)|\\s*)")) {
-            return false;
+            throw new IncorrectLineException(currentLineNumber, line);
         }
 
         scanner = new Scanner(line);
@@ -110,7 +127,7 @@ public class FileChecker {
             scanner.next();
             typeName = scanner.next();
             if (recognizeTypeByVariableName(typeName) == UNKNOWN) {
-                return false;
+                throw new IncorrectDefinitionUnknownTypeException(currentLineNumber, line, typeName);
             }
         }
         return true;
@@ -129,6 +146,8 @@ public class FileChecker {
         scanner.next();
         objectName = scanner.next();
 
+        definitionsLines.put(objectName, line);
+
         while (scanner.hasNext()) {
             name = scanner.next();
             typeName = scanner.next();
@@ -144,7 +163,7 @@ public class FileChecker {
 
     }
 
-    public boolean checkObjectLine(String line) {
+    public boolean checkObjectLine(String line) throws IncorrectObjectLineException {
         LinkedList<Integer> order;
         Scanner scanner;
         boolean isArgumentValid;
@@ -173,7 +192,11 @@ public class FileChecker {
                 return false;
             }
         }
-        return isArgumentValid;
+        if (isArgumentValid){
+            return true;
+        }else{
+            throw new IncorrectObjectLineException(currentLineNumber, line, definitionsLines.get(name));
+        }
     }
 
     private boolean checkArgument(int type, String argument) throws StringArgumentException {
@@ -237,7 +260,11 @@ public class FileChecker {
         }
     }
 
-    public int getErrorLine() {
+    public int getErrorLineNumber() {
+        return errorLineNumber;
+    }
+
+    public String getErrorLine() {
         return errorLine;
     }
 

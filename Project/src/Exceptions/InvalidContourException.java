@@ -1,4 +1,4 @@
-package Diagram;
+package Exceptions;
 
 public class InvalidContourException extends Exception {
 

@@ -1,5 +1,8 @@
 package GrzesTesty;
 
+import Exceptions.IncorrectDefinitionUnknownTypeException;
+import Exceptions.IncorrectLineException;
+import Exceptions.IncorrectObjectLineException;
 import FileData.FileChecker;
 
 import java.util.LinkedList;
@@ -8,7 +11,7 @@ import java.util.Map;
 public class DefinitionLineCheckingTest {
     static FileChecker fileChecker = new FileChecker();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IncorrectDefinitionUnknownTypeException, IncorrectLineException, IncorrectObjectLineException {
         LinkedList<Integer> kolej;
         Map<String, LinkedList<Integer>> argumentsOrders;
         String line = "3. ALA X double Y double FAS STRING";

@@ -2,12 +2,15 @@ package Diagram;
 
 import Common.Contour;
 import Common.KeyPoint;
+import Exceptions.IncorrectDefinitionUnknownTypeException;
+import Exceptions.IncorrectLineException;
+import Exceptions.IncorrectObjectLineException;
+import Exceptions.InvalidContourException;
 import FileData.FileChecker;
 import FileData.FileReader;
 import Statistics.Statistics;
 
 import java.io.File;
-import java.security.Key;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +29,7 @@ public class Diagram {
         SIZE = size;
     }
 
-    public void readFile(File file) throws InvalidContourException, IncorrectFileException {
+    public void readFile(File file) throws InvalidContourException, IncorrectLineException, IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException {
         FileChecker fileChecker = new FileChecker();
         boolean isFileCorrect;
 
@@ -34,15 +37,9 @@ public class Diagram {
 
         if (isFileCorrect) {
             handleCorrectFile(file, fileChecker.getDefinitions());
-        } else {
-            handleIncorrectFile(fileChecker.getErrorLine());
         }
     }
 
-    private void handleIncorrectFile(int lineNumber) throws IncorrectFileException {
-        contour = null;
-        throw new IncorrectFileException(lineNumber);
-    }
 
     private void handleCorrectFile(File file, Map<String, LinkedList<Integer>> definitions) throws InvalidContourException {
         FileReader fileReader = new FileReader();

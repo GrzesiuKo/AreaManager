@@ -2,8 +2,10 @@ package GrzesTesty;
 
 import Common.Point;
 import Diagram.Diagram;
-import Diagram.IncorrectFileException;
-import Diagram.InvalidContourException;
+import Exceptions.IncorrectDefinitionUnknownTypeException;
+import Exceptions.IncorrectLineException;
+import Exceptions.IncorrectObjectLineException;
+import Exceptions.InvalidContourException;
 import Diagram.AreaField;
 
 import java.io.File;
@@ -15,7 +17,7 @@ public class DiagramTest {
     public static final String ANSI_RESET = "\u001B[0m";
 
 
-    public static void main(String[] args) throws IncorrectFileException, InvalidContourException {
+    public static void main(String[] args) throws IncorrectLineException, InvalidContourException, IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException {
         Diagram diagram;
         File file;
 

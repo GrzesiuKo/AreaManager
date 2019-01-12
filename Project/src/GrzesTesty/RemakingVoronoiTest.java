@@ -2,10 +2,12 @@ package GrzesTesty;
 
 import Common.KeyPoint;
 import Common.Point;
+import Diagram.AreaField;
 import Diagram.Diagram;
-import Diagram.IncorrectFileException;
-import Diagram.InvalidContourException;
-import Diagram.*;
+import Exceptions.IncorrectDefinitionUnknownTypeException;
+import Exceptions.IncorrectLineException;
+import Exceptions.IncorrectObjectLineException;
+import Exceptions.InvalidContourException;
 
 import java.io.File;
 import java.util.List;
@@ -15,7 +17,7 @@ public class RemakingVoronoiTest {
     public static final String ANSI_RESET = "\u001B[0m";
 
 
-    public static void main(String[] args) throws IncorrectFileException, InvalidContourException {
+    public static void main(String[] args) throws IncorrectLineException, InvalidContourException, IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException {
         Diagram diagram;
         File file;
 

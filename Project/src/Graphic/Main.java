@@ -3,8 +3,10 @@ package Graphic;
 import Common.KeyPoint;
 import Common.Point;
 import Diagram.Diagram;
-import Diagram.IncorrectFileException;
-import Diagram.InvalidContourException;
+import Exceptions.IncorrectDefinitionUnknownTypeException;
+import Exceptions.IncorrectLineException;
+import Exceptions.IncorrectObjectLineException;
+import Exceptions.InvalidContourException;
 import Statistics.Statistics;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -83,8 +85,8 @@ public class Main extends Application {
                     try {
                         diagram = new Diagram();
                         diagram.readFile(file);
-                    } catch (IncorrectFileException e) {
-                        errorAlert.setContentText("W linii: " + String.valueOf(e.getLine() + " pliku " + file.getName() + " wystąpił bład.\n Proszę wybrać inny plik lub naprawić błąd w podanej linii."));
+                    } catch (IncorrectLineException e) {
+                        errorAlert.setContentText("W linii: " + String.valueOf(e.getLineNumber() + " pliku " + file.getName() + " wystąpił bład.\n Proszę wybrać inny plik lub naprawić błąd w podanej linii."));
                         errorAlert.showAndWait();
                         DrawingLogic.clear(gc);
                         exception = true;
@@ -93,6 +95,10 @@ public class Main extends Application {
                         errorAlert.showAndWait();
                         DrawingLogic.clear(gc);
                         exception = true;
+                    } catch (IncorrectObjectLineException e) {
+                        //TODO
+                    } catch (IncorrectDefinitionUnknownTypeException e) {
+                        //TODO
                     }
                     if (!exception) {
                         drawing = new DrawingLogic(gc, diagram);

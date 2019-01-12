@@ -3,8 +3,8 @@ package GrzesTesty;
 import Common.KeyPoint;
 import Common.Point;
 import Diagram.Diagram;
-import Diagram.IncorrectFileException;
-import Diagram.InvalidContourException;
+import Exceptions.*;
+import Exceptions.IncorrectLineException;
 import Diagram.*;
 
 import java.io.File;
@@ -15,7 +15,7 @@ public class DeletingKeyPointsTest {
     public static final String ANSI_RESET = "\u001B[0m";
 
 
-    public static void main(String[] args) throws IncorrectFileException, InvalidContourException {
+    public static void main(String[] args) throws IncorrectLineException, InvalidContourException, IncorrectObjectLineException, IncorrectDefinitionUnknownTypeException {
         Diagram diagram;
         File file;
         KeyPoint keyPoint;
