@@ -41,8 +41,12 @@ public class    DrawingLogic {
         objectPointSize = 8;
     }
 
-    public void draw() {
+    public static void clear( GraphicsContext gc){
         gc.clearRect(0,0,gc.getCanvas().getWidth(),gc.getCanvas().getHeight());
+    }
+
+    public void draw() {
+        clear(gc);
         gc.setLineWidth(6);
         drawVoronoi();
         drawCountour();

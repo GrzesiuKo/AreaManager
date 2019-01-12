@@ -27,6 +27,10 @@ public class Statistics {
         return instance;
     }
 
+    public static void delete(){
+        instance = null;
+    }
+
     public void addSchool(School school) {
         schoolList.add(school);
     }

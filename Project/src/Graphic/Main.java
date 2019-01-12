@@ -86,10 +86,12 @@ public class Main extends Application {
                     } catch (IncorrectFileException e) {
                         errorAlert.setContentText("W linii: " + String.valueOf(e.getLine() + " pliku " + file.getName() + " wystąpił bład.\n Proszę wybrać inny plik lub naprawić błąd w podanej linii."));
                         errorAlert.showAndWait();
+                        DrawingLogic.clear(gc);
                         exception = true;
                     } catch (InvalidContourException e) {
                         errorAlert.setContentText("Zadeklarowany w pliku kontur nie jest wielobokiem wypukłym");
                         errorAlert.showAndWait();
+                        DrawingLogic.clear(gc);
                         exception = true;
                     }
                     if (!exception) {
