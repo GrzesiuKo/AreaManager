@@ -277,4 +277,8 @@ public class FileChecker {
     public Map<String, LinkedList<Integer>> getDefinitions() {
         return definitions;
     }
+
+    public static void setDefinitions(Map<String, LinkedList<Integer>> definitions) {
+        FileChecker.definitions = definitions;
+    }
 }
