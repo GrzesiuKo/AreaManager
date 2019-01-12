@@ -22,6 +22,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" scope="TEST" name="hamcrest-2.1-sources" level="project" />
   </component>
 </module>
