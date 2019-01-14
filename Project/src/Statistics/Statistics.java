@@ -4,8 +4,8 @@ import Common.KeyPoint;
 import Common.Point;
 import Exceptions.EmptyKeyPointsList;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.security.Key;
+import java.util.*;
 
 public class Statistics {
     private static Statistics instance = null;
@@ -86,33 +86,65 @@ public class Statistics {
         if (keyPoints.isEmpty()) {
             throw new EmptyKeyPointsList();
         }
+        Map<String, Integer> values = new HashMap<>();
         KeyPoint closes = findKeyPoint(fromUser, keyPoints);
         List<String> result = new LinkedList<>();
-        int counter = 0;
+        UserObject current;
         for (int i = 0; i < bearList.size(); i++) {
-            if (bearList.get(i).getMemberOf().equals(closes)) {
-                counter++;
-            }
+            current = bearList.get(i);
+            check(current, values, closes);
         }
-        result.add("Miśkuf " + counter);
-        counter = 0;
         for (int i = 0; i < residentialList.size(); i++) {
-            if (residentialList.get(i).getMemberOf().equals(closes)) {
-                counter++;
-            }
+            current = residentialList.get(i);
+            check(current, values, closes);
         }
-        result.add("Domków " + counter);
-        counter = 0;
         for (int i = 0; i < schoolList.size(); i++) {
-            if (schoolList.get(i).getMemberOf().equals(closes)) {
-                counter++;
-            }
+            current = schoolList.get(i);
+            check(current, values, closes);
         }
-        result.add("Niedzielnych szkółek " + counter);
+        for (int i = 0; i < mooseList.size(); i++) {
+            current = mooseList.get(i);
+            check(current, values, closes);
+        }
+
+        Iterator it = values.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            result.add(pair.getKey().toString() + " " + pair.getValue());
+            it.remove();
+        }
+
         return result;
     }
 
-    public void printResidentsNumber(Point fromUser) {
+    private void check(UserObject current, Map<String, Integer> values, KeyPoint closes) {
+        Integer counter = 0;
+        if (current.getMemberOf().equals(closes)) {
+            if (values.containsKey(current.getObjectName())) {
+                counter = values.get(current.getObjectName()) + 1;
+                values.replace(current.getObjectName(), counter);
+            } else {
+                values.put(current.getObjectName(), 1);
+            }
+        }
+    }
+
+    public List<String> printResidentsNumber(Point fromUser , List<KeyPoint> keyPoints) throws EmptyKeyPointsList {
+        if (keyPoints.isEmpty()) {
+            throw new EmptyKeyPointsList();
+        }
+        int counter = 0;
+        KeyPoint closes = findKeyPoint(fromUser, keyPoints);
+        Residential current;
+        List<String> result = new LinkedList<>();
+        for (int i = 0; i < residentialList.size(); i++) {
+            current = residentialList.get(i);
+            if(current.getLocalization().equals(closes) && current.getObjectName().equals("DOM")){
+                counter = counter + current.getPopulation();
+            }
+        }
+        result.add("Liczba mieszkańców: " + counter);
+        return result;
     }
 
     public void recheckData(List<KeyPoint> keyPoints, boolean[][] area) {
@@ -120,7 +152,7 @@ public class Statistics {
         for (int i = 0; i < bearList.size(); i++) {
             object = bearList.get(i);
             bearList.get(i).setMemberOf(findKeyPoint(object.getLocalization(), keyPoints));
-//            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
+//            if (!area[(int) object.getLocalization().getX() ][(int) object.getLocalization().getY() ]) {
 //                deleteObject(i, "Bear");
 //            }
         }
@@ -139,8 +171,8 @@ public class Statistics {
 //            }
         }
 
-        for (int i = 0 ; i < mooseList.size() ; i ++){
-            mooseList.get(i).setMemberOf(findKeyPoint(mooseList.get(i).getLocalization() , keyPoints));
+        for (int i = 0; i < mooseList.size(); i++) {
+            mooseList.get(i).setMemberOf(findKeyPoint(mooseList.get(i).getLocalization(), keyPoints));
         }
     }
 
@@ -186,4 +218,7 @@ public class Statistics {
         return residentialList;
     }
 
+    public List<Moose> getMooseList() {
+        return mooseList;
+    }
 }

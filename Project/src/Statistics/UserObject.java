@@ -47,6 +47,10 @@ public class UserObject {
         return memberOf;
     }
 
+    public String getObjectName() {
+        return objectName;
+    }
+
     public void setMemberOf(KeyPoint memberOf) {
         this.memberOf = memberOf;
     }

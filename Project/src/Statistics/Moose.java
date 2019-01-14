@@ -12,7 +12,7 @@ public class Moose extends UserObject {
 
     @Override
     public String toString() {
-        return "Łosiopodobny " + super.toString() + " Wartość: " + String.valueOf(value);
+        return  super.toString() + "  " + String.valueOf(value);
     }
 }
 

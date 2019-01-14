@@ -10,8 +10,12 @@ public class Residential extends UserObject {
         this.population = population;
     }
 
+    public int getPopulation() {
+        return population;
+    }
+
     @Override
     public String toString() {
-        return "Budynek mieszkalny " + super.toString() + " Mieszkańców: " + String.valueOf(population);
+        return  super.toString() + " " + String.valueOf(population);
     }
 }

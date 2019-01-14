@@ -6,6 +6,7 @@ import Diagram.Diagram;
 import Statistics.Bear;
 import Statistics.Residential;
 import Statistics.School;
+import Statistics.Moose;
 import Statistics.Statistics;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -79,6 +80,7 @@ public class    DrawingLogic {
         List<Bear> bears = toDraw.getBearList();
         List<School> schools = toDraw.getSchoolList();
         List<Residential> residentials = toDraw.getResidentialList();
+        List<Moose> mooses = toDraw.getMooseList();
 
         gc.setFill(Color.BLUEVIOLET);
         for (int i = 0; i < bears.size(); i++) {
@@ -100,6 +102,13 @@ public class    DrawingLogic {
                 gc.fillOval(residentials.get(i).getLocalization().getX() * scale, residentials.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
             } else {
                 toDraw.deleteObject(i, "Residential");
+            }
+        }
+        for (int i = 0; i < mooses.size(); i++) {
+            if (contour.contains(mooses.get(i).getLocalization().getX() * scale, mooses.get(i).getLocalization().getY() * scale)) {
+                gc.fillOval(mooses.get(i).getLocalization().getX() * scale, mooses.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
+            } else {
+                toDraw.deleteObject(i, "Moose");
             }
         }
     }
@@ -133,7 +142,7 @@ public class    DrawingLogic {
 //        }
 //    }
 
-    public KeyPoint checkTwojaStara(Point fromUser){
+    public KeyPoint findKeyPoint(Point fromUser){
        KeyPoint nearest = Statistics.findKeyPoint(fromUser , diagram.getKeyPoints());
        if (Math.sqrt(Math.pow(fromUser.getX() - nearest.getX(), 2) + Math.pow(fromUser.getY() - nearest.getY(), 2)) < 3){
            return  nearest;

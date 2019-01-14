@@ -54,7 +54,7 @@ public class Main extends Application {
         Button selectImageButton = new Button("Wybierz obraz tła");
         choosers.getChildren().addAll(selectFileButton, selectImageButton);
         Label workType = new Label("Wybierz tryb pracy: ");
-        ChoiceBox selectWorkType = new ChoiceBox(FXCollections.observableArrayList("Wyświetlanie statystyk", "Edycja konturów", "Dodawanie punktów kluczowych", "Usuwanie punktów kluczowych"));
+        ChoiceBox selectWorkType = new ChoiceBox(FXCollections.observableArrayList("Wyświetlanie statystyk", "Dodawanie punktów konturu", "Usuwanie punktów konturu", "Dodawanie punktów kluczowych", "Usuwanie punktów kluczowych"));
         workBox.getChildren().addAll(workType, selectWorkType);
         Label statisticOutput = new Label();
         controlBox.getChildren().addAll(choosers, workBox, statisticOutput);
@@ -67,13 +67,13 @@ public class Main extends Application {
         contextMenu.getItems().add(menuItem1);
         contextMenu.getItems().add(menuItem2);
         contextMenu.getItems().add(menuItem3);
-        Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
+        Alert errorAlert = new Alert(Alert.AlertType.WARNING);
         errorAlert.setTitle("Błąd");
         errorAlert.setHeaderText(null);
         errorAlert.setResizable(true);
+        Alert statisticsWindow = new Alert(Alert.AlertType.INFORMATION);
         //Dodanie eventów
         selectFileButton.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
                 FileChooser fileChooser = new FileChooser();
@@ -115,7 +115,6 @@ public class Main extends Application {
         });
 
         selectImageButton.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
                 FileChooser fileChooser = new FileChooser();
@@ -141,54 +140,61 @@ public class Main extends Application {
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED,
                 new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent me) {
-                        Point actual = new Point(me.getSceneX() / drawing.getScale(), me.getSceneY() / drawing.getScale());
-                        if (selectWorkType.getValue() == null) {
-                            errorAlert.setContentText("Nie wybrano trybu pracy");
-                            errorAlert.showAndWait();
-                        } else if (diagram == null) {
-                            errorAlert.setContentText("Nie wczytano danych");
-                            errorAlert.showAndWait();
-                        } else if (!drawing.inContour(new Point(me.getSceneX(), me.getSceneY()))) {
-                            errorAlert.setContentText("Wybrano punkt poza konturem");
-                            errorAlert.showAndWait();
-                        } else if (selectWorkType.getValue().equals("Wyświetlanie statystyk")) {
-                            contextMenu.show(canvas, me.getScreenX(), me.getScreenY());
-                            menuItem1.setOnAction(new EventHandler<ActionEvent>() {
-                                public void handle(ActionEvent e) {
-                                    try {
-                                        StatisticOutput.print(Statistics.getInstance().printAllObjectList(actual, diagram.getKeyPoints()), statisticOutput);
-                                    } catch (Exception e1) {
-                                        errorAlert.setContentText("Nie istnieje żaden punkt kluczowy");
-                                        errorAlert.showAndWait();
+                        if (drawing != null) {
+                            Point actual = new Point(me.getSceneX() / drawing.getScale(), me.getSceneY() / drawing.getScale());
+                            if (selectWorkType.getValue() == null) {
+                                errorAlert.setContentText("Nie wybrano trybu pracy");
+                                errorAlert.showAndWait();
+                            } else if (diagram == null) {
+                                errorAlert.setContentText("Nie wczytano danych");
+                                errorAlert.showAndWait();
+                            } else if (!drawing.inContour(new Point(me.getSceneX(), me.getSceneY()))) {
+                                errorAlert.setContentText("Wybrano punkt poza konturem");
+                                errorAlert.showAndWait();
+                            } else if (selectWorkType.getValue().equals("Wyświetlanie statystyk")) {
+                                contextMenu.show(canvas, me.getScreenX(), me.getScreenY());
+                                menuItem1.setOnAction(new EventHandler<ActionEvent>() {
+                                    public void handle(ActionEvent e) {
+                                        try {
+                                            StatisticOutput.print(Statistics.getInstance().printAllObjectList(actual, diagram.getKeyPoints()), statisticOutput);
+                                        } catch (Exception e1) {
+                                            errorAlert.setContentText("Nie istnieje żaden punkt kluczowy");
+                                            errorAlert.showAndWait();
+                                        }
                                     }
-                                }
-                            });
-                            menuItem2.setOnAction(new EventHandler<ActionEvent>() {
-                                public void handle(ActionEvent e) {
-                                    try {
-                                        StatisticOutput.print(Statistics.getInstance().printGroupObjectList(actual, diagram.getKeyPoints()), statisticOutput);
-                                    } catch (Exception e1) {
-                                        errorAlert.setContentText("Nie istnieje żaden punkt kluczowy");
-                                        errorAlert.showAndWait();
+                                });
+                                menuItem2.setOnAction(new EventHandler<ActionEvent>() {
+                                    public void handle(ActionEvent e) {
+                                        try {
+                                            StatisticOutput.print(Statistics.getInstance().printGroupObjectList(actual, diagram.getKeyPoints()), statisticOutput);
+                                        } catch (Exception e1) {
+                                            errorAlert.setContentText("Nie istnieje żaden punkt kluczowy");
+                                            errorAlert.showAndWait();
+                                        }
                                     }
-                                }
-                            });
-                            menuItem3.setOnAction(new EventHandler<ActionEvent>() {
-                                public void handle(ActionEvent e) {
-                                    Statistics.getInstance().printResidentsNumber(new Point(me.getSceneX(), me.getSceneY()));
-                                }
-                            });
+                                });
+                                menuItem3.setOnAction(new EventHandler<ActionEvent>() {
+                                    public void handle(ActionEvent e) {
+                                        try {
+                                            StatisticOutput.print(Statistics.getInstance().printResidentsNumber(actual, diagram.getKeyPoints()), statisticOutput);
+                                        } catch (Exception e1) {
+                                            errorAlert.setContentText("Nie istnieje żaden punkt kluczowy");
+                                            errorAlert.showAndWait();
+                                        }
+                                    }
+                                });
 
-                        } else if (selectWorkType.getValue().equals("Edycja konturów")) {
-                        } else if (selectWorkType.getValue().equals("Dodawanie punktów kluczowych")) {
-                            diagram.addKeyPoint(new KeyPoint(Math.round(me.getSceneX() / drawing.getScale()), Math.round(me.getSceneY() / drawing.getScale())));
-                            drawing = new DrawingLogic(gc, diagram);
-                            drawing.draw();
-                        } else if (selectWorkType.getValue().equals("Usuwanie punktów kluczowych")) {
-                            KeyPoint point = drawing.checkTwojaStara(new KeyPoint(Math.round(me.getSceneX() / drawing.getScale()), Math.round(me.getSceneY() / drawing.getScale())));
-                            if (point != null) {
-                                diagram.deleteKeyPoint(point);
+                            } else if (selectWorkType.getValue().equals("Edycja konturów")) {
+                            } else if (selectWorkType.getValue().equals("Dodawanie punktów kluczowych")) {
+                                diagram.addKeyPoint(new KeyPoint(Math.round(me.getSceneX() / drawing.getScale()), Math.round(me.getSceneY() / drawing.getScale())));
+                                drawing = new DrawingLogic(gc, diagram);
                                 drawing.draw();
+                            } else if (selectWorkType.getValue().equals("Usuwanie punktów kluczowych")) {
+                                KeyPoint point = drawing.findKeyPoint(new KeyPoint(Math.round(me.getSceneX() / drawing.getScale()), Math.round(me.getSceneY() / drawing.getScale())));
+                                if (point != null) {
+                                    diagram.deleteKeyPoint(point);
+                                    drawing.draw();
+                                }
                             }
                         }
                     }
