@@ -70,6 +70,7 @@ public class Main extends Application {
         Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
         errorAlert.setTitle("Błąd");
         errorAlert.setHeaderText(null);
+        errorAlert.setResizable(true);
         //Dodanie eventów
         selectFileButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -87,24 +88,28 @@ public class Main extends Application {
                         diagram.readFile(file);
                     } catch (IncorrectLineException e) {
                         errorAlert.setContentText("W linii: " + String.valueOf(e.getLineNumber() + " pliku " + file.getName() + " wystąpił bład.\n Proszę wybrać inny plik lub naprawić błąd w podanej linii."));
-                        errorAlert.showAndWait();
-                        DrawingLogic.clear(gc);
                         exception = true;
                     } catch (InvalidContourException e) {
                         errorAlert.setContentText("Zadeklarowany w pliku kontur nie jest wielobokiem wypukłym");
-                        errorAlert.showAndWait();
-                        DrawingLogic.clear(gc);
                         exception = true;
                     } catch (IncorrectObjectLineException e) {
-                        //TODO
+                        if (e.getDefinition() == null) {
+                            errorAlert.setContentText("Obiekt deklarowany w linii: \"" + e.getLine() + "\" jest niezdefiniowany");
+                        } else {
+                            errorAlert.setContentText("Obiekt deklarowany w linii: \"" + e.getLine() + "\" jest niezgodny z definicją: \"" + e.getDefinition() + "\"");
+                        }
+                        exception = true;
                     } catch (IncorrectDefinitionUnknownTypeException e) {
-                        //TODO
+                        errorAlert.setContentText("Nieprawidłowy typ obiektu \"" + e.getType() + "\" w linii: \"" + e.getLine() + "\"");
+                        exception = true;
                     }
-                    if (!exception) {
+                    if (exception) {
+                        DrawingLogic.clear(gc);
+                        errorAlert.showAndWait();
+                    } else {
                         drawing = new DrawingLogic(gc, diagram);
                         drawing.draw();
                     }
-
                 }
             }
         });
