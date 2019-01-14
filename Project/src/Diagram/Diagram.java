@@ -101,4 +101,8 @@ public class Diagram {
     public AreaField[][] getAreaFields() {
         return voronoi.getArea();
     }
+
+    public void setContour(Contour contour) {
+        this.contour = contour;
+    }
 }
