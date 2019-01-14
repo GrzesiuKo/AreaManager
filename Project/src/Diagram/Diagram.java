@@ -2,6 +2,7 @@ package Diagram;
 
 import Common.Contour;
 import Common.KeyPoint;
+import Common.Point;
 import Exceptions.IncorrectDefinitionUnknownTypeException;
 import Exceptions.IncorrectLineException;
 import Exceptions.IncorrectObjectLineException;
@@ -54,6 +55,22 @@ public class Diagram {
 
         if (!contour.isContourValid()){
             throw new InvalidContourException();
+        }
+    }
+
+    public boolean addContourPoint(Point point){
+        List<Point> points;
+        Contour newContour;
+
+        points = new LinkedList<>(contour.getContourPoints());
+        points.add(point);
+        newContour = new Contour(points);
+
+        if (newContour.getContourPoints().contains(point)){
+            contour = newContour;
+            return true;
+        }else{
+            return false;
         }
     }
 
