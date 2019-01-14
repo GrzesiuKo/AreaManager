@@ -2,9 +2,8 @@ package Statistics;
 
 import Common.KeyPoint;
 import Common.Point;
+import Exceptions.EmptyKeyPointsList;
 
-import java.security.Key;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,11 +12,13 @@ public class Statistics {
     private List<Bear> bearList;
     private List<School> schoolList;
     private List<Residential> residentialList;
+    private List<Moose> mooseList;
 
     private Statistics() {
         bearList = new LinkedList<>();
         schoolList = new LinkedList<>();
         residentialList = new LinkedList<>();
+        mooseList = new LinkedList<>();
     }
 
     public static Statistics getInstance() {
@@ -27,7 +28,7 @@ public class Statistics {
         return instance;
     }
 
-    public static void delete(){
+    public static void delete() {
         instance = null;
     }
 
@@ -41,6 +42,10 @@ public class Statistics {
 
     public void addResidentail(Residential residential) {
         residentialList.add(residential);
+    }
+
+    public void addMoose(Moose moose) {
+        mooseList.add(moose);
     }
 
     public List<String> printAllObjectList(Point fromUser, List<KeyPoint> keyPoints) throws EmptyKeyPointsList {
@@ -65,6 +70,12 @@ public class Statistics {
         for (int i = 0; i < schoolList.size(); i++) {
             if (schoolList.get(i).getMemberOf().equals(closes)) {
                 result.add(schoolList.get(i).toString());
+            }
+        }
+
+        for (int i = 0; i < mooseList.size(); i++) {
+            if (mooseList.get(i).getMemberOf().equals(closes)) {
+                result.add(mooseList.get(i).toString());
             }
         }
 
@@ -126,6 +137,10 @@ public class Statistics {
 //            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
 //                deleteObject(i, "School");
 //            }
+        }
+
+        for (int i = 0 ; i < mooseList.size() ; i ++){
+            mooseList.get(i).setMemberOf(findKeyPoint(mooseList.get(i).getLocalization() , keyPoints));
         }
     }
 

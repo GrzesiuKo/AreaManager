@@ -1,4 +1,4 @@
-package Statistics;
+package Exceptions;
 
 public class EmptyKeyPointsList extends Exception {
 

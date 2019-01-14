@@ -5,8 +5,8 @@ import Common.Point;
 public class Residential extends UserObject {
     private int population = 0;
 
-    public Residential(Point point, int population) {
-        super(point);
+    public Residential(Point point, String objectName ,int population) {
+        super(point , objectName);
         this.population = population;
     }
 
