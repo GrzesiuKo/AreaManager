@@ -53,8 +53,8 @@ public class Main extends Application {
         Label workType = new Label("Wybierz tryb pracy: ");
         ChoiceBox selectWorkType = new ChoiceBox(FXCollections.observableArrayList("Wyświetlanie statystyk", "Dodawanie punktów konturu", "Usuwanie punktów konturu", "Dodawanie punktów kluczowych", "Usuwanie punktów kluczowych"));
         workBox.getChildren().addAll(workType, selectWorkType);
-        Label statisticOutput = new Label();
-        controlBox.getChildren().addAll(choosers, workBox, statisticOutput);
+        Button allStats = new Button("Wyświetl statystyki całego obszaru");
+        controlBox.getChildren().addAll(choosers, workBox, allStats);
         verticalSplit.getChildren().addAll(canvasPane, controlBox);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         ContextMenu contextMenu = new ContextMenu();
@@ -125,6 +125,15 @@ public class Main extends Application {
                     errorAlert.setContentText("Wczytywanie obrazu nie udało się");
                     errorAlert.showAndWait();
                 }
+            }
+        });
+
+        allStats.setOnAction(event -> {
+            try {
+                StatisticOutput.print(Statistics.getInstance().printAll(), statisticsWindow);
+            } catch (Exception e1) {
+                errorAlert.setContentText("Nie istnieje żaden punkt kluczowy");
+                errorAlert.showAndWait();
             }
         });
 

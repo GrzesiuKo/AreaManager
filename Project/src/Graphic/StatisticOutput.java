@@ -13,6 +13,9 @@ public class StatisticOutput {
             sb.append(object);
             sb.append("\n");
         }
+        if(objects.isEmpty()){
+            sb.append("Na wybranym obszarze nie ma obiektów");
+        }
         statisticOutput.setContentText(sb.toString());
         statisticOutput.setHeaderText(null);
         statisticOutput.setTitle("Statystyki");
