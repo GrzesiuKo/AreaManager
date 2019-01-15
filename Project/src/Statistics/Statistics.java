@@ -53,6 +53,9 @@ public class Statistics {
         if (keyPoints.isEmpty()) {
             throw new EmptyKeyPointsList();
         }
+        if(fromUser == null){
+            return null;
+        }
         KeyPoint closes = findKeyPoint(fromUser, keyPoints);
         for (int i = 0; i < bearList.size(); i++) {
             if (bearList.get(i).getMemberOf().equals(closes)) {
@@ -85,6 +88,9 @@ public class Statistics {
     public List<String> printGroupObjectList(Point fromUser, List<KeyPoint> keyPoints) throws EmptyKeyPointsList {
         if (keyPoints.isEmpty()) {
             throw new EmptyKeyPointsList();
+        }
+        if(fromUser == null){
+            return null;
         }
         Map<String, Integer> values = new HashMap<>();
         KeyPoint closes = findKeyPoint(fromUser, keyPoints);
@@ -132,6 +138,9 @@ public class Statistics {
     public List<String> printResidentsNumber(Point fromUser , List<KeyPoint> keyPoints) throws EmptyKeyPointsList {
         if (keyPoints.isEmpty()) {
             throw new EmptyKeyPointsList();
+        }
+        if(fromUser == null){
+            return null;
         }
         int counter = 0;
         KeyPoint closes = findKeyPoint(fromUser, keyPoints);
@@ -188,6 +197,9 @@ public class Statistics {
 
     public static KeyPoint findKeyPoint(Point fromUser, List<KeyPoint> keyPoints) {
         if (keyPoints.isEmpty()) {
+            return null;
+        }
+        if(fromUser == null){
             return null;
         }
         double distance = Math.sqrt(Math.pow(fromUser.getX() - keyPoints.get(0).getX(), 2) + Math.pow(fromUser.getY() - keyPoints.get(0).getY(), 2));
