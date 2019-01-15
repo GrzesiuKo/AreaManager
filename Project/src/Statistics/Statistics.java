@@ -144,9 +144,8 @@ public class Statistics {
             Residential current;
             List<String> result = new LinkedList<>();
             for (Residential aResidentialList : residentialList) {
-                current = aResidentialList;
-                if (current.getLocalization().equals(closes) && current.getObjectName().equals("DOM")) {
-                    counter = counter + current.getPopulation();
+                if (aResidentialList.getMemberOf().equals(closes) && aResidentialList.getObjectName().equals("DOM")) {
+                    counter = counter + aResidentialList.getPopulation();
                 }
             }
             result.add("Liczba mieszkańców: " + counter);
@@ -183,18 +182,19 @@ public class Statistics {
         }
     }
 
-    public void deleteObject(int index, String objectName) {
+    public void deleteObject(UserObject object, String objectName) {
         switch (objectName) {
             case "Moose":
-                mooseList.remove(index);
+                mooseList.remove(object);
+                break;
             case "Bear":
-                bearList.remove(index);
+                bearList.remove(object);
                 break;
             case "Residential":
-                residentialList.remove(index);
+                residentialList.remove(object);
                 break;
             case "School":
-                schoolList.remove(index);
+                schoolList.remove(object);
                 break;
         }
     }

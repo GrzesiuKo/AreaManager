@@ -83,28 +83,28 @@ public class DrawingLogic {
             if (contour.contains(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale)) {
                 gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
             } else {
-                toDraw.deleteObject(i, "Bear");
+                toDraw.deleteObject(bears.get(i), "Bear");
             }
         }
         for (int i = 0; i < schools.size(); i++) {
             if (contour.contains(schools.get(i).getLocalization().getX() * scale, schools.get(i).getLocalization().getY() * scale)) {
                 gc.fillOval(schools.get(i).getLocalization().getX() * scale, schools.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
             } else {
-                toDraw.deleteObject(i, "School");
+                toDraw.deleteObject(schools.get(i), "School");
             }
         }
         for (int i = 0; i < residentials.size(); i++) {
             if (contour.contains(residentials.get(i).getLocalization().getX() * scale, residentials.get(i).getLocalization().getY() * scale)) {
                 gc.fillOval(residentials.get(i).getLocalization().getX() * scale, residentials.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
             } else {
-                toDraw.deleteObject(i, "Residential");
+                toDraw.deleteObject(residentials.get(i), "Residential");
             }
         }
         for (int i = 0; i < mooses.size(); i++) {
             if (contour.contains(mooses.get(i).getLocalization().getX() * scale, mooses.get(i).getLocalization().getY() * scale)) {
                 gc.fillOval(mooses.get(i).getLocalization().getX() * scale, mooses.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
             } else {
-                toDraw.deleteObject(i, "Moose");
+                toDraw.deleteObject(mooses.get(i), "Moose");
             }
         }
     }

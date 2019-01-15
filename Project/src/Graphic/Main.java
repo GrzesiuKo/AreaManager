@@ -58,9 +58,9 @@ public class Main extends Application {
         verticalSplit.getChildren().addAll(canvasPane, controlBox);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem menuItem1 = new MenuItem("lista obiektów należących do obszaru");
-        MenuItem menuItem2 = new MenuItem("pogrupowana typami lista obiektów");
-        MenuItem menuItem3 = new MenuItem("liczba mieszkańców danego obszaru");
+        MenuItem menuItem1 = new MenuItem("Lista obiektów należących do obszaru");
+        MenuItem menuItem2 = new MenuItem("Pogrupowana typami lista obiektów");
+        MenuItem menuItem3 = new MenuItem("Liczba mieszkańców danego obszaru");
         contextMenu.getItems().add(menuItem1);
         contextMenu.getItems().add(menuItem2);
         contextMenu.getItems().add(menuItem3);
@@ -82,7 +82,7 @@ public class Main extends Application {
                     diagram = new Diagram();
                     diagram.readFile(file);
                 } catch (IncorrectLineException e) {
-                    errorAlert.setContentText("W linii: " + String.valueOf(e.getLineNumber() + " pliku " + file.getName() + " wystąpił bład.\n Proszę wybrać inny plik lub naprawić błąd w podanej linii."));
+                    errorAlert.setContentText("W linii: " + String.valueOf(e.getLineNumber() + " pliku " + file.getName() + " wystąpił błąd.\n Proszę wybrać inny plik lub naprawić błąd w podanej linii."));
                     exception = true;
                 } catch (InvalidContourException e) {
                     errorAlert.setContentText("Zadeklarowany w pliku kontur nie jest wielobokiem wypukłym");
