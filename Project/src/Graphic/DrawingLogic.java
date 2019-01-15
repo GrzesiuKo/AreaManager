@@ -84,6 +84,7 @@ public class DrawingLogic {
                 gc.fillOval(bears.get(i).getLocalization().getX() * scale, bears.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
             } else {
                 toDraw.deleteObject(bears.get(i), "Bear");
+                i--;
             }
         }
         for (int i = 0; i < schools.size(); i++) {
@@ -91,6 +92,7 @@ public class DrawingLogic {
                 gc.fillOval(schools.get(i).getLocalization().getX() * scale, schools.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
             } else {
                 toDraw.deleteObject(schools.get(i), "School");
+                i--;
             }
         }
         for (int i = 0; i < residentials.size(); i++) {
@@ -98,6 +100,7 @@ public class DrawingLogic {
                 gc.fillOval(residentials.get(i).getLocalization().getX() * scale, residentials.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
             } else {
                 toDraw.deleteObject(residentials.get(i), "Residential");
+                i--;
             }
         }
         for (int i = 0; i < mooses.size(); i++) {
@@ -105,6 +108,7 @@ public class DrawingLogic {
                 gc.fillOval(mooses.get(i).getLocalization().getX() * scale, mooses.get(i).getLocalization().getY() * scale, objectPointSize, objectPointSize);
             } else {
                 toDraw.deleteObject(mooses.get(i), "Moose");
+                i--;
             }
         }
     }
@@ -160,9 +164,11 @@ public class DrawingLogic {
 
     private void checkKeyPoints() {
         List<KeyPoint> points = diagram.getKeyPoints();
-        for (KeyPoint point : points) {
+        for (int i = 0; i < points.size(); i++) {
+            KeyPoint point = points.get(i);
             if (!contour.contains(point.getX() * scale, point.getY() * scale)) {
                 diagram.deleteKeyPoint(point);
+                i--;
             }
         }
     }
