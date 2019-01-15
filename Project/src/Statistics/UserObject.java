@@ -16,22 +16,34 @@ public class UserObject {
 
     public static void addObject(Point point, String objectName) {
         Statistics st = Statistics.getInstance();
-        st.addBear(new Bear(point, objectName));
+        if (!st.getOccupied().contains(point)) {
+            st.getOccupied().add(point);
+            st.addBear(new Bear(point, objectName));
+        }
     }
 
     public static void addObject(Point point, String objectName, String name) {
         Statistics st = Statistics.getInstance();
-        st.addSchool(new School(point, objectName, name));
+        if (!st.getOccupied().contains(point)) {
+            st.getOccupied().add(point);
+            st.addSchool(new School(point, objectName, name));
+        }
     }
 
     public static void addObject(Point point, String objectName, int value) {
         Statistics st = Statistics.getInstance();
-        st.addResidentail(new Residential(point, objectName, value));
+        if (!st.getOccupied().contains(point)) {
+            st.getOccupied().add(point);
+            st.addResidentail(new Residential(point, objectName, value));
+        }
     }
 
     public static void addObject(Point point, String objectName, double value) {
         Statistics st = Statistics.getInstance();
-        st.addMoose(new Moose(point, objectName, value));
+        if (!st.getOccupied().contains(point)) {
+            st.getOccupied().add(point);
+            st.addMoose(new Moose(point, objectName, value));
+        }
     }
 
     @Override

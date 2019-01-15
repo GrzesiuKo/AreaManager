@@ -3,6 +3,7 @@ package Statistics;
 import Common.KeyPoint;
 import Common.Point;
 import Exceptions.EmptyKeyPointsList;
+
 import java.util.*;
 
 public class Statistics {
@@ -11,12 +12,14 @@ public class Statistics {
     private List<School> schoolList;
     private List<Residential> residentialList;
     private List<Moose> mooseList;
+    private List<Point> occupied;
 
     private Statistics() {
         bearList = new LinkedList<>();
         schoolList = new LinkedList<>();
         residentialList = new LinkedList<>();
         mooseList = new LinkedList<>();
+        occupied = new ArrayList<>();
     }
 
     public static Statistics getInstance() {
@@ -51,7 +54,7 @@ public class Statistics {
         if (keyPoints.isEmpty()) {
             throw new EmptyKeyPointsList();
         }
-        if(fromUser == null){
+        if (fromUser == null) {
             return null;
         }
         KeyPoint closes = findKeyPoint(fromUser, keyPoints);
@@ -87,7 +90,7 @@ public class Statistics {
         if (keyPoints.isEmpty()) {
             throw new EmptyKeyPointsList();
         }
-        if(fromUser == null){
+        if (fromUser == null) {
             return null;
         }
         Map<String, Integer> values = new HashMap<>();
@@ -113,7 +116,7 @@ public class Statistics {
 
         Iterator it = values.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
+            Map.Entry pair = (Map.Entry) it.next();
             result.add(pair.getKey().toString() + " " + pair.getValue());
             it.remove();
         }
@@ -133,7 +136,7 @@ public class Statistics {
         }
     }
 
-    public List<String> printResidentsNumber(Point fromUser , List<KeyPoint> keyPoints) throws EmptyKeyPointsList {
+    public List<String> printResidentsNumber(Point fromUser, List<KeyPoint> keyPoints) throws EmptyKeyPointsList {
         if (keyPoints.isEmpty()) {
             throw new EmptyKeyPointsList();
         }
@@ -156,25 +159,15 @@ public class Statistics {
     public void recheckData(List<KeyPoint> keyPoints, boolean[][] area) {
         UserObject object;
         for (Bear aBearList : bearList) {
-            object = aBearList;
-            aBearList.setMemberOf(findKeyPoint(object.getLocalization(), keyPoints));
-//            if (!area[(int) object.getLocalization().getX() ][(int) object.getLocalization().getY() ]) {
-//                deleteObject(i, "Bear");
-//            }
+            aBearList.setMemberOf(findKeyPoint(aBearList.getLocalization(), keyPoints));
         }
 
         for (Residential aResidentialList : residentialList) {
             aResidentialList.setMemberOf(findKeyPoint(aResidentialList.getLocalization(), keyPoints));
-//            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
-//                deleteObject(i, "Residential");
-//            }
         }
 
         for (School aSchoolList : schoolList) {
             aSchoolList.setMemberOf(findKeyPoint(aSchoolList.getLocalization(), keyPoints));
-//            if (!area[(int) object.getLocalization().getX() * 10][(int) object.getLocalization().getY() * 10]) {
-//                deleteObject(i, "School");
-//            }
         }
 
         for (Moose aMooseList : mooseList) {
@@ -186,15 +179,19 @@ public class Statistics {
         switch (objectName) {
             case "Moose":
                 mooseList.remove(object);
+                occupied.remove(object.getLocalization());
                 break;
             case "Bear":
                 bearList.remove(object);
+                occupied.remove(object.getLocalization());
                 break;
             case "Residential":
                 residentialList.remove(object);
+                occupied.remove(object.getLocalization());
                 break;
             case "School":
                 schoolList.remove(object);
+                occupied.remove(object.getLocalization());
                 break;
         }
     }
@@ -203,7 +200,7 @@ public class Statistics {
         if (keyPoints.isEmpty()) {
             return null;
         }
-        if(fromUser == null){
+        if (fromUser == null) {
             return null;
         }
         double distance = Math.sqrt(Math.pow(fromUser.getX() - keyPoints.get(0).getX(), 2) + Math.pow(fromUser.getY() - keyPoints.get(0).getY(), 2));
@@ -236,5 +233,9 @@ public class Statistics {
 
     public List<Moose> getMooseList() {
         return mooseList;
+    }
+
+    public List<Point> getOccupied() {
+        return occupied;
     }
 }
