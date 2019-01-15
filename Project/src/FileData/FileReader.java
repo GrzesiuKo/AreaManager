@@ -186,7 +186,7 @@ public class FileReader {
             UserObject.addObject(point, name, userArgument.getString());
         } else if (type == FileChecker.DOUBLE) {
             objectPoints.add(point);
-            //UserObject.addObject(point, name, userArgument.getDouble()); //czeka na funkcje od Arkadiusza
+            UserObject.addObject(point, name, userArgument.getDouble());
         } else if (type == FileChecker.INT) {
             objectPoints.add(point);
             UserObject.addObject(point, name, userArgument.getInt());
