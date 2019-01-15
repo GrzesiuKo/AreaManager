@@ -4,7 +4,7 @@ import Common.Point;
 
 public class Bear extends UserObject {
 
-    public Bear(Point point , String objectName) {
+    Bear(Point point, String objectName) {
         super(point , objectName);
     }
 

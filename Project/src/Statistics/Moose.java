@@ -5,7 +5,7 @@ import Common.Point;
 public class Moose extends UserObject {
     private double value = 0;
 
-    public Moose(Point point, String objectName, double value) {
+    Moose(Point point, String objectName, double value) {
         super(point, objectName);
         this.value = value;
     }

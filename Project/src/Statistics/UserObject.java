@@ -8,7 +8,7 @@ public class UserObject {
     private KeyPoint memberOf;
     private String objectName;
 
-    public UserObject(Point point, String objectName) {
+    UserObject(Point point, String objectName) {
         this.localization = point;
         this.memberOf = null;
         this.objectName = objectName;

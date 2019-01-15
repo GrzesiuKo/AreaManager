@@ -3,16 +3,11 @@ package Graphic;
 import Common.KeyPoint;
 import Common.Point;
 import Diagram.Diagram;
-import Statistics.Bear;
-import Statistics.Residential;
-import Statistics.School;
-import Statistics.Moose;
-import Statistics.Statistics;
+import Statistics.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
-import java.security.Key;
 import java.util.List;
 
 public class DrawingLogic {
@@ -20,15 +15,13 @@ public class DrawingLogic {
     private GraphicsContext gc;
     private Diagram diagram;
     private Double scale;
-    private int drawingScale;
     private int keyPointSize;
     private int objectPointSize;
 
 
-    public DrawingLogic(GraphicsContext gc, Diagram diagram) {
+    DrawingLogic(GraphicsContext gc, Diagram diagram) {
         scale = gc.getCanvas().getWidth() / 100;
-        this.diagram = diagram ;
-        drawingScale = 1;
+        this.diagram = diagram;
         Double[] Points = new Double[diagram.getContour().getContourPoints().size() * 2];
         for (int i = 0; i < diagram.getContour().getContourPoints().size(); i++) {
             Points[2 * i] = diagram.getContour().getContourPoints().get(i).getX() * scale + 0.1;
@@ -70,9 +63,9 @@ public class DrawingLogic {
     private void drawKeyPoints() {
         List<KeyPoint> points = diagram.getKeyPoints();
         gc.setFill(Color.RED);
-        for (int i = 0; i < points.size(); i++) {
-            if (contour.contains(points.get(i).getX() * scale, points.get(i).getY() * scale)) {
-                gc.fillOval(points.get(i).getX() * scale, points.get(i).getY() * scale, keyPointSize, keyPointSize);
+        for (KeyPoint point : points) {
+            if (contour.contains(point.getX() * scale, point.getY() * scale)) {
+                gc.fillOval(point.getX() * scale, point.getY() * scale, keyPointSize, keyPointSize);
             }
         }
     }
@@ -123,9 +116,9 @@ public class DrawingLogic {
         for (int i = keyPoints.size() - 1; i >= 0; i--) {
             List<Point> points = keyPoints.get(i).getAreaPoints();
             gc.setFill(Color.rgb((80 * i) % 255, (90 * i) % 255, (70 * i) % 255, 0.1));
-            for (int j = 0; j < points.size(); j++) {
-                x = points.get(j).getX() * scale;
-                y = points.get(j).getY() * scale;
+            for (Point point : points) {
+                x = point.getX() * scale;
+                y = point.getY() * scale;
                 if (contour.contains(x, y) && !colored[(int) x * 10][(int) y * 10]) {
                     gc.fillOval(x, y, 3, 3);
                     colored[(int) x * 10][(int) y * 10] = true;
@@ -140,6 +133,9 @@ public class DrawingLogic {
 
     public KeyPoint findKeyPoint(Point fromUser) {
         KeyPoint nearest = Statistics.findKeyPoint(fromUser, diagram.getKeyPoints());
+        if (nearest == null) {
+            return null;
+        }
         if (Math.sqrt(Math.pow(fromUser.getX() - nearest.getX(), 2) + Math.pow(fromUser.getY() - nearest.getY(), 2)) < 3) {
             return nearest;
         }
@@ -150,10 +146,10 @@ public class DrawingLogic {
         List<Point> contourPoints = diagram.getContour().getContourPoints();
         double distance = Math.sqrt(Math.pow(fromUser.getX() - contourPoints.get(0).getX(), 2) + Math.pow(fromUser.getY() - contourPoints.get(0).getY(), 2));
         Point nearest = contourPoints.get(0);
-        for (int i = 0; i < contourPoints.size(); i++) {
-            if (Math.sqrt(Math.pow(fromUser.getX() - contourPoints.get(i).getX(), 2) + Math.pow(fromUser.getY() - contourPoints.get(i).getY(), 2)) < distance) {
-                distance = Math.sqrt(Math.pow(fromUser.getX() - contourPoints.get(i).getX(), 2) + Math.pow(fromUser.getY() - contourPoints.get(i).getY(), 2));
-                nearest = contourPoints.get(i);
+        for (Point contourPoint : contourPoints) {
+            if (Math.sqrt(Math.pow(fromUser.getX() - contourPoint.getX(), 2) + Math.pow(fromUser.getY() - contourPoint.getY(), 2)) < distance) {
+                distance = Math.sqrt(Math.pow(fromUser.getX() - contourPoint.getX(), 2) + Math.pow(fromUser.getY() - contourPoint.getY(), 2));
+                nearest = contourPoint;
             }
         }
         if (Math.sqrt(Math.pow(fromUser.getX() - nearest.getX(), 2) + Math.pow(fromUser.getY() - nearest.getY(), 2)) < 3) {
@@ -162,11 +158,11 @@ public class DrawingLogic {
         return null;
     }
 
-    public void checkKeyPoints(){
+    private void checkKeyPoints() {
         List<KeyPoint> points = diagram.getKeyPoints();
-        for (int i = 0; i < points.size(); i++) {
-            if (!contour.contains(points.get(i).getX() * scale, points.get(i).getY() * scale)) {
-                diagram.deleteKeyPoint(points.get(i));
+        for (KeyPoint point : points) {
+            if (!contour.contains(point.getX() * scale, point.getY() * scale)) {
+                diagram.deleteKeyPoint(point);
             }
         }
     }
