@@ -148,6 +148,10 @@ public class Main extends Application {
                             } else if (diagram == null) {
                                 errorAlert.setContentText("Nie wczytano danych");
                                 errorAlert.showAndWait();
+                            } else if (selectWorkType.getValue().equals("Dodawanie punktów konturu")) {
+                                diagram.addContourPoint(actual);
+                                drawing = new DrawingLogic(gc, diagram);
+                                drawing.draw();
                             } else if (!drawing.inContour(new Point(me.getSceneX(), me.getSceneY()))) {
                                 errorAlert.setContentText("Wybrano punkt poza konturem");
                                 errorAlert.showAndWait();
@@ -184,7 +188,6 @@ public class Main extends Application {
                                     }
                                 });
 
-                            } else if (selectWorkType.getValue().equals("Edycja konturów")) {
                             } else if (selectWorkType.getValue().equals("Dodawanie punktów kluczowych")) {
                                 diagram.addKeyPoint(new KeyPoint(Math.round(me.getSceneX() / drawing.getScale()), Math.round(me.getSceneY() / drawing.getScale())));
                                 drawing = new DrawingLogic(gc, diagram);
@@ -193,6 +196,13 @@ public class Main extends Application {
                                 KeyPoint point = drawing.findKeyPoint(new KeyPoint(Math.round(me.getSceneX() / drawing.getScale()), Math.round(me.getSceneY() / drawing.getScale())));
                                 if (point != null) {
                                     diagram.deleteKeyPoint(point);
+                                    drawing.draw();
+                                }
+                            } else if (selectWorkType.getValue().equals("Usuwanie punktów konturu")) {
+                                Point point = drawing.findCounturPoint(new Point(Math.round(me.getSceneX() / drawing.getScale()), Math.round(me.getSceneY() / drawing.getScale())));
+                                if (point != null) {
+                                    diagram.getContour().getContourPoints().remove(point);
+                                    drawing = new DrawingLogic(gc,diagram);
                                     drawing.draw();
                                 }
                             }
