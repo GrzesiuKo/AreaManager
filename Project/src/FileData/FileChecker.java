@@ -195,7 +195,7 @@ public class FileChecker {
                     scanner = skipToEndOfStringArgument(scanner);
                 }
             } else {
-                return false;
+                    isArgumentValid = false;
             }
         }
         if (isArgumentValid){
