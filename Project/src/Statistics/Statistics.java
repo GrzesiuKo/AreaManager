@@ -94,24 +94,20 @@ public class Statistics {
             return null;
         }
         Map<String, Integer> values = new HashMap<>();
-        KeyPoint closes = findKeyPoint(fromUser, keyPoints);
+        KeyPoint nearest = findKeyPoint(fromUser, keyPoints);
         List<String> result = new LinkedList<>();
         UserObject current;
         for (Bear aBearList : bearList) {
-            current = aBearList;
-            check(current, values, closes);
+            check(aBearList, values, nearest);
         }
         for (Residential aResidentialList : residentialList) {
-            current = aResidentialList;
-            check(current, values, closes);
+            check(aResidentialList, values, nearest);
         }
         for (School aSchoolList : schoolList) {
-            current = aSchoolList;
-            check(current, values, closes);
+            check(aSchoolList, values, nearest);
         }
         for (Moose aMooseList : mooseList) {
-            current = aMooseList;
-            check(current, values, closes);
+            check(aMooseList, values, nearest);
         }
 
         Iterator it = values.entrySet().iterator();
@@ -143,6 +139,63 @@ public class Statistics {
             result.add("Liczba mieszkańców: " + counter);
             return result;
         }
+    }
+
+    public List<String> printAll() {
+        List<String> result = new LinkedList<>();
+        Map<String, Integer> values = new HashMap<>();
+        int residents = 0;
+        int counter = 0;
+        for (Bear aBearList : bearList) {
+            result.add(aBearList.toString());
+            if (values.containsKey(aBearList.getObjectName())) {
+                counter = values.get(aBearList.getObjectName()) + 1;
+                values.replace(aBearList.getObjectName(), counter);
+            } else {
+                values.put(aBearList.getObjectName(), 1);
+            }
+        }
+        for (Residential aResidentialList : residentialList) {
+            result.add(aResidentialList.toString());
+            if (aResidentialList.getObjectName().equals("DOM")) {
+                residents += aResidentialList.getPopulation();
+            }
+            if (values.containsKey(aResidentialList.getObjectName())) {
+                counter = values.get(aResidentialList.getObjectName()) + 1;
+                values.replace(aResidentialList.getObjectName(), counter);
+            } else {
+                values.put(aResidentialList.getObjectName(), 1);
+            }
+        }
+        for (School aSchoolList : schoolList) {
+            result.add(aSchoolList.toString());
+            if (values.containsKey(aSchoolList.getObjectName())) {
+                counter = values.get(aSchoolList.getObjectName()) + 1;
+                values.replace(aSchoolList.getObjectName(), counter);
+            } else {
+                values.put(aSchoolList.getObjectName(), 1);
+            }
+        }
+        for (Moose aMooseList : mooseList) {
+            result.add(aMooseList.toString());
+            if (values.containsKey(aMooseList.getObjectName())) {
+                counter = values.get(aMooseList.getObjectName()) + 1;
+                values.replace(aMooseList.getObjectName(), counter);
+            } else {
+                values.put(aMooseList.getObjectName(), 1);
+            }
+        }
+        result.add("\n");
+        result.add("Liczba mieszkańców: " + residents);
+        result.add("\n");
+        result.add("Pogrupowana lista obiektów");
+        Iterator it = values.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            result.add(pair.getKey().toString() + " " + pair.getValue());
+            it.remove();
+        }
+        return result;
     }
 
     public void recheckData(List<KeyPoint> keyPoints, boolean[][] area) {
