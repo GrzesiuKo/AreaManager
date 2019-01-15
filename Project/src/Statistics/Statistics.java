@@ -124,17 +124,6 @@ public class Statistics {
         return result;
     }
 
-    private void check(UserObject current, Map<String, Integer> values, KeyPoint closes) {
-        Integer counter;
-        if (current.getMemberOf().equals(closes)) {
-            if (values.containsKey(current.getObjectName())) {
-                counter = values.get(current.getObjectName()) + 1;
-                values.replace(current.getObjectName(), counter);
-            } else {
-                values.put(current.getObjectName(), 1);
-            }
-        }
-    }
 
     public List<String> printResidentsNumber(Point fromUser, List<KeyPoint> keyPoints) throws EmptyKeyPointsList {
         if (keyPoints.isEmpty()) {
@@ -212,6 +201,18 @@ public class Statistics {
             }
         }
         return nearest;
+    }
+
+    private void check(UserObject current, Map<String, Integer> values, KeyPoint closes) {
+        Integer counter;
+        if (current.getMemberOf().equals(closes)) {
+            if (values.containsKey(current.getObjectName())) {
+                counter = values.get(current.getObjectName()) + 1;
+                values.replace(current.getObjectName(), counter);
+            } else {
+                values.put(current.getObjectName(), 1);
+            }
+        }
     }
 
     @Override

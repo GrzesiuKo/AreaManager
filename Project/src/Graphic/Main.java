@@ -111,7 +111,7 @@ public class Main extends Application {
         selectImageButton.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Obrazy", "*.png"));
+                    new FileChooser.ExtensionFilter("Obrazy", "*.png", "*.jpeg", "*.gif"));
             File file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {
                 InputStream targetStream;
@@ -149,7 +149,7 @@ public class Main extends Application {
                             contextMenu.show(canvas, me.getScreenX(), me.getScreenY());
                             menuItem1.setOnAction(e -> {
                                 try {
-                                    StatisticOutput.print(Statistics.getInstance().printAllObjectList(actual, diagram.getKeyPoints()), statisticOutput);
+                                    StatisticOutput.print(Statistics.getInstance().printAllObjectList(actual, diagram.getKeyPoints()), statisticsWindow);
                                 } catch (Exception e1) {
                                     errorAlert.setContentText("Nie istnieje żaden punkt kluczowy");
                                     errorAlert.showAndWait();
@@ -157,7 +157,7 @@ public class Main extends Application {
                             });
                             menuItem2.setOnAction(e -> {
                                 try {
-                                    StatisticOutput.print(Statistics.getInstance().printGroupObjectList(actual, diagram.getKeyPoints()), statisticOutput);
+                                    StatisticOutput.print(Statistics.getInstance().printGroupObjectList(actual, diagram.getKeyPoints()), statisticsWindow);
                                 } catch (Exception e1) {
                                     errorAlert.setContentText("Nie istnieje żaden punkt kluczowy");
                                     errorAlert.showAndWait();
@@ -165,7 +165,7 @@ public class Main extends Application {
                             });
                             menuItem3.setOnAction(e -> {
                                 try {
-                                    StatisticOutput.print(Statistics.getInstance().printResidentsNumber(actual, diagram.getKeyPoints()), statisticOutput);
+                                    StatisticOutput.print(Statistics.getInstance().printResidentsNumber(actual, diagram.getKeyPoints()), statisticsWindow);
                                 } catch (Exception e1) {
                                     errorAlert.setContentText("Nie istnieje żaden punkt kluczowy");
                                     errorAlert.showAndWait();
