@@ -93,6 +93,14 @@ Tak powstała, przedstawiona poniżej, koncepcja wyznaczania optymalnych obszar�
 \end{enumerate}
 Kiedy podana wyżej koncepcja była gotowa, po bliższych jej oględzinach uznano, że triangulacja w swoim stopniu skomplikowania nie ustępuje algorytmowi Fortune'a.
 Biorąc pod uwagę ramy czasowe i pozostałe funkcjonalności, które muszą zostać zrealizowane w przewidzianym czasie, postanowiono dać szansę algorytmowi Fortune'a. Jego skuteczność i poprawność działania są znane historii w przeciwieństwie do ''algorytmu autorskiego'', dlatego postanowiono nie ryzykować pokaźnej straty zasobów czasowych na wypadek nieprawidłowości działania nowo wymyślonego algorytmu.
+\subsection{Algorytm Fortune'a}
+Praca nad zrozumieniem i implementacją algorytmu Fortune'a trwała do wieczora 31.12 ubiegłego roku.
+Udało się zrozumieć jego działanie oraz nakreślić implementację, która znajduje się na gałęzi ''voronoi'' w projektowym repozytorium. Wersja ta działała częściowo poprawnie dla wybranych zbiorów danych. Podjęto próby zlokalizowania źródła błędów, które niestety zakończyły się niepowodzeniem.
+
+Do roboczych testów manualnych użyto klas ''StdDraw'' oraz ''Stopwatch'' (źródło Github), które posłużyły tylko do wyświetlenia efektów pracy nieudanej implementacji algorytmu i nie rościmy sobie do nich praw autorskich. Klasy te nie weszły w skład naszej implementacji i nigdy nie było nawet takich planów. Służyły tylko i wyłącznie do szybkich roboczych testów.
+
+Z nastaniem roku 2019 dokonano bilansu efektów dotychczasowej pracy, poczynionych postępów oraz pozostałych zadań i zestawiono to wszystko z wyznaczonym terminem oddania projektu. W obliczu dwóch tygodni, które pozostały na skończenie projektu (i inne studenckie zobowiązania) oraz przegranej bitwy z tą implementacją (ale nie wojny), podjęto decyzję o porzuceniu tego ambitnego rozwiązania na rzecz pozostałych funkcjonalności. Byliśmy pewni, że prostsza implementacja pozwoli nam spełnić pozostałe wymagania projektu. Chcieliśmy uniknąć sytuacji, w której do tego stopnia skupimy się na wyznaczaniu diagramów Voronoi, że nie starczy nam czasu na pozostałe funkcje programu.
+
 \noindent\linia
 \section{Podsumowanie i wnioski}
 
