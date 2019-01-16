@@ -100,6 +100,19 @@ Udało się zrozumieć jego działanie oraz nakreślić implementację, która z
 Do roboczych testów manualnych użyto klas ''StdDraw'' oraz ''Stopwatch'' (źródło Github), które posłużyły tylko do wyświetlenia efektów pracy nieudanej implementacji algorytmu i nie rościmy sobie do nich praw autorskich. Klasy te nie weszły w skład naszej implementacji i nigdy nie było nawet takich planów. Służyły tylko i wyłącznie do szybkich roboczych testów.
 
 Z nastaniem roku 2019 dokonano bilansu efektów dotychczasowej pracy, poczynionych postępów oraz pozostałych zadań i zestawiono to wszystko z wyznaczonym terminem oddania projektu. W obliczu dwóch tygodni, które pozostały na skończenie projektu (i inne studenckie zobowiązania) oraz przegranej bitwy z tą implementacją (ale nie wojny), podjęto decyzję o porzuceniu tego ambitnego rozwiązania na rzecz pozostałych funkcjonalności. Byliśmy pewni, że prostsza implementacja pozwoli nam spełnić pozostałe wymagania projektu. Chcieliśmy uniknąć sytuacji, w której do tego stopnia skupimy się na wyznaczaniu diagramów Voronoi, że nie starczy nam czasu na pozostałe funkcje programu.
+\subsection{Algorytm ostateczny}
+Zastosowana implementacja wyznaczająca diagram Voronoi z punktów kluczowych polega na:
+\begin{itemize}
+\item ustaleniu dwuwymiarowej tablicy o określonej wielkości (to nasz plansza),
+\item przeskalowaniu współrzędnych punktów kluczowych na wartości całkowite (np. 45,6 -> 456),
+		
+		Nasza implementacja pozwala na określanie współrzędnych z przedziału [0, 99.9] z dokładnością do jednego miejsca po przecinku.
+\item przypisaniu każdego punktu tablicy do najbliższego mu punktu kluczowego (w punktach kluczowych znajduje się lista należących do nich punktów tablicy).
+\end{itemize}
+
+Dokładność powyższego rozwiązania to jedna komórka tablicy.
+
+W przypadku dodawania punktu kluczowego przez użytkownika, aby uniknąć ponownego obliczania całego diagramu, zastosowano inne rozwiązanie. Algorytm przypisuje nowemu punktowi kluczowemu punkty tablicy zataczając coraz większe ''pierścienie'' wokół siebie tzn. przeszukuje tablice zaczynając od punktów zlokalizowanych najbliżej niego. W trakcie przeszukiwania weryfikuje, czy nowy punkt kluczowy jest najbliższy obecnie sprawdzanemu punktowi tablicy. Algorytm kończy prace, gdy wokół nowego punktu kluczowego pozostały już tylko punktu, które nie są mu najbliższe.
 
 \noindent\linia
 \section{Podsumowanie i wnioski}
