@@ -2,7 +2,6 @@ package FileData;
 
 import Common.KeyPoint;
 import Common.Point;
-import Statistics.Statistics;
 import Statistics.UserObject;
 
 import java.io.File;

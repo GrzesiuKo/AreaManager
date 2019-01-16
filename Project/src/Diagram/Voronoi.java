@@ -236,9 +236,9 @@ public class Voronoi {
 
     private KeyPoint addToGivenKeyPoint(KeyPoint given, Point point) {
         KeyPoint nearest = null;
-        KeyPoint old;
         double smallestLength = Double.MAX_VALUE;
         double currentLength;
+
         for (KeyPoint keyPoint : keyPoints) {
             currentLength = findLengthOfSegment(point, keyPoint);
             if (currentLength < smallestLength) {
@@ -248,8 +248,6 @@ public class Voronoi {
         }
 
         if (nearest != null && nearest.equals(given)) {
-            old = point.getKeyPoint();
-           // old.getAreaPoints().remove(point);
 
             nearest.addPoint(point);
             point.setKeyPoint(nearest);

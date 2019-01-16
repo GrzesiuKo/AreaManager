@@ -22,8 +22,6 @@ public class FileChecker {
     public final static int Y = -2;
     private static int currentFilePart;
     private static int currentLineNumber;
-    private int errorLineNumber;
-    private String errorLine;
     private static Map<String, LinkedList<Integer>> definitions;
     private static Map<String, String> definitionsLines;
 
@@ -53,11 +51,6 @@ public class FileChecker {
             currentLine = scanner.nextLine();
             currentLineNumber++;
             isFailFound = !checkLine(currentLine);
-        }
-
-        if (isFailFound) {
-            errorLineNumber = currentLineNumber;
-            errorLine = currentLine;
         }
 
         return !isFailFound;
@@ -277,14 +270,6 @@ public class FileChecker {
         } else {
             return UNKNOWN;
         }
-    }
-
-    public int getErrorLineNumber() {
-        return errorLineNumber;
-    }
-
-    public String getErrorLine() {
-        return errorLine;
     }
 
     public Map<String, LinkedList<Integer>> getDefinitions() {
