@@ -13,13 +13,13 @@ class ContourTests {
     List<Point> points;
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         contour = null;
         points = null;
     }
 
     @Test
-    public void notEnoughPoints(){
+    public void notEnoughPoints() {
         //Given
         points = new LinkedList<>();
         points.add(new Point(0, 0));
@@ -33,7 +33,7 @@ class ContourTests {
     }
 
     @Test
-    public void onlyCollinearPoints(){
+    public void onlyCollinearPoints() {
         //Given
         points = new LinkedList<>();
         points.add(new Point(0, 1));
@@ -48,7 +48,7 @@ class ContourTests {
     }
 
     @Test
-    public void goodPoints(){
+    public void goodPoints() {
         //Given
         points = new LinkedList<>();
         points.add(new Point(0, 0));
@@ -63,7 +63,7 @@ class ContourTests {
     }
 
     @Test
-    public void onePointToIgnore(){
+    public void onePointToIgnore() {
         //Given
         LinkedList<Point> expectedIgnored = new LinkedList<>();
         Point toIgnore = new Point(1, 1);
@@ -86,7 +86,7 @@ class ContourTests {
     }
 
     @Test
-    public void onePointToIgnoreTwoPointsSameMaxHeight(){
+    public void onePointToIgnoreTwoPointsSameMaxHeight() {
         //Given
         LinkedList<Point> expectedIgnored = new LinkedList<>();
         Point toIgnore = new Point(1, 1);
@@ -109,7 +109,7 @@ class ContourTests {
     }
 
     @Test
-    public void onePointToIgnoreTwoPointsSameMinHeight(){
+    public void onePointToIgnoreTwoPointsSameMinHeight() {
         //Given
         LinkedList<Point> expectedIgnored = new LinkedList<>();
         Point toIgnore = new Point(1, 1);
@@ -132,7 +132,7 @@ class ContourTests {
     }
 
     @Test
-    public void onePointToIgnoreInSquare(){
+    public void onePointToIgnoreInSquare() {
         //Given
         LinkedList<Point> expectedIgnored = new LinkedList<>();
         Point toIgnore = new Point(1, 1);

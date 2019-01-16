@@ -2,7 +2,7 @@ package Common;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class VectorTest {
 
@@ -12,7 +12,7 @@ class VectorTest {
         Vector a = new Vector(0, 10);
         Vector b = new Vector(10, 0);
         double result;
-        double expected = Math.PI/2;
+        double expected = Math.PI / 2;
         //When
         result = a.findAngleBetween(b);
         //Then

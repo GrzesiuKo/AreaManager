@@ -82,7 +82,7 @@ class VoronoiTest {
         voronoi.deleteKeyPoint(a);
         //Then
         assertTrue(!voronoi.getKeyPoints().contains(a));
-        assertTrue(b.getAreaPoints().size() == size*size);
+        assertTrue(b.getAreaPoints().size() == size * size);
     }
 
     private double findLengthOfSegment(Point a, Point b) {

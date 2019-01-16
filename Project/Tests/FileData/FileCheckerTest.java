@@ -11,9 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FileCheckerTest {
 
@@ -35,15 +33,15 @@ class FileCheckerTest {
     @Test
     void checkFileMismatchOfUserTypes() {
         //Given
-        File file = new File("Tests"+ File.separator + "TestFiles"+ File.separator + "MismatchOfUserTypes.txt");
+        File file = new File("Tests" + File.separator + "TestFiles" + File.separator + "MismatchOfUserTypes.txt");
         //When
         assertThrows(IncorrectObjectLineException.class, () -> fileChecker.checkFile(file));
     }
 
     @Test
-    void checkFileLackOfSection(){
+    void checkFileLackOfSection() {
         //Given
-        File file = new File("Tests"+ File.separator + "TestFiles"+ File.separator + "LackOfSection.txt");
+        File file = new File("Tests" + File.separator + "TestFiles" + File.separator + "LackOfSection.txt");
         //When
         assertThrows(Exception.class, () -> fileChecker.checkFile(file));
     }
@@ -99,7 +97,7 @@ class FileCheckerTest {
         definitions.put("Szkoła", order);
         fileChecker.setDefinitions(definitions);
         //When
-        assertThrows(IncorrectObjectLineException.class, ()->fileChecker.checkObjectLine(line));
+        assertThrows(IncorrectObjectLineException.class, () -> fileChecker.checkObjectLine(line));
     }
 
     @Test
@@ -114,7 +112,7 @@ class FileCheckerTest {
         definitions.put("Szkoła", order);
         fileChecker.setDefinitions(definitions);
         //When
-        assertThrows(IncorrectObjectLineException.class, ()->fileChecker.checkObjectLine(line));
+        assertThrows(IncorrectObjectLineException.class, () -> fileChecker.checkObjectLine(line));
     }
 
     @Test
@@ -129,7 +127,7 @@ class FileCheckerTest {
         definitions.put("Szkoła", order);
         fileChecker.setDefinitions(definitions);
         //When
-        assertThrows(IncorrectObjectLineException.class, ()->fileChecker.checkObjectLine(line));
+        assertThrows(IncorrectObjectLineException.class, () -> fileChecker.checkObjectLine(line));
     }
 
     @Test
