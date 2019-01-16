@@ -82,6 +82,17 @@ Szukając sposobu na sprostanie wyzwaniu wyznaczania optymalnych obszarów powst
 \item Algorytm Fortune'a,
 \item Algorytm ostateczny.
 \end{enumerate}
+\subsection{Algorytm autorski}
+Po wstępnym zapoznaniu się z algorytmem Fortune'a, postanowiono poszukać bardziej zrozumiałego rozwiązania.
+Tak powstała, przedstawiona poniżej, koncepcja wyznaczania optymalnych obszarów:
+\begin{enumerate}
+\item Otrzymane punkty pogrupować w trójkąty przy pomocy triangulacji S-Hull.
+\item Wyznaczyć środki otrzymanych trójkątów (ze wzorów matematycznych).
+\item Połączyć środki sąsiadujących trójkątów (sąsiedzi mają wspólny bok).
+\item W przypadku braku sąsiada poprowadzić półprostą przez środek trójkąta i środek boku bez sąsiada.
+\end{enumerate}
+Kiedy podana wyżej koncepcja była gotowa, po bliższych jej oględzinach uznano, że triangulacja w swoim stopniu skomplikowania nie ustępuje algorytmowi Fortune'a.
+Biorąc pod uwagę ramy czasowe i pozostałe funkcjonalności, które muszą zostać zrealizowane w przewidzianym czasie, postanowiono dać szansę algorytmowi Fortune'a. Jego skuteczność i poprawność działania są znane historii w przeciwieństwie do ''algorytmu autorskiego'', dlatego postanowiono nie ryzykować pokaźnej straty zasobów czasowych na wypadek nieprawidłowości działania nowo wymyślonego algorytmu.
 \noindent\linia
 \section{Podsumowanie i wnioski}
 
