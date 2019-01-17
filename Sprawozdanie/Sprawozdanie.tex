@@ -44,32 +44,61 @@
 \usepackage{graphicx}
 
 \fancyhf{}
-\fancyhead[CO,CE]{ Grzegorz Kopyt Arkadiusz Michalak \\ Projekt grupowy - Sprawozdanie Końcowe \\ \today }
+\fancyhead[CO,CE]{ Grzegorz Kopyt Arkadiusz Michalak \\ Projekt grupowy - Sprawozdanie \\ \today }
 
 \rfoot{\thepage{}/\pageref{LastPage}}
 
 \begin{document}
+
 \maketitle
 
 \tableofcontents
 \vspace{1cm}
 \noindent\linia
 \section{Cel powstania dokumentu}
+Rozważanym w projekcie problemem był podział płaszczyzny na obszary optymalne względem punktów kluczowych. Poniższe sprawozdanie ma na celu podsumowanie pracy nad projektem i przedstawienie rozwiązania problemu. Dodatkowo została w nim zawarta subiektywna ocena sposobu prowadzenia laboratoriów przedmiotu Algorytmu i Struktury Danych.
 
 \noindent\linia
 \section{Opis problemu}
+Podstawowym problemem był podział płaszczyzny ograniczonej konturem względem punktów kluczowych tak żeby dowolny punkt dzielonej płaszczyzny znajdował się bliżej swojego punktu kluczowego niż dowolnego innego. Istotnym zagadnieniem powiązanym z głównym problemem było przedstawienie graficzne tej płaszczyzny. Dodatkowo program miał umożliwiać nanoszenie na płaszczyznę obiektów. Kolejnym problemem była statystyk owych obiektów dla każdego obszaru jak również całej płaszczyzny. Ostatnie wymaganie problemowe to modyfikacja kontur ograniczającego płaszczyznę jak i usytuowanie punktów kluczowych na żywo. 
 
 \noindent\linia
-\section{Wysoko abstrakcyjny opis działania algorytmu}
+\section{Wysoko abstrakcyjny opis działania programu}
+Współrzędne płaszczyzny na której operujemy zostały przybliżone do jednej cyfry po przecinku. To powoduje dyskretny podział na punkty co jest kluczowe dla działania algorytmu podziału.
+Sposób działanie programu przedstawia się następująco:
+\begin{itemize}
+\item  wczytanie pliku danych od użytkownika,
+\item  weryfikacja konturu pod względem wypukłości i spójności,
+\item  weryfikacja punktów kluczowych pod względem przynależności do zadanego konturu
+\item jeśli po weryfikacji dane są poprawne rozpoczyna się obliczanie przynależności punktów płaszczyzny do punktów kluczowych:
+\begin{itemize}
+\item dla każdego punktu z zakresu od 0 do 99,9 znajdujemy najbliższy  punkt kluczowy porównując odległości do wszystkich punktów,
+\item do punktu kluczowego znajdującego się najbliżej przypisujemy obecnie sprawdzany punkt.
+\end{itemize}
+\item utworzona w ten sposób struktura punktów kluczowych z przypisanymi punktami płaszczyzny posłuży do odzwierciedlenia obszarów graficznie,
+\item następnie dodawane są obiekty użytkownika,
+\item weryfikowana jest ich poprawność oraz określane jest przynależność do punktu kluczowego analogicznie jak dla punktów płaszczyzny,
+\item następnie przy użyciu biblioteki graficznej rysowane jest obszar ograniczony konturem, podzielony względem punktów kluczowych, same punkty kluczowe i obiekty użytkownika.
+\end{itemize}
+
 
 \noindent\linia
 \section{Efekty działania programu}
-W czasie trwanie projektu udało się zrealizować wszystkie wymagane funkcjonalności. Najlepszą prezentacją tego jak działa program jest jego uruchomienie. Jednak krótki opis stworzonego interfejsu użytkownika oraz efektów jego działania przedstawiamy poniżej:
-\begin{figure}
-    \centering
-    \caption{Okno główne programu}
-    \includegraphics[scale=0.77]{GUI.png}
-\end{figure}
+W czasie trwanie projektu udało się zrealizować wszystkie wymagane funkcjonalności. Najlepszą prezentacją tego jak działa program jest jego uruchomienie. Jednak krótki opis działania poszczególnych funkcjonalności zostanie wypunktowany poniżej.
+\subsection{Obsługa plików}
+Program dysponuje wczytywaniem plików tekstowych opisujące parametry do analizy. Umożliwia również podłożenie tła będące plikiem graficznym w jednym z formatów \textit{.png , .jpeg , .gif}. Wybór plików odbywa się w sposób intuicyjny, pozwalający użytkownikowi wskazać tylko pliki o odpowiednim rozszerzeniu z dowolnego folderu komputera. Przy wczytywaniu pliku tekstowego zatroszczono się o szczegółową weryfikacje jego poprawności. Umożliwia to zakomunikowanie użytkownikowi w której linii pojawiły się błędne dane i jakiego rodzaju był to błąd.
+\subsection{Rysowanie obszaru}
+W sposób wiarygodny przy użyciu narzędzia \textit{canvas} odzwierciedlany jest obliczony podział. Obszary są kolorowe co dodaje atutów wizualnych całości programu. Punktom kluczowym ze względu na ich istotność przypisano kolor czerwony i większy rozmiar względem obiektów użytkownika. Całość charakteryzuje się dużą przejrzystością i czytelnością nawet po podstawieniu kolorowego tła.
+\subsection{Statystyka obiektów użytkownika}
+Weryfikowane zgodnie z założeniami obiektu użytkownika również są nanoszone na analizowany obszar. Przypisano im kolor fioletowy. Najbardziej istotnym działaniem jest podsumowywanie obiektów użytkownika na danym obszarze. W trybie pracy \textbf{"Wyświetlanie statystyk"} użytkownik może w prosty sposób kliknąć wybrany obszar i wyświetlić wybrany, spośród trzech, rodzaj statystyk:
+\begin{itemize}
+\item listę wszystkich obiektów,
+\item pogrupowaną listę obiektów,
+\item liczbę mieszkańców.
+\end{itemize}
+Wyświetlone zostaną w nowym oknie, ta część programu działa bardzo sprawnie gdyż przynależności obiektów są weryfikowane podczas modyfikacji analizowanego obszaru.
+\subsection{Modyfikacja na żywo}
+Program umożliwia zmianę konturu jaki i położenie punktów kluczowych poprzez usuwanie i dodawanie odpowiednich. Stworzone do tego tryby pracy które użytkownik może wybrać z rozwijanego menu. Zatroszczono się o weryfikacje ich prawidłowości, na przykład nie można dodać punktu kluczowego poza obszarem ograniczonym przez kontur. Również niepoprawne punkty konturu nie zostaną dodane. Dzięki opracowaniu algorytmu dodawania nowego punktu wszystko odbywa się sprawnie. Program reaguje wystarczająco szybko i nawet gdy użytkownik zdecyduje się szybko dodawać kolejne punkty kluczowe program się z nimi upora w nieznacznie większym czasie. Usunięcie punktu konturu w taki sposób że punkt kluczowy znajdzie się poza konturem spowoduje usunięcie punktu kluczowego jak również obiektów które znajdą się poza konturem.
 
 \noindent\linia
 \section{Zmiany względem specyfikacji}
