@@ -29,7 +29,7 @@ Open the project in Intellij IDEA and click run tests button.
 
 ## Authors
 
-* **Grzegorz Kopyt** - *Backend work*
+* **Grzegorz Kopyt** - *Backend work*  
 File reading  
 Alternative finding of voronoi areas  
 Connection between data and drawing  
