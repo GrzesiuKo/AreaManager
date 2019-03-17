@@ -40,7 +40,3 @@ Adding extra KeyPoint
 
 * **Arkadiusz Michalak** - *Graphic User Interface*
 
-
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
