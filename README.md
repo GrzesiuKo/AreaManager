@@ -1,6 +1,6 @@
 # Area Manager
 
-My 347 commits represent the way I learned using Git, my "clean code" practice.  
+My 347 commits represent the way I learned using Git and my "clean code" practice.  
 The program divides given area with objects (buildings, schools...) into optimal parts.  
 The division is based on provided key points (big cities, military bases, hospitals, shops...).  
 Programs allows you to view statistics of every created part.  
