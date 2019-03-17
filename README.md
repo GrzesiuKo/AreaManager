@@ -13,10 +13,10 @@ To run the program you need to have at least Java 8 installed.
 ### Prerequisites
 
 1) Download the .zip file.
-2) Navigate to the 'Project/out/artifacts/Project_jar.jar' folder and run:
-```
-java -jar Project.jar
-```
+2) Navigate to the 'Project/out/artifacts/Project_jar.jar' folder and double click:
+''''
+Project_jar.jar
+''''
 ## Running the tests
 
 Open the project in Intellij IDEA and click run tests button.
